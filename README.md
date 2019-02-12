@@ -17,11 +17,12 @@
 </details>
 </li>
 
+
 <li>
 <details><summary><b>Decentralized Distributed Deep Learning in Heterogeneous WAN Environments</b></summary>
 <p>
 	
-##### decentralized distributed deep learning framework for such heterogeneous WAN-based in- frastructures
+##### decentralized distributed deep learning framework for such heterogeneous WAN-based infrastructures
 **The framework dynamically and automatically adjusts**:
 - The frequency of parameter sharing
 - The size of parameters shared depending on individual network bandwidth and data processing power
@@ -29,6 +30,34 @@
 
 **Result**:
 _**Sharing small size of parameters (partial params)**_ is more effective to increase the accuracy faster when machines are highly network bandwidth-constrained during training.
+
+</p>
+</details>
+</li>
+
+
+<li>
+<details><summary><b>Orchestrating Deep Learning Workloads on Distributed Infrastructure</b></summary>
+<p>
+	
+#####  Deep Learning Workloads requirements to support GPUs in container management systems and describe solutions in Kubernetes
+
+**Issues**:
+- GPU’s are _**unique**_ quantities (GPU 0, GPU 1, ...) and they must be allocated accordingly
+- _**GPU topology**_, will heavily affect the bandwidth of _(GPU to GPU communication)_
+- GPU topology even affects GPU capabil- ities. In some systems, for example, GPUs on different CPU socket cannot have Peer to Peer communication capability.
+
+**Solutions**:
+- [x] Enabled GPU support on Kubernetes
+- [x] Implemented GPU allocator module:
+	- record GPU number-to-device mapping
+	- maps the number to actual GPU devices according to required scheduling policy and expose the allocated GPUs to application inside the container
+- [x] Developed **two** advanced GPU schedulers:
+	- _bin-packing scheduler_: tries to bundle GPU jobs to fewer servers, so that other idle servers can be reserved for potentially large jobs
+	- _topology-aware scheduler_:  automatically collect GPU topology informa- tion of each worker node, and assign nodes that deliver the highest possible bandwidth to the application
+- [x] Enhanced Kubernetes to gather the device drivers on kubelet startup and mount these drivers into the container automatically
+- [x] Enabled GPU liveness check on Kubernetes 
+- [x] Added GPU quota support in Kubernetes => support multiple users
 
 </p>
 </details>
