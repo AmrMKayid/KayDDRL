@@ -17,6 +17,23 @@
 </details>
 </li>
 
+<li>
+<details><summary><b>Decentralized Distributed Deep Learning in Heterogeneous WAN Environments</b></summary>
+<p>
+	
+##### decentralized distributed deep learning framework for such heterogeneous WAN-based in- frastructures
+**The framework dynamically and automatically adjusts**:
+- The frequency of parameter sharing
+- The size of parameters shared depending on individual network bandwidth and data processing power
+- Introduces a new scaling factor to control the degree of contribution to parameter updates by considering the amount of data trained during unit time in each device
+
+**Result**:
+_**Sharing small size of parameters (partial params)**_ is more effective to increase the accuracy faster when machines are highly network bandwidth-constrained during training.
+
+</p>
+</details>
+</li>
+
 
 </ul>
 
