@@ -91,3 +91,5 @@ _**New Keywords**_:
 # Frameworks 👨‍💻:
 
 - **[TF.AKO](https://www-users.cs.umn.edu/~chandra/tfako/home.html)**: ([GitHub](https://github.com/mesh-umn/TF.AKO))
+- **[AkkaDistBelief](https://github.com/alexminnaar/AkkaDistBelief)**: DistBelief is a framework for training deep neural networks with a cluster of machines rather than GPUs _**(Scala)**_ | Google DistBelief Net
+- **[decentralizedsgd](https://github.com/tgaddair/decentralizedsgd)**: performing distributed training of machine learning models over a cluster of machines in parallel _**(Scale)**_
