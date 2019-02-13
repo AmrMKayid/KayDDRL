@@ -63,6 +63,7 @@ _**Sharing small size of parameters (partial params)**_ is more effective to inc
 </details>
 </li>
 
+
 <li>
 <details><summary><b>Decentralized and Distributed Machine Learning Model Training with Actors</b></summary>
 <p>
@@ -79,6 +80,30 @@ _**Sharing small size of parameters (partial params)**_ is more effective to inc
 _**New Keywords**_:
 - **threshold parameter (τ)**: tunes the frequency with which updates are sent out to all other data shards in the system.
 - **gradient residual​**:
+
+
+</p>
+</details>
+</li>
+
+
+<li>
+<details><summary><b>DIANNE- Distributed Artificial Neural Networks for the Internet of Things</b></summary>
+<p>
+	
+##### DIANNE middleware framework is presented that is optimized for single sample feed-forward execution and facilitates distributing artificial neural networks across multiple IoT devices
+
+Cloud is often the natural choice to train and evaluate neural networks, benefiting from the huge compute power and scalability, but IoT applications with sensors sending a continuous stream of data, 
+the Cloud introduces additional complications:
+- connection to the Cloud is required at all times, having to deal with limitations in **bandwidth and a high and variable latency**
+- sending sensor data to the Cloud may introduce **security holes and privacy issues**
+
+
+_**The first experiment’s results**_  prove that large neural networks, which can not fit on small embedded devices, can benefit from distributing the slow convolutional modules to other devices in the IoT environment preferable equipped with GPU acceleration. 
+_**The second experiment**_ shows that the DIANNE middleware performs excellently on GPU accelerated devices, outperforming all tested frameworks when only a single image is forwarded through the network.
+
+**Result**:
+DIANNE actually performs on par or better than the other frameworks.
 
 
 </p>
