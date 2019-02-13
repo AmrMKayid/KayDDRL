@@ -1,0 +1,114 @@
+\PassOptionsToPackage{table,svgnames,dvipsnames}{xcolor}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage[ngerman,english]{babel}
+\usepackage[autostyle]{csquotes}
+\usepackage[%
+  backend=biber,
+  url=true,
+  style=numeric,
+  sorting=none,
+  maxnames=4,
+  minnames=3,
+  maxbibnames=99,
+  giveninits,
+  uniquename=init]{biblatex}
+\usepackage{graphicx}
+\usepackage{scrhack} 
+\usepackage{listings}
+\usepackage{lstautogobble}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{booktabs}
+\usepackage[final]{microtype}
+\usepackage{caption}
+\usepackage[hidelinks]{hyperref} 
+\usepackage{pdftexcmds} 
+\usepackage{paralist} 
+\usepackage{subfig} 
+\usepackage{siunitx}
+\usepackage{multirow} 
+\usepackage{array} 
+\usepackage{makecell}
+\usepackage{pdfpages}
+\usepackage{adjustbox}
+\usepackage{tablefootnote}
+\usepackage{threeparttable}
+
+
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+
+\usepackage[acronym,xindy,toc]{glossaries} 
+\makeglossaries
+\loadglsentries{pages/glossary.tex} 
+
+
+\bibliography{bibliography}
+
+\setkomafont{disposition}{\normalfont\bfseries} 
+\linespread{1.05} 
+
+\BeforeTOCHead[toc]{{\cleardoublepage\pdfbookmark[0]{\contentsname}{toc}}}
+
+% Define TUM corporate design colors
+% Taken from http://portal.mytum.de/corporatedesign/index_print/vorlagen/index_farben
+\definecolor{TUMBlue}{HTML}{0065BD}
+\definecolor{TUMSecondaryBlue}{HTML}{005293}
+\definecolor{TUMSecondaryBlue2}{HTML}{003359}
+\definecolor{TUMBlack}{HTML}{000000}
+\definecolor{TUMWhite}{HTML}{FFFFFF}
+\definecolor{TUMDarkGray}{HTML}{333333}
+\definecolor{TUMGray}{HTML}{808080}
+\definecolor{TUMLightGray}{HTML}{CCCCC6}
+\definecolor{TUMAccentGray}{HTML}{DAD7CB}
+\definecolor{TUMAccentOrange}{HTML}{E37222}
+\definecolor{TUMAccentGreen}{HTML}{A2AD00}
+\definecolor{TUMAccentLightBlue}{HTML}{98C6EA}
+\definecolor{TUMAccentBlue}{HTML}{64A0C8}
+
+% Settings for pgfplots
+\pgfplotsset{compat=newest}
+\pgfplotsset{
+  cycle list={TUMBlue\\TUMAccentOrange\\TUMAccentGreen\\TUMSecondaryBlue2\\TUMDarkGray\\},
+}
+
+% Settings for lstlistings
+
+% Use this for basic highlighting
+\lstset{%
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  autogobble,
+  keywordstyle=\bfseries\color{TUMBlue},
+  stringstyle=\color{TUMAccentGreen}
+}
+
+% Settings for search order of pictures
+\graphicspath{
+    {logos/}
+    {figures/}
+}
+
+% Set up hyphenation rules for the language package when mistakes happen
+\babelhyphenation[english]{
+an-oth-er
+ex-am-ple
+}
+
+
+\newcommand{\todo}[1]{{\bfseries{\scshape{\color{TUMAccentOrange}[(TODO: #1)]}}}} % for multiple paragraphs
+\newcommand{\done}[1]{{\itshape{\scshape{\color{TUMAccentBlue}[(Done: #1)]}}}}
+
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}} % for horizontal alignment with limited column width
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} % for horizontal and vertical alignment with limited column width
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}} % for vertical alignment left with limited column width
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}} % for vertical alignment right with limited column width
