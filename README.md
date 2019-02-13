@@ -63,6 +63,28 @@ _**Sharing small size of parameters (partial params)**_ is more effective to inc
 </details>
 </li>
 
+<li>
+<details><summary><b>Decentralized and Distributed Machine Learning Model Training with Actors</b></summary>
+<p>
+	
+##### Explore a more experimental form of _decentralized training_ that removes bottleneck{centralized parameter server introduces a bottleneck and single-point of failure during training}
+
+**Actor-Based Concurrency Model**:
+> implemented as actors using the Akka2 actor framework written in Scala, based off the work done by Alex Minnaar3 in implementing Google’s DistBelief framework in Akka
+
+**Network Architecture**: => XOR
+- **Asynchronous centralized training**: attain similar accuracy with much higher throughput by using soft synchronization
+- **Fully asynchronous and decentralized training**: net the greatest overall training speed, but at a cost to model accuracy. _(This cost is configurable based on the setting of **τ**)_
+
+_**New Keywords**_:
+- **threshold parameter (τ)**: tunes the frequency with which updates are sent out to all other data shards in the system.
+- **gradient residual​**:
+
+
+</p>
+</details>
+</li>
+
 
 </ul>
 
