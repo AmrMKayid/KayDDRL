@@ -110,6 +110,23 @@ DIANNE actually performs on par or better than the other frameworks.
 </details>
 </li>
 
+<li>
+<details><summary><b>Optimizing Network Performance in Distributed Machine Learning</b></summary>
+<p>
+	
+##### MLNET, a host-based communication layer that aims to improve the network performance of distributed machine learning systems through a combination of _traffic reduction_ techniques (to diminish network load in the core and at the edges) and _traffic management_ (to reduce average training time).
+
+MLNET inherits the standard commu- nication APIs from the Parameter Server
+- Distributed Aggregation and Multicast
+- Network Prioritization
+
+**Result**:
+overall training time can be reduced by up to 78%. 
+
+</p>
+</details>
+</li>
+
 
 </ul>
 
