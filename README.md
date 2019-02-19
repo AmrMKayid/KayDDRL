@@ -127,6 +127,23 @@ overall training time can be reduced by up to 78%.
 </details>
 </li>
 
+<li>
+<details><summary><b>Open Fabric for Deep Learning Models</b></summary>
+<p>
+	
+##### The FfDL platform uses a microservices architecture to reduce coupling between components, keep each component simple and as stateless as possible, isolate component failures, and allow each component to be developed, tested, deployed, scaled, and upgraded independently. 
+
+**Tools Used**:
+- **Adversarial Robustness Toolbox _(ART)_**: To provide robustness for models
+- **AI Fairness 360 toolkit _(AIF360)_**: to find and remove bias in datasets and models
+- **Model Asset Exchange _(MAX)_**: an app store to discover, share and rate models
+
+Differences between the projects in terms of _job scheduling and distribution, framework support, ecosystem and general architecture_.
+
+</p>
+</details>
+</li>
+
 
 </ul>
 
@@ -136,9 +153,21 @@ overall training time can be reduced by up to 78%.
 - **[Implementing the DistBelief Deep Neural Network Training Framework with Akka](http://alexminnaar.com/implementing-the-distbelief-deep-neural-network-training-framework-with-akka.html)**
 
 
-# Frameworks 👨‍💻:
+# Software 👨‍💻:
 
-- **[TF.AKO](https://www-users.cs.umn.edu/~chandra/tfako/home.html)**: ([GitHub](https://github.com/mesh-umn/TF.AKO))
+### Parallel and Distributed Frameworks:
+
 - **[AkkaDistBelief](https://github.com/alexminnaar/AkkaDistBelief)**: DistBelief is a framework for training deep neural networks with a cluster of machines rather than GPUs _**(Scala)**_ | Google DistBelief Net
+
+### Decentralized Distributed Deep Dearning:
+
 - **[decentralizedsgd](https://github.com/tgaddair/decentralizedsgd)**: performing distributed training of machine learning models over a cluster of machines in parallel _**(Scale)**_
+- **[TF.AKO](https://www-users.cs.umn.edu/~chandra/tfako/home.html)**: ([GitHub](https://github.com/mesh-umn/TF.AKO)): Decentralised Deep Learning with Partial Gradient Exchange
+
+### Deep Learning Platform:
+
+- **[FfDL](https://github.com/IBM/FfDL)**: Deep Learning Platform offering TensorFlow, Caffe, PyTorch etc. as a Service on Kubernetes
+- **[kubeflow](https://github.com/kubeflow/kubeflow)**: Machine Learning Toolkit for Kubernetes
+
+### Distributed Networks:
 - **[DIANNE](http://dianne.intec.ugent.be/)**: DIstributed Artificial Neural NEtworks ([GitHub](https://github.com/ibcn-cloudlet/dianne))
