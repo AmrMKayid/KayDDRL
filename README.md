@@ -144,6 +144,34 @@ Differences between the projects in terms of _job scheduling and distribution, f
 </details>
 </li>
 
+<li>
+<details><summary><b>PowerAI DDL</b></summary>
+<p>
+	
+##### a software-hardware co-optimized distributed Deep Learning system that can achieve near-linear scaling up to hundreds of GPUs. The core algorithm is a multi-ring communication pattern that provides a good tradeoff between latency and bandwidth and adapts to a variety of system configurations
+
+**Distributed Deep Learning Benchmarking Methodology**:
+- **The GPU**
+- **The neural network**
+- **The Deep Learning framework**
+- **Accuracy and end to end training time**:
+- **Scaling efficiency**: the ratio between the run time of one iteration on a single GPU and the run time of one iteration when distributed over n GPUs. 
+- **The communication overhead**: the run time of one iteration when distributed over n GPUs minus the run time of one iteration on a single GPU. 
+
+**The PowerAI DDL Library**:
+
+- The current PowerAI DDL implementation is based on _MPI(Message Passing Interface)_
+- PowerAI DDL is based around the concept of PowerAI DDL Objects(). 
+- The distributed Deep Learning applications employ the operations ReduceScatter and AllGather that operate on a set of variables that are distributed over a set of GPUs in a set of machines.
+
+**Experimental Results**:
+- _Resnet-50 **(1K)**_: Implementation achieved an accuracy of **75.01%** in a training time of 50 minutes, training over 90 epochs with a batch size of 32 per GPU. _At 256 GPUs the effective batch size is **8192**_
+- _Resnet-101 **(22k)**_: For batch size 5120 we achieved 33.8% validation accuracy within about 7 hours. 
+
+</p>
+</details>
+</li>
+
 
 </ul>
 
