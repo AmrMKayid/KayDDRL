@@ -183,6 +183,23 @@ Differences between the projects in terms of _job scheduling and distribution, f
 </li>
 
 
+<li>
+<details><summary><b>Model Accuracy and Runtime Tradeoff in Distributed Deep Learning: A Systematic Study</b></summary>
+<p>
+	
+##### Rudra, a parameter server based distributed computing framework tuned for training large-scale deep neural networks.
+> study the impact of synchronization protocol, stale gradient updates, minibatch size, learning rates, and num- ber of learners on runtime performance and model accuracy.
+
+**Results**:
+- Divide the learning rate by the average staleness of gradients => resulting in faster convergence and lower test error. 
+- Experiments show that the 1-softsync protocol (in which the parameter server accumulates λ gradients before updating the weights) minimizes gradient staleness and achieves the lowest runtime for a given test error. 
+- To maintain a model accuracy, it is necessary to reduce the mini-batch size as the number of learners is increased.
+
+</p>
+</details>
+</li>
+
+
 </ul>
 
 # Articles 📖:
@@ -196,7 +213,8 @@ Differences between the projects in terms of _job scheduling and distribution, f
 ### Parallel and Distributed Frameworks:
 
 - **[AkkaDistBelief](https://github.com/alexminnaar/AkkaDistBelief)**: DistBelief is a framework for training deep neural networks with a cluster of machines rather than GPUs _**(Scala)**_ | Google DistBelief Net
-- **[imagenet-multiGPU.torch](https://github.com/soumith/imagenet-multiGPU.torch)**: Training an Object Classifier in Torch-7 on multiple GPUs over ImageNet
+- **[imagenet-multiGPU.torch](https://github.com/soumith/imagenet-multiGPU.torch)**: Training an Object Classifier in Torch-7 on multiple GPUs over ImageNet (Torch)
+- **[Rudra](https://github.com/Rudra-org/rudra)**: Distributed framework for large-scale machine learning with deep neural networks (X10 & C++)
 
 ### Decentralized Distributed Deep Dearning:
 
