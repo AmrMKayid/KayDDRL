@@ -186,6 +186,7 @@ Differences between the projects in terms of _job scheduling and distribution, f
 ### Parallel and Distributed Frameworks:
 
 - **[AkkaDistBelief](https://github.com/alexminnaar/AkkaDistBelief)**: DistBelief is a framework for training deep neural networks with a cluster of machines rather than GPUs _**(Scala)**_ | Google DistBelief Net
+- **[imagenet-multiGPU.torch](https://github.com/soumith/imagenet-multiGPU.torch)**: Training an Object Classifier in Torch-7 on multiple GPUs over ImageNet
 
 ### Decentralized Distributed Deep Dearning:
 
