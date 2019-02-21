@@ -172,6 +172,16 @@ Differences between the projects in terms of _job scheduling and distribution, f
 </details>
 </li>
 
+<li>
+<details><summary><b>Onelearn: A Unified and Distributed Machine Learning Platform with High Performance</b></summary>
+<p>
+	
+##### Onelearn, a Python-based, high-efficiency machine learning framework with model sharing, automatic resource management and unified interface. 
+
+</p>
+</details>
+</li>
+
 
 </ul>
 
