@@ -221,8 +221,8 @@ Differences between the projects in terms of _job scheduling and distribution, f
 
 # Articles 📖:
 
-- **[Distributed Deep Learning, Part 1: An Introduction to Distributed Training of Neural Networks](https://blog.skymind.ai/distributed-deep-learning-part-1-an-introduction-to-distributed-training-of-neural-networks/)**
-- **[Implementing the DistBelief Deep Neural Network Training Framework with Akka](http://alexminnaar.com/implementing-the-distbelief-deep-neural-network-training-framework-with-akka.html)**
+- [ ] **[Distributed Deep Learning, Part 1: An Introduction to Distributed Training of Neural Networks](https://blog.skymind.ai/distributed-deep-learning-part-1-an-introduction-to-distributed-training-of-neural-networks/)**
+- [ ] **[Implementing the DistBelief Deep Neural Network Training Framework with Akka](http://alexminnaar.com/implementing-the-distbelief-deep-neural-network-training-framework-with-akka.html)**
 
 
 # Software 👨‍💻:
