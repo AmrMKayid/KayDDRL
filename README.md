@@ -200,6 +200,23 @@ Differences between the projects in terms of _job scheduling and distribution, f
 </li>
 
 
+<li>
+<details><summary><b>Workload-aware Automatic Parallelization For Multi-gpu Dnn Training</b></summary>
+<p>
+	
+##### Workload-aware auto-parallelization framework (WAP) for DNN training, where the work is automatically distributed to multiple GPUs based on the workload characteristics. 
+> GPU utilization during parallelization.
+
+**Results**:
+- _Training Performance_: WAP achieves compelling performance and scalability without requiring manual user effort for multi-GPU runs.
+- _ Workload-Aware GPU Allocation_: WAP uses only 1 GPU and achieve higher throughput. This demonstrates that WAU effectively hides the burden of optimizing GPU utilization from the users. 
+- WAP only uses one GPU, reducing power consumption by 63% compared to Parallax.
+
+</p>
+</details>
+</li>
+
+
 </ul>
 
 # Articles 📖:
