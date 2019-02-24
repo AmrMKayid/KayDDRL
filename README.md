@@ -217,6 +217,29 @@ Differences between the projects in terms of _job scheduling and distribution, f
 </li>
 
 
+<li>
+<details><summary><b>Parameter Hub: High Performance Parameter Servers for Efficient Distributed Deep Neural Network Training</b></summary>
+<p>
+	
+##### PHub, a high performance parameter server (PS) software design that provides an optimized network stack and a streamlined gradient processing pipeline to benefit common PS setups, and PBox, a balanced, scalable central PS hardware that fully utilizes PHub capabilities
+> Distributed deep neural network (DDNN) training constitutes an important workload on the cloud. Larger DNN models and faster compute engines shift training performance bottleneck from computation to communication. 
+> DNN training frameworks do not scale in a typical cloud environment due to _**insufficient bandwidth and inefficient parameter server software stacks.**_
+
+This work focuses on **“data” parallelism**
+
+**Main optimizations in PHub**:
+- Network Stack 
+- Gradient Memory Layout 
+- Aggregation and Optimization 
+
+**Results**:
+- PHub can achieve up to 3.8x speedup over state- of-the-art designs when training ImageNet. 
+
+</p>
+</details>
+</li>
+
+
 </ul>
 
 # Articles 📖:
