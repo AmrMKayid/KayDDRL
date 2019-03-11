@@ -10,7 +10,6 @@ def set_global_seeds(seed):
     np.random.seed(seed)
     torch.manual_seed(seed)
 
-
 # -------------------- ---------- -------------------- #
 
 
