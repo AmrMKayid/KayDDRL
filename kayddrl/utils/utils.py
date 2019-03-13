@@ -61,6 +61,7 @@ def describe(cls):
 
 # -------------------- ---------- -------------------- #
 
+
 # -------------------- Data Types -------------------- #
 
 
@@ -83,4 +84,20 @@ def tensorify(x, device):
     else:
         return torch.from_numpy(np.asarray(x)).float().to(device)
 
+
 # -------------------- ---------- -------------------- #
+
+def set_attr(obj, attr_dict, keys=None):
+    r"""
+    Set attribute of an object from a dict
+    :param obj:
+    :param attr_dict:
+    :param keys:
+    :return:
+    """
+
+    if keys is not None:
+        attr_dict = ps.pick(attr_dict, keys)
+    for attr, val in attr_dict.items():
+        setattr(obj, attr, val)
+    return obj
