@@ -8,12 +8,14 @@ class Memory(ABC):
 
     def __init__(self, config):
         self._config = config
-        utils.set_attr(self, self._config, {
+        utils.set_attr(self, self._config, [
             'batch_size',
             'buffer_size',
-        })
+        ])
         self.memory = deque(maxlen=self.buffer_size)
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
+        # TODO: Logging
+        print(utils.describe(self))
 
     @abstractmethod
     def update(self, state, action, reward, next_state, done):
@@ -31,17 +33,16 @@ class Memory(ABC):
     @abstractmethod
     def sample(self):
         r"""
-        Memory sampling mechanism
+        Memory sampling mechanism, Randomly sample a batch of experiences from memory.
         :return: batch of experiences
         """
         raise NotImplementedError
 
-    @abstractmethod
     def clear(self):
         r"""
         Method to fully reset the memory storage and related variables
         """
-        raise NotImplementedError
+        self.memory.clear()
 
     def __len__(self):
         r"""
