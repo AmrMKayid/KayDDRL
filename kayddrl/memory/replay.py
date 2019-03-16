@@ -1,7 +1,9 @@
 import random
+
 import numpy as np
 
 from kayddrl.memory.base import Memory
+from kayddrl.utils.utils import tensorify
 
 
 class ReplayBuffer(Memory):
@@ -27,6 +29,7 @@ class ReplayBuffer(Memory):
         "name": "ReplayBuffer",
         "batch_size": 32,
         "buffer_size": 10000,
+        "device": cpu
     }
     """
 
@@ -42,10 +45,10 @@ class ReplayBuffer(Memory):
         sample_size = self.batch_size if self.batch_size <= len(self) else len(self)
         experiences = random.sample(self.memory, k=sample_size)
 
-        states = np.array([e.state for e in experiences if e is not None])
-        actions = np.array([e.action for e in experiences if e is not None])
-        rewards = np.array([e.reward for e in experiences if e is not None])
-        next_states = np.array([e.next_state for e in experiences if e is not None])
-        dones = np.array([e.done for e in experiences if e is not None])
+        states = tensorify(np.array([e.state for e in experiences if e is not None]), self.device)
+        actions = tensorify(np.array([e.action for e in experiences if e is not None]), self.device)
+        rewards = tensorify(np.array([e.reward for e in experiences if e is not None]), self.device)
+        next_states = tensorify(np.array([e.next_state for e in experiences if e is not None]), self.device)
+        dones = tensorify(np.array([e.done for e in experiences if e is not None]).astype(np.uint8), self.device)
 
         return (states, actions, rewards, next_states, dones)

@@ -11,6 +11,7 @@ class Memory(ABC):
         utils.set_attr(self, self._config, [
             'batch_size',
             'buffer_size',
+            'device',
         ])
         self.memory = deque(maxlen=self.buffer_size)
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
