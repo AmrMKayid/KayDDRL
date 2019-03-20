@@ -48,7 +48,7 @@ def get_cls_attr(obj):
 def describe(cls):
     desc_list = [f'{get_cls_name(cls)}:']
     for k, v in get_cls_attr(cls).items():
-        if k == 'config':
+        if k == '_config':
             desc_v = v['name']
         elif ps.is_dict(v) or ps.is_dict(ps.head(v)):
             desc_v = pformat(v)
