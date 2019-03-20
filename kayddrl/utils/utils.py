@@ -1,12 +1,12 @@
-import torch
 import random
-import numpy as np
-import pydash as ps
-
 from pprint import pformat
 
-
+import numpy as np
+import pydash as ps
+import torch
 # -------------------- Seeding -------------------- #
+from gym import spaces
+
 
 def set_global_seeds(seed):
     random.seed(seed)
@@ -87,6 +87,9 @@ def tensorify(x, device):
 
 # -------------------- ---------- -------------------- #
 
+# -------------------- Attributes -------------------- #
+
+
 def set_attr(obj, attr_dict, keys=None):
     r"""
     Set attribute of an object from a dict
@@ -101,3 +104,25 @@ def set_attr(obj, attr_dict, keys=None):
     for attr, val in attr_dict.items():
         setattr(obj, attr, val)
     return obj
+
+
+def set_gym_space_attr(gym_space):
+    '''Set missing gym space attributes for standardization'''
+    if isinstance(gym_space, spaces.Box):
+        setattr(gym_space, 'is_discrete', False)
+    elif isinstance(gym_space, spaces.Discrete):
+        setattr(gym_space, 'is_discrete', True)
+        setattr(gym_space, 'low', 0)
+        setattr(gym_space, 'high', gym_space.n)
+    elif isinstance(gym_space, spaces.MultiBinary):
+        setattr(gym_space, 'is_discrete', True)
+        setattr(gym_space, 'low', np.full(gym_space.n, 0))
+        setattr(gym_space, 'high', np.full(gym_space.n, 2))
+    elif isinstance(gym_space, spaces.MultiDiscrete):
+        setattr(gym_space, 'is_discrete', True)
+        setattr(gym_space, 'low', np.zeros_like(gym_space.nvec))
+        setattr(gym_space, 'high', np.array(gym_space.nvec))
+    else:
+        raise ValueError('gym_space not recognized')
+
+# -------------------- ---------- -------------------- #
