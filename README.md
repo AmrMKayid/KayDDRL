@@ -1,242 +1,21 @@
-<h1 align=center> KayDiDL </h1>
+<h1 align=center> KayDDRL </h1>
+<h3 align=center> Distributed Deep Reinforcement Learning for Large Scale Robotic Simulations 👨‍💻🤖🕸🕹🕷❤️👨‍🔬 </h3>
 
 # Papers 📜:
 
 <ul>
 
 <li>
-<details><summary><b>Parallel and Distributed Deep Learning</b></summary>
+<details><summary><b>DRL</b></summary>
+
 <p>
-	
-##### Analysis (empirically) the speedup in training a CNN using conventional _*single core CPU*_ and _*GPU*_ and provide practical suggestions to improve training times.
-
-- **Synchronous Update Methods**: {Parallel SGD, Alternating Direction Method of Multipliers SGD (ADMM.SGD)}
-- **Asynchronous Update Methods**: {Downpour SGD}
-
+Summary
 </p>
+
+
 </details>
-</li>
 
 
-<li>
-<details><summary><b>Decentralized Distributed Deep Learning in Heterogeneous WAN Environments</b></summary>
-<p>
-	
-##### decentralized distributed deep learning framework for such heterogeneous WAN-based infrastructures
-**The framework dynamically and automatically adjusts**:
-- The frequency of parameter sharing
-- The size of parameters shared depending on individual network bandwidth and data processing power
-- Introduces a new scaling factor to control the degree of contribution to parameter updates by considering the amount of data trained during unit time in each device
-
-**Result**:
-_**Sharing small size of parameters (partial params)**_ is more effective to increase the accuracy faster when machines are highly network bandwidth-constrained during training.
-
-</p>
-</details>
-</li>
-
-
-<li>
-<details><summary><b>Orchestrating Deep Learning Workloads on Distributed Infrastructure</b></summary>
-<p>
-	
-#####  Deep Learning Workloads requirements to support GPUs in container management systems and describe solutions in Kubernetes
-
-**Issues**:
-- GPU’s are _**unique**_ quantities (GPU 0, GPU 1, ...) and they must be allocated accordingly
-- _**GPU topology**_, will heavily affect the bandwidth of _(GPU to GPU communication)_
-- GPU topology even affects GPU capabil- ities. In some systems, for example, GPUs on different CPU socket cannot have Peer to Peer communication capability.
-
-**Solutions**:
-- [x] Enabled GPU support on Kubernetes
-- [x] Implemented GPU allocator module:
-	- record GPU number-to-device mapping
-	- maps the number to actual GPU devices according to required scheduling policy and expose the allocated GPUs to application inside the container
-- [x] Developed **two** advanced GPU schedulers:
-	- _bin-packing scheduler_: tries to bundle GPU jobs to fewer servers, so that other idle servers can be reserved for potentially large jobs
-	- _topology-aware scheduler_:  automatically collect GPU topology informa- tion of each worker node, and assign nodes that deliver the highest possible bandwidth to the application
-- [x] Enhanced Kubernetes to gather the device drivers on kubelet startup and mount these drivers into the container automatically
-- [x] Enabled GPU liveness check on Kubernetes 
-- [x] Added GPU quota support in Kubernetes => support multiple users
-
-</p>
-</details>
-</li>
-
-
-<li>
-<details><summary><b>Decentralized and Distributed Machine Learning Model Training with Actors</b></summary>
-<p>
-	
-##### Explore a more experimental form of _decentralized training_ that removes bottleneck{centralized parameter server introduces a bottleneck and single-point of failure during training}
-
-**Actor-Based Concurrency Model**:
-> implemented as actors using the Akka2 actor framework written in Scala, based off the work done by Alex Minnaar3 in implementing Google’s DistBelief framework in Akka
-
-**Network Architecture**: => XOR
-- **Asynchronous centralized training**: attain similar accuracy with much higher throughput by using soft synchronization
-- **Fully asynchronous and decentralized training**: net the greatest overall training speed, but at a cost to model accuracy. _(This cost is configurable based on the setting of **τ**)_
-
-_**New Keywords**_:
-- **threshold parameter (τ)**: tunes the frequency with which updates are sent out to all other data shards in the system.
-- **gradient residual​**:
-
-
-</p>
-</details>
-</li>
-
-
-<li>
-<details><summary><b>DIANNE- Distributed Artificial Neural Networks for the Internet of Things</b></summary>
-<p>
-	
-##### DIANNE middleware framework is presented that is optimized for single sample feed-forward execution and facilitates distributing artificial neural networks across multiple IoT devices
-
-Cloud is often the natural choice to train and evaluate neural networks, benefiting from the huge compute power and scalability, but IoT applications with sensors sending a continuous stream of data, 
-the Cloud introduces additional complications:
-- connection to the Cloud is required at all times, having to deal with limitations in **bandwidth and a high and variable latency**
-- sending sensor data to the Cloud may introduce **security holes and privacy issues**
-
-
-_**The first experiment’s results**_  prove that large neural networks, which can not fit on small embedded devices, can benefit from distributing the slow convolutional modules to other devices in the IoT environment preferable equipped with GPU acceleration. 
-_**The second experiment**_ shows that the DIANNE middleware performs excellently on GPU accelerated devices, outperforming all tested frameworks when only a single image is forwarded through the network.
-
-**Result**:
-DIANNE actually performs on par or better than the other frameworks.
-
-
-</p>
-</details>
-</li>
-
-<li>
-<details><summary><b>Optimizing Network Performance in Distributed Machine Learning</b></summary>
-<p>
-	
-##### MLNET, a host-based communication layer that aims to improve the network performance of distributed machine learning systems through a combination of _traffic reduction_ techniques (to diminish network load in the core and at the edges) and _traffic management_ (to reduce average training time).
-
-MLNET inherits the standard commu- nication APIs from the Parameter Server
-- Distributed Aggregation and Multicast
-- Network Prioritization
-
-**Result**:
-overall training time can be reduced by up to 78%. 
-
-</p>
-</details>
-</li>
-
-<li>
-<details><summary><b>Open Fabric for Deep Learning Models</b></summary>
-<p>
-	
-##### The FfDL platform uses a microservices architecture to reduce coupling between components, keep each component simple and as stateless as possible, isolate component failures, and allow each component to be developed, tested, deployed, scaled, and upgraded independently. 
-
-**Tools Used**:
-- **Adversarial Robustness Toolbox _(ART)_**: To provide robustness for models
-- **AI Fairness 360 toolkit _(AIF360)_**: to find and remove bias in datasets and models
-- **Model Asset Exchange _(MAX)_**: an app store to discover, share and rate models
-
-Differences between the projects in terms of _job scheduling and distribution, framework support, ecosystem and general architecture_.
-
-</p>
-</details>
-</li>
-
-<li>
-<details><summary><b>PowerAI DDL</b></summary>
-<p>
-	
-##### a software-hardware co-optimized distributed Deep Learning system that can achieve near-linear scaling up to hundreds of GPUs. The core algorithm is a multi-ring communication pattern that provides a good tradeoff between latency and bandwidth and adapts to a variety of system configurations
-
-**Distributed Deep Learning Benchmarking Methodology**:
-- **The GPU**
-- **The neural network**
-- **The Deep Learning framework**
-- **Accuracy and end to end training time**:
-- **Scaling efficiency**: the ratio between the run time of one iteration on a single GPU and the run time of one iteration when distributed over n GPUs. 
-- **The communication overhead**: the run time of one iteration when distributed over n GPUs minus the run time of one iteration on a single GPU. 
-
-**The PowerAI DDL Library**:
-
-- The current PowerAI DDL implementation is based on _MPI(Message Passing Interface)_
-- PowerAI DDL is based around the concept of PowerAI DDL Objects(). 
-- The distributed Deep Learning applications employ the operations ReduceScatter and AllGather that operate on a set of variables that are distributed over a set of GPUs in a set of machines.
-
-**Experimental Results**:
-- _Resnet-50 **(1K)**_: Implementation achieved an accuracy of **75.01%** in a training time of 50 minutes, training over 90 epochs with a batch size of 32 per GPU. _At 256 GPUs the effective batch size is **8192**_
-- _Resnet-101 **(22k)**_: For batch size 5120 we achieved 33.8% validation accuracy within about 7 hours. 
-
-</p>
-</details>
-</li>
-
-<li>
-<details><summary><b>Onelearn: A Unified and Distributed Machine Learning Platform with High Performance</b></summary>
-<p>
-	
-##### Onelearn, a Python-based, high-efficiency machine learning framework with model sharing, automatic resource management and unified interface. 
-
-</p>
-</details>
-</li>
-
-
-<li>
-<details><summary><b>Model Accuracy and Runtime Tradeoff in Distributed Deep Learning: A Systematic Study</b></summary>
-<p>
-	
-##### Rudra, a parameter server based distributed computing framework tuned for training large-scale deep neural networks.
-> study the impact of synchronization protocol, stale gradient updates, minibatch size, learning rates, and num- ber of learners on runtime performance and model accuracy.
-
-**Results**:
-- Divide the learning rate by the average staleness of gradients => resulting in faster convergence and lower test error. 
-- Experiments show that the 1-softsync protocol (in which the parameter server accumulates λ gradients before updating the weights) minimizes gradient staleness and achieves the lowest runtime for a given test error. 
-- To maintain a model accuracy, it is necessary to reduce the mini-batch size as the number of learners is increased.
-
-</p>
-</details>
-</li>
-
-
-<li>
-<details><summary><b>Workload-aware Automatic Parallelization For Multi-gpu Dnn Training</b></summary>
-<p>
-	
-##### Workload-aware auto-parallelization framework (WAP) for DNN training, where the work is automatically distributed to multiple GPUs based on the workload characteristics. 
-> GPU utilization during parallelization.
-
-**Results**:
-- _Training Performance_: WAP achieves compelling performance and scalability without requiring manual user effort for multi-GPU runs.
-- _ Workload-Aware GPU Allocation_: WAP uses only 1 GPU and achieve higher throughput. This demonstrates that WAU effectively hides the burden of optimizing GPU utilization from the users. 
-- WAP only uses one GPU, reducing power consumption by 63% compared to Parallax.
-
-</p>
-</details>
-</li>
-
-
-<li>
-<details><summary><b>Parameter Hub: High Performance Parameter Servers for Efficient Distributed Deep Neural Network Training</b></summary>
-<p>
-	
-##### PHub, a high performance parameter server (PS) software design that provides an optimized network stack and a streamlined gradient processing pipeline to benefit common PS setups, and PBox, a balanced, scalable central PS hardware that fully utilizes PHub capabilities
-> Distributed deep neural network (DDNN) training constitutes an important workload on the cloud. Larger DNN models and faster compute engines shift training performance bottleneck from computation to communication. 
-> DNN training frameworks do not scale in a typical cloud environment due to _**insufficient bandwidth and inefficient parameter server software stacks.**_
-
-This work focuses on **“data” parallelism**
-
-**Main optimizations in PHub**:
-- Network Stack 
-- Gradient Memory Layout 
-- Aggregation and Optimization 
-
-**Results**:
-- PHub can achieve up to 3.8x speedup over state- of-the-art designs when training ImageNet. 
-
-</p>
-</details>
 </li>
 
 
@@ -244,28 +23,7 @@ This work focuses on **“data” parallelism**
 
 # Articles 📖:
 
-- [ ] **[Distributed Deep Learning, Part 1: An Introduction to Distributed Training of Neural Networks](https://blog.skymind.ai/distributed-deep-learning-part-1-an-introduction-to-distributed-training-of-neural-networks/)**
-- [ ] **[Implementing the DistBelief Deep Neural Network Training Framework with Akka](http://alexminnaar.com/implementing-the-distbelief-deep-neural-network-training-framework-with-akka.html)**
+- [ ] **[Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl/)**
 
 
 # Software 👨‍💻:
-
-### Parallel and Distributed Frameworks:
-
-- **[parallax](https://github.com/snuspl/parallax)**: A Tool for Automatic Parallelization of Deep Learning Training in Distributed Multi-GPU Environments.
-- **[AkkaDistBelief](https://github.com/alexminnaar/AkkaDistBelief)**: DistBelief is a framework for training deep neural networks with a cluster of machines rather than GPUs _**(Scala)**_ | Google DistBelief Net
-- **[imagenet-multiGPU.torch](https://github.com/soumith/imagenet-multiGPU.torch)**: Training an Object Classifier in Torch-7 on multiple GPUs over ImageNet (Torch)
-- **[Rudra](https://github.com/Rudra-org/rudra)**: Distributed framework for large-scale machine learning with deep neural networks (X10 & C++)
-
-### Decentralized Distributed Deep Dearning:
-
-- **[decentralizedsgd](https://github.com/tgaddair/decentralizedsgd)**: performing distributed training of machine learning models over a cluster of machines in parallel _**(Scale)**_
-- **[TF.AKO](https://www-users.cs.umn.edu/~chandra/tfako/home.html)**: ([GitHub](https://github.com/mesh-umn/TF.AKO)): Decentralised Deep Learning with Partial Gradient Exchange
-
-### Deep Learning Platform:
-
-- **[FfDL](https://github.com/IBM/FfDL)**: Deep Learning Platform offering TensorFlow, Caffe, PyTorch etc. as a Service on Kubernetes
-- **[kubeflow](https://github.com/kubeflow/kubeflow)**: Machine Learning Toolkit for Kubernetes
-
-### Distributed Networks:
-- **[DIANNE](http://dianne.intec.ugent.be/)**: DIstributed Artificial Neural NEtworks ([GitHub](https://github.com/ibcn-cloudlet/dianne))
