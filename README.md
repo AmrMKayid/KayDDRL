@@ -1,5 +1,5 @@
 <h1 align=center> KayDDRL </h1>
-<h3 align=center> Distributed Deep Reinforcement Learning for Large Scale Robotic Simulations 👨‍💻🤖🕸🕹🕷❤️👨‍🔬 </h3>
+<h2 align=center> Distributed Deep Reinforcement Learning for Large Scale Robotic Simulations 👨‍💻🤖🕸🕹🕷❤️👨‍🔬 </h2>
 
 # Papers 📜:
 
