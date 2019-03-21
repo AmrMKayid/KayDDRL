@@ -9,6 +9,7 @@ class Memory(ABC):
     def __init__(self, config):
         self._config = config
         utils.set_attr(self, self._config, [
+            'name',
             'batch_size',
             'buffer_size',
             'device',
