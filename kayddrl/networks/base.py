@@ -9,11 +9,11 @@ from kayddrl.comp import old_models
 
 class BaseNN(ABC):
 
-    def __init__(self, config, input_dim, output_dim):
+    def __init__(self, config, input_state_size, output_action_size):
 
         self._config = config
-        self.input_dim = input_dim
-        self.output_dim = output_dim
+        self.input_state_size = input_state_size
+        self.output_action_size = output_action_size
 
         if self._config.get('gpu'):
             if torch.cuda.device_count():
