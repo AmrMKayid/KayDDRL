@@ -1,5 +1,5 @@
 FILE := main
-OUT  := build
+OUT  := pdfs
 
 .PHONY: pdf
 pdf:
