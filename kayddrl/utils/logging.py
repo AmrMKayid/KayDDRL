@@ -125,12 +125,10 @@ class Logger:
 
 logger = Logger.getInstance()
 
-
-if __name__=='__main__':
+if __name__ == '__main__':
     logger.set_log_level(0)
     logger.debug('This is a  debug message!')
     logger.info('This is an info  message!')
     logger.warn('This is a  warn  message!')
     logger.error('This is an error message!')
     logger.fatal('This is a  fatal message!')
-
