@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from collections import namedtuple, deque
+from collections import deque
 
 from kayddrl.utils import utils
 
@@ -15,9 +15,6 @@ class Memory(ABC):
             'device',
         ])
         self.memory = deque(maxlen=self.buffer_size)
-        self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
-        # TODO: Logging
-        print(utils.describe(self))
 
     @abstractmethod
     def update(self, state, action, reward, next_state, done):
