@@ -4,6 +4,7 @@ import gym
 
 from kayddrl.envs.base import BaseEnv
 from kayddrl.utils import utils
+from kayddrl.utils.logging import logger
 
 
 class GymEnv(BaseEnv):
@@ -32,8 +33,7 @@ class GymEnv(BaseEnv):
         self._set_attr_from_u_env(self._env)
         self._env.seed(self.seed)
 
-        # TODO: Logging
-        print(utils.describe(self))
+        logger.info(utils.describe(self))
 
     def reset(self):
         self.done = False

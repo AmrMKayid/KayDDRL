@@ -1,43 +1,120 @@
-import torch
+import os
+from abc import ABC, abstractmethod
+from typing import Tuple, Union
+
 import numpy as np
-import pydash as ps
+import torch
 
-from kayddrl import memory
-from kayddrl.agents import algos
-from kayddrl.utils import utils
+from kayddrl.configs.default import default
+from kayddrl.utils.logging import logger
 
 
-class BaseAgent:
+class BaseAgent(ABC):
+    r"""
+    Abstract Agent used for all agents.
+    """
 
-    def __init__(self, config):
-        self._config = config
+    def __init__(self, env, configs=default()):
+        r"""
 
-        memory_cls = getattr(memory, ps.get(self._config, 'memory.name'))
-        self.memory = memory_cls(self._config['memory'])
-        algorithm_cls = getattr(algos, ps.get(self._config, 'algo.name'))
-        self.algo = algorithm_cls(self)
+        :param config:
+        :param env:
+        """
 
-        # TODO: Logging
-        print(utils.describe(self))
+        self._env = env
+        self.env_name = configs.env.name
 
-    def observe(self, state, action, reward, next_state, done):
-        self.memory.update(state, action, reward, next_state, done)
-        loss = self.algo.train()
-        if not np.isnan(loss):
-            self.loss = loss
-        explore_var = self.algo.update()
-        return loss, explore_var
+        self._configs = configs
+        self._hparams = configs.agent
 
-    def act(self, state):
-        with torch.no_grad():
-            action = self.algo.act(state)
-        return action
+        @abstractmethod
+        def select_action(self, state: np.ndarray) -> Union[torch.Tensor, np.ndarray]:
+            pass
 
-    def learn(self, experiences):
-        raise NotImplementedError
+        @abstractmethod
+        def step(
+                self, action: Union[torch.Tensor, np.ndarray]
+        ) -> Tuple[np.ndarray, np.float64, bool]:
+            pass
 
-    def save(self, ckpt=None):
-        self.algo.save(ckpt=ckpt)
+        @abstractmethod
+        def update_model(self, *args) -> Tuple[torch.Tensor, ...]:
+            pass
 
-    def close(self):
-        self.save()
+        @abstractmethod
+        def load_params(self, *args):
+            pass
+
+        @abstractmethod
+        def save_params(self, params: dict, n_episode: int):
+            if not os.path.exists("./saved"):
+                os.mkdir("./saved")
+
+            save_name = self.env_name + "_" + self.hparams.name
+
+            path = os.path.join("./saved/" + save_name + "_ep_" + str(n_episode) + ".pt")
+            torch.save(params, path)
+
+            logger.info("Saved the model and optimizer to", path)
+
+        @abstractmethod
+        def write_log(self, *args):
+            pass
+
+        @abstractmethod
+        def train(self):
+            pass
+
+        def interim_test(self):
+            self.args.test = True
+
+            print()
+            print("===========")
+            print("Start Test!")
+            print("===========")
+
+            self._test(interim_test=True)
+
+            print("===========")
+            print("Test done!")
+            print("===========")
+            print()
+
+            self._configs.glob.test = False
+
+        def test(self):
+            """Test the agent."""
+            self._test()
+
+            # termination
+            self.env.close()
+
+        def _test(self, interim_test: bool = False):
+            """Common test routine."""
+
+            if interim_test:
+                test_num = self._configs.glob.interim_test_nums
+            else:
+                test_num = self._configs.glob.num_episodes
+
+            for i_episode in range(test_num):
+                state = self.env.reset()
+                done = False
+                score = 0
+                step = 0
+
+                while not done:
+                    self.env.render()
+
+                    action = self.select_action(state)
+                    next_state, reward, done = self.step(action)
+
+                    state = next_state
+                    score += reward
+                    step += 1
+
+                logger.info(
+                    "test %d\tstep: %d\ttotal score: %d" % (i_episode, step, score)
+                )
+
+                logger.log_scalar("Test score", score)

@@ -1,23 +1,33 @@
 from abc import ABC, abstractmethod
 from collections import deque
+from typing import Tuple
 
+import numpy as np
+import torch
+
+from kayddrl.configs.default import default
 from kayddrl.utils import utils
 
 
 class Memory(ABC):
 
-    def __init__(self, config):
-        self._config = config
-        utils.set_attr(self, self._config, [
-            'name',
-            'batch_size',
-            'buffer_size',
-            'device',
-        ])
+    def __init__(self, configs=default()):
+        self._configs = configs
+        self._hparams = configs.memory
+        self.device = configs.glob.device
+        utils.set_attr(self, self._hparams)
+
         self.memory = deque(maxlen=self.buffer_size)
 
     @abstractmethod
-    def update(self, state, action, reward, next_state, done):
+    def update(
+            self,
+            state: np.ndarray,
+            action: np.ndarray,
+            reward: np.float64,
+            next_state: np.ndarray,
+            done: float,
+    ):
         r"""
         Update memory with new experience
         :param state:
@@ -30,7 +40,7 @@ class Memory(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def sample(self):
+    def sample(self) -> Tuple[torch.Tensor, ...]:
         r"""
         Memory sampling mechanism, Randomly sample a batch of experiences from memory.
         :return: batch of experiences
@@ -43,7 +53,7 @@ class Memory(ABC):
         """
         self.memory.clear()
 
-    def __len__(self):
+    def __len__(self) -> int:
         r"""
         :return: the current size of internal memory.
         """

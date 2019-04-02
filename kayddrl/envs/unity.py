@@ -1,52 +1,10 @@
-import os
-
 import numpy as np
 from gym import spaces
 from unityagents import brain, UnityEnvironment
 
-from kayddrl.envs.base import BaseEnv
 from kayddrl.utils import utils
-
-
-def get_env_path(env_name):
-    r"""
-    Get the path to Unity env binaries distributed
-    :param env_name:
-    :return:
-    """
-    env_path = utils.smart_path(f'envs/{env_name}-env/build/{env_name}')
-    env_dir = os.path.dirname(env_path)
-    assert os.path.exists(env_dir), f'Missing {env_path}. See README to run unity env.'
-    return env_path
-
-
-class BrainExt:
-    r"""
-    Unity Brain class extension, where self = brain    
-    """
-
-    def is_discrete(self):
-        return self.vector_action_space_type == 'discrete'
-
-    def get_action_dim(self):
-        return self.vector_action_space_size
-
-    def get_observable_types(self):
-        '''What channels are observable: state, image, sound, touch, etc.'''
-        observable = {
-            'state': self.vector_observation_space_size > 0,
-            'image': self.number_visual_observations > 0,
-        }
-        return observable
-
-    def get_observable_dim(self):
-        '''Get observable dimensions'''
-        observable_dim = {
-            'state': self.vector_observation_space_size,
-            'image': 'some np array shape, as opposed to what Arthur called size',
-        }
-        return observable_dim
-
+from kayddrl.envs.base import BaseEnv
+from kayddrl.envs.env_utils import BrainExt, get_env_path
 
 utils.monkey_patch(brain.BrainParameters, BrainExt)
 
@@ -94,6 +52,9 @@ class UnityEnv(BaseEnv):
         reward = env_info.rewards[0]
         done = env_info.local_done[0]
         return state, reward, done, env_info
+
+    def render(self):
+        pass
 
     def close(self):
         self._env.close()

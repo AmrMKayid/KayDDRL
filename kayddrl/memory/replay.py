@@ -1,7 +1,9 @@
 import random
-import numpy as np
 from collections import namedtuple
 
+import numpy as np
+
+from kayddrl.configs.default import default
 from kayddrl.memory.base import Memory
 from kayddrl.utils.logging import logger
 from kayddrl.utils.utils import tensorify, describe
@@ -34,7 +36,7 @@ class ReplayBuffer(Memory):
     }
     """
 
-    def __init__(self, config):
+    def __init__(self, config=default()):
         super().__init__(config)
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
         logger.info(describe(self))
@@ -55,3 +57,6 @@ class ReplayBuffer(Memory):
         dones = tensorify(np.array([e.done for e in experiences if e is not None]).astype(np.uint8), self.device)
 
         return (states, actions, rewards, next_states, dones)
+
+
+rb = ReplayBuffer()

@@ -1,6 +1,10 @@
+import datetime
 import time
 
 from colorama import Style, Fore
+from torch.utils.tensorboard import SummaryWriter
+
+from kayddrl.configs.default import default
 
 
 class Logger:
@@ -14,7 +18,7 @@ class Logger:
             Logger()
         return Logger.__instance
 
-    def __init__(self, configs=None):
+    def __init__(self, configs=default()):
         """ Virtually private constructor. """
         if Logger.__instance is not None:
             raise Exception("This class is a singleton!")
@@ -25,9 +29,14 @@ class Logger:
         self.time_origin = time.time()
         self.filename = None
         self.LEVELS = {'DEBUG': 0, 'INFO': 1, 'WARN': 2, 'ERROR': 3, 'FATAL': 4}
-        self.COLORS = {'DEBUG': Style.DIM, 'INFO': Fore.GREEN, 'WARN': Fore.YELLOW, 'ERROR': Fore.RED,
-                       'FATAL': Fore.RED + Style.BRIGHT}
+        self.COLORS = {'DEBUG': Style.DIM, 'INFO': Fore.GREEN, 'WARN': Fore.YELLOW,
+                       'ERROR': Fore.RED, 'FATAL': Fore.RED + Style.BRIGHT}
         self.log_level = 1
+
+        "#----- Tensorboard -----#"
+        self._writer = SummaryWriter(
+            log_dir=configs.glob.log_dir + '/' +
+                    configs.glob.name + '_' + datetime.datetime.now().isoformat())
 
     def set_logfile(self, filename):
         self.filename = filename
@@ -62,13 +71,23 @@ class Logger:
     def fatal(self, *args, sep=' ', end='\n', flush=False):
         self._log(*args, sep=sep, end=end, flush=flush, level='FATAL')
 
+    def log_scalar(self, tag, value, i_episode):
+        self._writer.add_scalar(tag, value, global_step=i_episode)
+
+    @property
+    def writer(self):
+        return self._writer
+
 
 logger = Logger.getInstance()
 
-if __name__ == '__main__':
-    logger.set_log_level(0)
-    logger.debug('This is a  debug message!')
-    logger.info('This is an info  message!')
-    logger.warn('This is a  warn  message!')
-    logger.error('This is an error message!')
-    logger.fatal('This is a  fatal message!')
+# if __name__ == '__main__':
+#     logger.set_log_level(0)
+#     t1 = t2 = t3 = 0
+#     logger.debug('This is a  debug message!')
+#     logger.info('This is an info  message!', t1, 'test', t2, t3)
+#     logger.warn('This is a  warn  message!')
+#     logger.error('This is an error message!')
+#     logger.fatal('This is a  fatal message!')
+#     # while True:
+#     #     logger.log_scalar("loss", 0.001)
