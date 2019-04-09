@@ -23,7 +23,7 @@ Summary
 
 # Articles 📖:
 
-- [ ] **[Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl/)**
+- [x] **[Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl/)**
 
 
 # Software 👨‍💻:
