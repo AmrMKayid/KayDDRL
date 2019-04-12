@@ -1,6 +1,6 @@
 #--------------- Latex ---------------#
-/pdfs/*
-!/pdfs/main.pdf
+/build/*
+!/build/main.pdf
 
 #--------------- macOS ---------------#
 
