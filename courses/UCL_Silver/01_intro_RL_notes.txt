@@ -7,7 +7,7 @@ Reward \(R_t\): how well agent is doing at step t
 
 RL different from supervised learning:
 • no supervisor, only a reward signal where the Feedback is delayed, not instantaneous
-• it's a sequantial process & non i.i.d data so Time really matters and the Agent’s actions affect the subsequent data it receives
+• it's a sequantial process \& non i.i.d data so Time really matters and the Agent’s actions affect the subsequent data it receives
 
 GOAL: select actions to \textbf{\textit{maximise} total future reward}
 sometimes the agent might sacrifices immediate reward to gain more long-term reward
@@ -16,24 +16,35 @@ sometimes the agent might sacrifices immediate reward to gain more long-term rew
 State is the information used to determine what happens next
 
 Information State | (Markov State): contains all the useful information from the history
-=> A State S_t is MARKOV if and only if 
-P[S_t+1 | S_t] = P[S_t+1 | S_1, S_2, ...., S_t] (The Future is independent of the past given the present )
+=> A State \(S_t\) is MARKOV if and only if 
+\begin{equation}
+\mathbb{P}\left[S_{t+1} | S_{t}\right]=\mathbb{P}\left[S_{t+1} | S_{1}, \ldots, S_{t}\right]
+\end{equation}
+(The Future is independent of the past given the present )
 * The state is a suffiecient statistic of the future (So once the state is known, the history may be thrown away!)
 
 
-Fully Observable Environment: (O_t = S_t^a = S_t^e) => Formally, this is Markov Decision Process (MDP)
+Fully Observable Environment: \begin{equation}
+O_{t}=S_{t}^{a}=S_{t}^{e}
+\end{equation} => Formally, this is Markov Decision Process (MDP)
 
 Partially Observable Environment: Agent *indirctly* observe environment.
 
 Formally, this is Partially Observable Markov Decision Process (POMDP)
 
-=> The Agent must construct it's (own STATE REPRESENTATION S_t^a) e.g.
-• Complete History: S_t^a = H_t
-• *BELIEFS* of environment state: S_t^a = (P[S_t^e = S_1], .., ..., P[S_t^e = S_n]) => This is a propability distribution:  where I think I am in the environment.
-• Recurrent Neural Network: S_t^a = \sigmma(S_t-1^a * W_s + O_t * W_o) => linear combination between last state and current observation with some non-linearity to produce new state 
+=> The Agent must construct it's (own STATE REPRESENTATION \(S_t^a\)) e.g.
+• Complete History: \begin{equation}
+S_{t}^{a}=H_{t}
+\end{equation}
+• *BELIEFS* of environment state: \begin{equation}
+S_{t}^{a}=\left(\mathbb{P}\left[S_{t}^{e}=s^{1}\right], \ldots, \mathbb{P}\left[S_{t}^{e}=s^{n}\right]\right)
+\end{equation} => This is a propability distribution:  where I think I am in the environment.
+• Recurrent Neural Network: \begin{equation}
+S_{t}^{a}=\sigma\left(S_{t-1}^{a} W_{s}+O_{t} W_{o}\right)
+\end{equation} => linear combination between last state and current observation with some non-linearity to produce new state 
 
 RL Agent's Components:
-• Policy: agent’s behaviour function (Mapping from states to actions) | Deterministic policy: a = π(s) || Stochastic policy: π(a|s) = P[At = a|St = s]
+% • Policy: agent’s behaviour function (Mapping from states to actions) | Deterministic policy: a = \pi(s) || Stochastic policy: \pi(a|s) = P[At = a|St = s]
 • Value function: how good (evaluate) is each state and/or action (Prediction of future rewards) 
 • Model: agent’s representation of the environment (What the environment will do next)
 
@@ -42,4 +53,4 @@ Policy Based || Value Based || Actor Critic (Combination)
 Model-free || Model-based
 
 Problems within RL:
-Learning and Planning && Exploration and Exploitation (Find more || Exploit known info !?) && Prediction and Control (Evaluate & Optimize the future)
+Learning and Planning \&\& Exploration and Exploitation (Find more || Exploit known info !?) \&\& Prediction and Control (Evaluate \& Optimize the future)
