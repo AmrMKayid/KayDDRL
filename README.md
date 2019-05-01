@@ -24,6 +24,8 @@ Summary
 # Articles 📖:
 
 - [x] **[Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl/)**
+- [x] **[Going beyond average for reinforcement learning](https://deepmind.com/blog/going-beyond-average-reinforcement-learning/)**
+- [x] **[Importance Weighted Actor-Learner Architectures: Scalable Distributed DeepRL in DMLab-30](https://deepmind.com/blog/impala-scalable-distributed-deeprl-dmlab-30/)**
 
 
 # Software 👨‍💻:
