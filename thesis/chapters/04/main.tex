@@ -4,8 +4,70 @@
 \chapter{Setup and Implementation}\label{chapter:Setup and Implementation}
 
 
-\section{HBP Neurorobotics Platform}
+% \section{Neurorobotics Platform Overview}
 
-\section{The Software and Libraries}
+\section{Environment}
 
-\section{The Implementation}
+\subsection{Overview} 
+The environment will be designed to teach the agent to navigate in an unknown environment and to be able to collect desired objects (\textit{green cube}) and avoid hiding other objects (\textit{red cube}).
+
+\subsection{environment states}
+
+\begin{itemize}
+    \item camera view for the perception of the agent
+    \item the agent position in the map
+    \item the agent velocity
+\end{itemize}
+
+\subsection{agent actions}
+the agent will need to learn how to choose the best action the maximize the cumulative reward.
+The action space is \textbf{three (3)} dimensions, corresponding to:
+\begin{itemize}
+    \item \textbf{Forward Motion}: \textit{moving Forward, Backwards}
+    \item \textbf{Side Motion}: \textit{moving Right, Left}
+    \item \textbf{Rotation}: \textit{Rotate Right, Rotate Left}
+\end{itemize}
+
+\subsection{rewards}
+
+the reward function will be (\textbf{+1}) for collecting the green cubes and (\textbf{-1}) if the agent collect a red cube.
+Hence, the goal of the agent is to collect as many green cubes as possible while avoiding the red ones.
+
+The environment is \textit{episodic} one and in order to \textit{solve} the environment, the agent must get \textit{an average score of \textbf{+15} over \textbf{100} consecutive episodes.}
+
+\clearpage
+
+\section{Methods}
+In order to solve this environment and also experiment the distributed algorithms and compare the results, we will be using the following algorithms:
+
+\begin{itemize}
+    \item Vanilla Policy Gradient
+    \item A3C Algorithms
+    \item IMPALA
+    \item Ape-X 
+\end{itemize}
+
+We will start with VanillaPG as it's the simplest version of all the algorithms to test the behavior of the agent and the average reward gained. Followed by using A3C algorithm to test multiple workers and there effect on the agent policy. Then, we will apply threading and parallelization in both impala and ape-x along with the distributed experience replay for the environment states and compare the result with other algorithm and policies of the agent.
+
+\section{Software and Related Libraries}
+
+\begin{itemize}
+    \item OpenAI Gym
+    \item DeepMind Lab
+    \item Unity ML-Agents
+    \item Ray Project
+\end{itemize}
+
+\section{Questions:}
+
+\begin{itemize}
+    \item Transfer function is always running (10ms), the agent won't be able to learn as if the agent select an action it will be executed each 10ms without waiting to observe the new state.
+    \item Can we randomly render objects or create it using python code?
+    \item Can we destroy the generated objects?
+    \item environment modeling and rendering with the step function (huge)
+    \item scaling problem? we won't be able to run multiple workers using the nrp experiment environment
+    \item compatibility, old python version, jupyter notebook
+\end{itemize}
+
+
+% \section{The Implementation}
