@@ -1,47 +1,89 @@
 % !TeX root = ../../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\chapter{Setup and Implementation}\label{chapter:Setup and Implementation}
+\chapter{Framework, Setup and Implementation}\label{chapter:Setup and Implementation}
 
+Our aim is building a modular distributed deep reinforcement learning framework that is capable of running multiple environments \textit{(OpenAI Gym, DeepMind Control Suite, Unity Ml-Agents, Visdoom, Atari)} with the state of the art \textbf{(SOTA)} reinforcement learning algorithms in both single and multiple environments which supports single-node multi-cpu multi-gpu architecture.
+
+Our design features the reusability of modular components which are friendly coded in an efficient way with code decoupling and organized submodules.
+Along with easy customizable configurations for both agents and environments. Also using the visualization submodule to output training stats and performance with the help of tensorboard. Finally the ability to save and load pre-trained models for evaluating and testing the agents with option of rending the environment.
 
 % \section{Neurorobotics Platform Overview}
 
-\section{Environment}
+\section{Our Experiment}
+Our experiment will be based on testing the performance among different environment and RL tools.
 
 \subsection{Overview} 
-The environment will be designed to teach the agent to navigate in an unknown environment and to be able to collect desired objects (\textit{green cube}) and avoid hiding other objects (\textit{red cube}).
 
-\subsection{environment states}
+The selected environment \textbf{(Reacher)} will be chosen as a task to be solved be different RL algorithms for continuous action space. This environment is available in both \textit{OpenAI Gym \& Unity ML-Agents} and we will implement similar environment for our Neurorobotics Platform to compare the result between the toolkits and see the results.
 
-\begin{itemize}
-    \item camera view for the perception of the agent
-    \item the agent position in the map
-    \item the agent velocity
-\end{itemize}
+\subsection{Description}
+In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of your agent is to maintain its position at the target location for as many time steps as possible.
+
+Additionally, Unity environment provides a version which contains 20 identical agents, each with its own copy of the environment. This environment is useful for distributed training as example of multi-agent environment which is useful for algorithms like \textbf{PPO, A3C, and D4PG} that use multiple (non-interacting, parallel) copies of the same agent to distribute the task of gathering experience.
+
+Illustration for the environments can be founded here:~\ref{fig:reacher-environment}
+
+\begin{figure}%
+    \centering
+    \subfloat[OpenAI Gym]{{\includegraphics[width=7cm]{figures/envs/openai-gym-reacher-1.png} }}%
+    \qquad
+    \subfloat[Unity Single Agent]{{\includegraphics[width=7cm]{figures/envs/unity-reacher-1.png} }}%
+    \subfloat[Unity Multiple Agent]{{\includegraphics[width=7cm]{figures/envs/unity-reacher-20.png} }}%
+    \caption{Reacher Environment}%
+    \label{fig:reacher-environment}%
+\end{figure}
+
+\clearpage
+
+\subsection{Environment custom xml model}
+The following figure~\ref{fig:custom-reacher-xml} is a model description of our custom environment in openai gym.
+
+\begin{figure}[H]%
+    \centering
+    \includegraphics[width=\linewidth]{figures/envs/custom-reacher-xml.png}%
+    \caption{Custom reacher Environment}%
+    \label{fig:custom-reacher-xml}%
+\end{figure}
+
+The environment consists of a square scene that surround the double-linked robotics arm and a target goal location that gets generated randomly every episode.
+
+The double-linked robotics arm consist of two joints which can follow the target by moving in a range (-3.0, 3.0)
+The observation space consists of 
+
+\begin{table}[H]
+    \begin{center}
+      \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+        \textbf{Name} & \textbf{type} & \textbf{value}\\
+        \hline
+        Position and Rotation & float & self.sim.data.qpos.flat[2:]\\
+        Speed and Velocities & float & self.sim.data.qvel.flat[:2]\\
+        Distance between arm and target & float & self.get\_body\_com(``fingertip") $-$ self.get\_body\_com(``target")\\
+        Sine of position & float & np.sin(theta)\\
+        Cosine of position & float & np.cos(theta)\\
+      \end{tabular}
+      \caption{Observation Space}
+      \label{tab:table1}
+    \end{center}
+  \end{table}
 
 \subsection{agent actions}
-the agent will need to learn how to choose the best action the maximize the cumulative reward.
-The action space is \textbf{three (3)} dimensions, corresponding to:
-\begin{itemize}
-    \item \textbf{Forward Motion}: \textit{moving Forward, Backwards}
-    \item \textbf{Side Motion}: \textit{moving Right, Left}
-    \item \textbf{Rotation}: \textit{Rotate Right, Rotate Left}
-\end{itemize}
+Each action is a vector with four numbers, corresponding to torque applicable to two joints. Every entry in the action vector should be a number between -1 and 1.
 
 \subsection{rewards}
 
-the reward function will be (\textbf{+1}) for collecting the green cubes and (\textbf{-1}) if the agent collect a red cube.
-Hence, the goal of the agent is to collect as many green cubes as possible while avoiding the red ones.
+the reward function will be represented in A reward of \textbf{+0.1} is provided for each step that the agent's hand is in the goal location.
+Hence, the goal of the agent is to maintain its position at the target location for as many time steps as possible.
 
-The environment is \textit{episodic} one and in order to \textit{solve} the environment, the agent must get \textit{an average score of \textbf{+15} over \textbf{100} consecutive episodes.}
-
-\clearpage
+Agents must get an average score of +30 (over 100 consecutive episodes, and over all agents). Specifically,
+The environment is considered solved, when the average (over 100 episodes) of those average scores is at least +30.
+% \clearpage
 
 \section{Methods}
 In order to solve this environment and also experiment the distributed algorithms and compare the results, we will be using the following algorithms:
 
 \begin{itemize}
-    \item Vanilla Policy Gradient
+    \item Deep Deterministic Policy Gradient
     \item A3C Algorithms
     \item IMPALA
     \item Ape-X 
@@ -58,16 +100,20 @@ We will start with VanillaPG as it's the simplest version of all the algorithms 
     \item Ray Project
 \end{itemize}
 
-\section{Questions:}
+\section{NRP Idea:}
 
-\begin{itemize}
-    \item Transfer function is always running (10ms), the agent won't be able to learn as if the agent select an action it will be executed each 10ms without waiting to observe the new state.
-    \item Can we randomly render objects or create it using python code?
-    \item Can we destroy the generated objects?
-    \item environment modeling and rendering with the step function (huge)
-    \item scaling problem? we won't be able to run multiple workers using the nrp experiment environment
-    \item compatibility, old python version, jupyter notebook
-\end{itemize}
+Since the nrp is a complete platform running on top of docker and it's reach frontend and experiment design can allow for rapid prototyping new environment,\\\\
+We can Create a custom reacher environment with multiple number of agents to distribute the learning process between them and make it multi-agent environment.
+This will allow us to reduce the latency and enhance the agents learning experience by communicating with each other directly in one experiment.
+
+% \begin{itemize}
+%     \item Transfer function is always running (10ms), the agent won't be able to learn as if the agent select an action it will be executed each 10ms without waiting to observe the new state.
+%     \item Can we randomly render objects or create it using python code?
+%     \item Can we destroy the generated objects?
+%     \item environment modeling and rendering with the step function (huge)
+%     \item scaling problem? we won't be able to run multiple workers using the nrp experiment environment
+%     \item compatibility, old python version, jupyter notebook
+% \end{itemize}
 
 
 % \section{The Implementation}
