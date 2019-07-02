@@ -1,0 +1,36 @@
+\begin{titlepage}
+
+  \centering
+
+  \IfFileExists{logos/tum.png}{%
+    \includegraphics[height=20mm]{logos/tum.png}
+  }{%
+    \vspace*{20mm}
+  }
+
+  \vspace{5mm}
+  {\huge\MakeUppercase{\getFaculty{}}}\\
+
+  \vspace{5mm}
+  {\large\MakeUppercase{\getUniversity{}}}\\
+
+  \vspace{20mm}
+  {\Large \getDoctype{}}
+
+  \makeatletter
+  \vspace{15mm}
+  {\huge\bfseries \getTitle{}}
+
+  \vspace{55mm}
+  \begin{tabular}{l l}
+    Author:          & \getAuthor{} \\
+    Supervisors:      & \getSupervisorOne{} \\ & \getSupervisorTwo{} \\
+    Submission Date: & \getSubmissionDate{} \\
+  \end{tabular}
+
+  \IfFileExists{logos/faculty.png}{%
+    \vfill{}
+    \includegraphics[height=20mm]{logos/faculty.png}
+  }{}
+  
+\end{titlepage}
