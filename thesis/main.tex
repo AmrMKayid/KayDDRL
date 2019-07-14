@@ -1,17 +1,20 @@
 \RequirePackage[l2tabu,orthodox]{nag}
 
-\documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,DIV=12]{scrbook} 
+% TODO: decide if one-sided/two-sided
+\documentclass[headsepline,footsepline,footinclude=false,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,BCOR=12mm,DIV=12]{scrbook} % two-sided
+% \documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook} % one-sided
+% \documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,DIV=12]{scrbook} 
 
 \input{settings}
 \newcommand*{\getUniversity}{Technische Universität München}
 \newcommand*{\getFaculty}{Department of Informatics}
 \newcommand*{\getTitle}{Distributed Deep Reinforcement Learning for Large Scale Robotic Simulations}
 \newcommand*{\getTitleGer}{Titel der Abschlussarbeit}
-\newcommand*{\getAuthor}{Amr Kayid}
+\newcommand*{\getAuthor}{Amr Mohamed Kayid}
 \newcommand*{\getDoctype}{Bachelor's Thesis}
-\newcommand*{\getSupervisorOne}{Benedikt Feldotto M.Sc.}
-\newcommand*{\getSupervisorTwo}{Prof. Dr.-Ing. Alois Christian Knoll}
-\newcommand*{\getSubmissionDate}{May, 2019}
+\newcommand*{\getAdvisor}{Benedikt Feldotto M.Sc.}
+\newcommand*{\getSupervisor}{Prof. Dr.-Ing. Alois Christian Knoll}
+\newcommand*{\getSubmissionDate}{August, 2019}
 \newcommand*{\getSubmissionLocation}{Munich}
 
 \begin{document}
@@ -37,7 +40,7 @@
 % Chapters
 \input{chapters/01/main}
 \input{chapters/02/main}
-\input{chapters/03/main}
+% \input{chapters/03/main}
 \input{chapters/04/main}
 \input{chapters/05/main}
 \input{chapters/06/main}

@@ -11,6 +11,101 @@
   year={2017}
 }
 
+
+@COMMENT{
+  #############################################
+        Related Work (Distributed Deep RL)
+  #############################################
+} 
+
+@inproceedings{dean2012large,
+  title={Large scale distributed deep networks},
+  author={Dean, Jeffrey and Corrado, Greg and Monga, Rajat and Chen, Kai and Devin, Matthieu and Mao, Mark and Senior, Andrew and Tucker, Paul and Yang, Ke and Le, Quoc V and others},
+  booktitle={Advances in neural information processing systems},
+  pages={1223--1231},
+  year={2012}
+}
+
+@article{ong2015distributed,
+  title={Distributed deep Q-learning},
+  author={Ong, Hao Yi and Chavez, Kevin and Hong, Augustus},
+  journal={arXiv preprint arXiv:1508.04186},
+  year={2015}
+}
+
+@article{nair2015massively,
+  title={Massively parallel methods for deep reinforcement learning},
+  author={Nair, Arun and Srinivasan, Praveen and Blackwell, Sam and Alcicek, Cagdas and Fearon, Rory and De Maria, Alessandro and Panneershelvam, Vedavyas and Suleyman, Mustafa and Beattie, Charles and Petersen, Stig and others},
+  journal={arXiv preprint arXiv:1507.04296},
+  year={2015}
+}
+
+@inproceedings{mnih2016asynchronous,
+  title={Asynchronous methods for deep reinforcement learning},
+  author={Mnih, Volodymyr and Badia, Adria Puigdomenech and Mirza, Mehdi and Graves, Alex and Lillicrap, Timothy and Harley, Tim and Silver, David and Kavukcuoglu, Koray},
+  booktitle={International conference on machine learning},
+  pages={1928--1937},
+  year={2016}
+}
+
+@article{babaeizadeh2016ga3c,
+  title={GA3C: GPU-based A3C for deep reinforcement learning},
+  author={Babaeizadeh, Mohammad and Frosio, Iuri and Tyree, Stephen and Clemons, Jason and Kautz, Jan},
+  journal={CoRR abs/1611.06256},
+  year={2016}
+}
+
+@article{schaul2015prioritized,
+  title={Prioritized experience replay},
+  author={Schaul, Tom and Quan, John and Antonoglou, Ioannis and Silver, David},
+  journal={arXiv preprint arXiv:1511.05952},
+  year={2015}
+}
+
+@article{salimans2017evolution,
+  title={Evolution strategies as a scalable alternative to reinforcement learning},
+  author={Salimans, Tim and Ho, Jonathan and Chen, Xi and Sidor, Szymon and Sutskever, Ilya},
+  journal={arXiv preprint arXiv:1703.03864},
+  year={2017}
+}
+
+@article{clemente2017efficient,
+  title={Efficient parallel methods for deep reinforcement learning},
+  author={Clemente, Alfredo V and Castej{\'o}n, Humberto N and Chandra, Arjun},
+  journal={arXiv preprint arXiv:1705.04862},
+  year={2017}
+}
+
+@inproceedings{adamski2018distributed,
+  title={Distributed deep reinforcement learning: Learn how to play atari games in 21 minutes},
+  author={Adamski, Igor and Adamski, Robert and Grel, Tomasz and J{\k{e}}drych, Adam and Kaczmarek, Kamil and Michalewski, Henryk},
+  booktitle={International Conference on High Performance Computing},
+  pages={370--388},
+  year={2018},
+  organization={Springer}
+}
+
+@article{horgan2018distributed,
+  title={Distributed prioritized experience replay},
+  author={Horgan, Dan and Quan, John and Budden, David and Barth-Maron, Gabriel and Hessel, Matteo and Van Hasselt, Hado and Silver, David},
+  journal={arXiv preprint arXiv:1803.00933},
+  year={2018}
+}
+
+@article{espeholt2018impala,
+  title={Impala: Scalable distributed deep-rl with importance weighted actor-learner architectures},
+  author={Espeholt, Lasse and Soyer, Hubert and Munos, Remi and Simonyan, Karen and Mnih, Volodymir and Ward, Tom and Doron, Yotam and Firoiu, Vlad and Harley, Tim and Dunning, Iain and others},
+  journal={arXiv preprint arXiv:1802.01561},
+  year={2018}
+}
+
+@article{castro2018dopamine,
+  title={Dopamine: A research framework for deep reinforcement learning},
+  author={Castro, Pablo Samuel and Moitra, Subhodeep and Gelada, Carles and Kumar, Saurabh and Bellemare, Marc G},
+  journal={arXiv preprint arXiv:1812.06110},
+  year={2018}
+}
+
 @COMMENT{
   #############################################
               Policy Search Ref. 
@@ -171,33 +266,6 @@
 
 @COMMENT{
   #############################################
-              Distributed Deep RL
-  #############################################
-} 
-
-@article{horgan2018distributed,
-  title={Distributed prioritized experience replay},
-  author={Horgan, Dan and Quan, John and Budden, David and Barth-Maron, Gabriel and Hessel, Matteo and Van Hasselt, Hado and Silver, David},
-  journal={arXiv preprint arXiv:1803.00933},
-  year={2018}
-}
-
-@article{espeholt2018impala,
-  title={Impala: Scalable distributed deep-rl with importance weighted actor-learner architectures},
-  author={Espeholt, Lasse and Soyer, Hubert and Munos, Remi and Simonyan, Karen and Mnih, Volodymir and Ward, Tom and Doron, Yotam and Firoiu, Vlad and Harley, Tim and Dunning, Iain and others},
-  journal={arXiv preprint arXiv:1802.01561},
-  year={2018}
-}
-
-@article{castro2018dopamine,
-  title={Dopamine: A research framework for deep reinforcement learning},
-  author={Castro, Pablo Samuel and Moitra, Subhodeep and Gelada, Carles and Kumar, Saurabh and Bellemare, Marc G},
-  journal={arXiv preprint arXiv:1812.06110},
-  year={2018}
-}
-
-@COMMENT{
-  #############################################
               RL Frameworks
   #############################################
 } 
@@ -222,4 +290,129 @@
   booktitle={13th $\{$USENIX$\}$ Symposium on Operating Systems Design and Implementation ($\{$OSDI$\}$ 18)},
   pages={561--577},
   year={2018}
+}
+
+@COMMENT{
+  #############################################
+              RL Applications
+  #############################################
+} 
+
+
+@article{silver2017mastering,
+  title={Mastering chess and shogi by self-play with a general reinforcement learning algorithm},
+  author={Silver, David and Hubert, Thomas and Schrittwieser, Julian and Antonoglou, Ioannis and Lai, Matthew and Guez, Arthur and Lanctot, Marc and Sifre, Laurent and Kumaran, Dharshan and Graepel, Thore and others},
+  journal={arXiv preprint arXiv:1712.01815},
+  year={2017}
+}
+
+@misc{OpenAI_dota,
+  author = {OpenAI},
+  title = {OpenAI Five},
+  howpublished = {\url{https://blog.openai.com/openai-five/}},
+  year = {2018}
+}
+
+@inproceedings{mao2016resource,
+  title={Resource management with deep reinforcement learning},
+  author={Mao, Hongzi and Alizadeh, Mohammad and Menache, Ishai and Kandula, Srikanth},
+  booktitle={Proceedings of the 15th ACM Workshop on Hot Topics in Networks},
+  pages={50--56},
+  year={2016},
+  organization={ACM}
+}
+
+@article{arel2010reinforcement,
+  title={Reinforcement learning-based multi-agent system for network traffic signal control},
+  author={Arel, Itamar and Liu, Cong and Urbanik, T and Kohls, AG},
+  journal={IET Intelligent Transport Systems},
+  volume={4},
+  number={2},
+  pages={128--135},
+  year={2010},
+  publisher={IET}
+}
+
+@article{kober2013reinforcement,
+  title={Reinforcement learning in robotics: A survey},
+  author={Kober, Jens and Bagnell, J Andrew and Peters, Jan},
+  journal={The International Journal of Robotics Research},
+  volume={32},
+  number={11},
+  pages={1238--1274},
+  year={2013},
+  publisher={SAGE Publications Sage UK: London, England}
+}
+
+@article{levine2016end,
+  title={End-to-end training of deep visuomotor policies},
+  author={Levine, Sergey and Finn, Chelsea and Darrell, Trevor and Abbeel, Pieter},
+  journal={The Journal of Machine Learning Research},
+  volume={17},
+  number={1},
+  pages={1334--1373},
+  year={2016},
+  publisher={JMLR. org}
+}
+
+@inproceedings{bu2009reinforcement,
+  title={A reinforcement learning approach to online web systems auto-configuration},
+  author={Bu, Xiangping and Rao, Jia and Xu, Cheng-Zhong},
+  booktitle={2009 29th IEEE International Conference on Distributed Computing Systems},
+  pages={2--11},
+  year={2009},
+  organization={IEEE}
+}
+
+@article{sallab2017deep,
+  title={Deep reinforcement learning framework for autonomous driving},
+  author={Sallab, Ahmad EL and Abdou, Mohammed and Perot, Etienne and Yogamani, Senthil},
+  journal={Electronic Imaging},
+  volume={2017},
+  number={19},
+  pages={70--76},
+  year={2017},
+  publisher={Society for Imaging Science and Technology}
+}
+
+@inproceedings{xu2018zero,
+  title={Zero-shot Deep Reinforcement Learning Driving Policy Transfer for Autonomous Vehicles based on Robust Control},
+  author={Xu, Zhuo and Tang, Chen and Tomizuka, Masayoshi},
+  booktitle={2018 21st International Conference on Intelligent Transportation Systems (ITSC)},
+  pages={2865--2871},
+  year={2018},
+  organization={IEEE}
+}
+
+@article{zhou2017optimizing,
+  title={Optimizing chemical reactions with deep reinforcement learning},
+  author={Zhou, Zhenpeng and Li, Xiaocheng and Zare, Richard N},
+  journal={ACS central science},
+  volume={3},
+  number={12},
+  pages={1337--1344},
+  year={2017},
+  publisher={ACS Publications}
+}
+
+
+@COMMENT{
+  #############################################
+                      Misc
+  #############################################
+} 
+
+@inproceedings{recht2011hogwild,
+  title={Hogwild: A lock-free approach to parallelizing stochastic gradient descent},
+  author={Recht, Benjamin and Re, Christopher and Wright, Stephen and Niu, Feng},
+  booktitle={Advances in neural information processing systems},
+  pages={693--701},
+  year={2011}
+}
+
+@article{degris2012off,
+  title={Off-policy actor-critic},
+  author={Degris, Thomas and White, Martha and Sutton, Richard S},
+  journal={arXiv preprint arXiv:1205.4839},
+  year={2012}
 }

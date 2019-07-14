@@ -2,11 +2,45 @@
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
 \chapter{Framework, Setup and Implementation}\label{chapter:Setup and Implementation}
-
 Our aim is building a modular distributed deep reinforcement learning framework that is capable of running multiple environments \textit{(OpenAI Gym, DeepMind Control Suite, Unity Ml-Agents, Visdoom, Atari)} with the state of the art \textbf{(SOTA)} reinforcement learning algorithms in both single and multiple environments which supports single-node multi-cpu multi-gpu architecture.
 
 Our design features the reusability of modular components which are friendly coded in an efficient way with code decoupling and organized submodules.
 Along with easy customizable configurations for both agents and environments. Also using the visualization submodule to output training stats and performance with the help of tensorboard. Finally the ability to save and load pre-trained models for evaluating and testing the agents with option of rending the environment.
+
+\section{Architecture Overview}
+We architecture design has a modular interface that support custom networks, agents, and environments. 
+
+it provides multi-cpu and multi-gpu training along with parallel environments. 
+
+for debugging and evaluation we support tensorboard logging, model saving, reloading, evaluation, and rendering. 
+
+We also use \textit{tune} for hyperparameters tuning and optimization.
+
+The architecture is divided into multiple engines which support normal and distributed modes as describe here:
+
+\begin{figure}[H]%
+  \centering
+  \includegraphics[width=\linewidth]{figures/architecture.png}%
+  \caption{Architecture Design}%
+  \label{fig:custom-reacher-xml}%
+\end{figure}
+
+\subsection{Engines}
+Engines contains the configurations for the experiments. it starts with initializing the environment manager and building the corresponding agent for the given environment, then it calls the container and start the training. 
+
+\subsection{Containers}
+Containers hold all of the application state. it's where the training process starts. Each subprocess gets a container in Towered and IMPALA modes.
+
+\subsection{Agents}
+An Agent acts on and observes the environment.With the state of the art algorithms and the support for multiple workers and distributed training
+
+\subsection{Networks}
+ModularNetwork classes. A ModularNetwork consists of a source nets, body, and heads. which is used to compute the actions for the given states of the environments.
+
+\subsection{Environments}
+Environments run in subprocesses and send their observation, rewards, terminals, and infos to the host process. They work pretty much the same way as OpenAI's code.
+
+
 
 % \section{Neurorobotics Platform Overview}
 
@@ -24,15 +58,16 @@ Additionally, Unity environment provides a version which contains 20 identical a
 
 Illustration for the environments can be founded here:~\ref{fig:reacher-environment}
 
-\begin{figure}%
-    \centering
-    \subfloat[OpenAI Gym]{{\includegraphics[width=7cm]{figures/envs/openai-gym-reacher-1.png} }}%
-    \qquad
-    \subfloat[Unity Single Agent]{{\includegraphics[width=7cm]{figures/envs/unity-reacher-1.png} }}%
-    \subfloat[Unity Multiple Agent]{{\includegraphics[width=7cm]{figures/envs/unity-reacher-20.png} }}%
-    \caption{Reacher Environment}%
-    \label{fig:reacher-environment}%
-\end{figure}
+
+% \begin{figure}%
+%     \centering
+%     \subfloat[OpenAI Gym]{{\includegraphics[width=7cm]{figures/envs/openai-gym-reacher-1.png} }}%
+%     \qquad
+%     \subfloat[Unity Single Agent]{{\includegraphics[width=7cm]{figures/envs/unity-reacher-1.png} }}%
+%     \subfloat[Unity Multiple Agent]{{\includegraphics[width=7cm]{figures/envs/unity-reacher-20.png} }}%
+%     \caption{Reacher Environment}%
+%     \label{fig:reacher-environment}%
+% \end{figure}
 
 \clearpage
 

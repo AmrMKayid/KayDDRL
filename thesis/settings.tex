@@ -11,6 +11,7 @@
 \usepackage[ngerman,english]{babel}
 \usepackage[autostyle]{csquotes}
 \usepackage[%
+  backref=true,
   backend=biber,
   url=true,
   style=numeric,
@@ -20,6 +21,12 @@
   maxbibnames=99,
   giveninits,
   uniquename=init]{biblatex}
+
+\DefineBibliographyStrings{english}{%
+  backrefpage = {page},% originally "cited on page"
+  backrefpages = {pages},% originally "cited on pages"
+}
+
 \usepackage{graphicx}
 \usepackage{scrhack} 
 \usepackage{listings}
@@ -31,9 +38,20 @@
 \usepackage[final]{microtype}
 \usepackage{caption}
 \usepackage[hidelinks]{hyperref} 
+% \usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 \usepackage{pdftexcmds} 
 \usepackage{paralist} 
-\usepackage{subfig} 
+% \usepackage{subfig} 
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[font={small,it}, labelfont=bf]{caption}
 \usepackage{siunitx}
 \usepackage{multirow} 
 \usepackage{array} 
@@ -64,6 +82,7 @@
 
 \setkomafont{disposition}{\normalfont\bfseries} 
 \linespread{1.05} 
+\setlength{\parskip}{0.75em}
 
 \BeforeTOCHead[toc]{{\cleardoublepage\pdfbookmark[0]{\contentsname}{toc}}}
 
