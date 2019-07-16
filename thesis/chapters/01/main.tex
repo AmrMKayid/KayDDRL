@@ -2,6 +2,7 @@
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
 \chapter{Introduction}\label{chapter:introduction}
+
 Reinforcement learning \textbf{(RL)} is an area of machine learning inspired by behaviorist psychology, which has revolutionized our understanding of learning in the brain in the last 20 years. Unlike other machine learning approaches, that are dependent on \textit{pre-collected data}, Reinforcement Learning is a type of semi-supervised machine learning approach that which allows an agent to take actions and interact with an environment so as to maximize the total rewards.
 
 Reinforcement learning is the closest field to Artificial General Intelligence, which mimic the human’s ability to learn from its experiences. It is best applied to situations where algorithms have to take a decision according to their environment.
@@ -13,27 +14,18 @@ AGI is a type of \textit{\textbf{meta-learning}} which refers to the ability of 
 Over the past few years, there have been many interesting applications and advancements in this area. Reinforcement learning approaches have achieved remarkable results in many areas. Starting from playing atari games and achieving human-level performance~\parencite{mnih2015human} to defeating champions of chess, shogi and Go with \textbf{Deepmind's AlphaZero}~\parencite{silver2017mastering}, followed by defeating the world’s top players in the game of DOTA 2 \textit{(which  have an infinite number of states and gameplay can be strategized absolutely in any ‘n’ number of ways)} with \textbf{OpenAI FIVE}~\parencite{OpenAI_dota}. Although FIVE achieved this feat under some restrictions, it remains a remarkable one. Moreover, Reinforcement learning have been used for complex tasks and sequential decision making in unknown environments which is very useful for complex applications and fields like \textit{robotics}~\parencite{kober2013reinforcement, levine2016end, 45926, singh2019end}, \textit{autonomous driving}~\parencite{sallab2017deep, xu2018zero}, \textit{web system configurations and telecommunication}~\parencite{bu2009reinforcement}, \textit{computer clusters resources management}~\parencite{mao2016resource}, \textit{traffic light control}~\parencite{arel2010reinforcement}, and \textit{chemistry}~\parencite{zhou2017optimizing}.
 
 \section{Motivation}
-Despite all the advancements that RL has made in many fields, it still lacks the proper scalability and require tremendous amount of computing power to master one of the tasks in a single domain. 
+
+Reinforcement learning is an incredibly general paradigm, and in principle, a robust and performant RL system should be great at everything. Merging this paradigm with the empirical power of deep learning is an obvious fit. Deep RL is one of the closest things that looks anything like AGI. 
+
+Despite the recent success of RL, there is still a lot of work to be done before it will become a mainstream technique. A key issue in reinforcement learning is to design algorithms that are both scalable and data efficient. It still lacks the proper scalability and require tremendous amount of computing power to master one of the tasks in a single domain. 
+
+% TODO: paraphrase
+Since RL deals with learning to operate continuously within an uncertain environment based on delayed and limited feedback, and the central goal of an RL application is to learn a policy—a mapping from the state of the environment to a choice of action—that yields effective performance over time, e.g., winning a game or piloting a drone. Finding effective policies in large-scale applications requires three main capabilities. First, RL methods often rely on simulation to evaluate policies. Simulations make it possible to explore many different choices of action sequences and to learn about the long-term consequences of those choices. Second, like their supervised learning counterparts, RL algorithms need to perform distributed training to improve the policy based on data generated through simulations or interactions with the physical environment. Third, policies are intended to provide solutions to control problems, and thus it is necessary to serve the policy in interactive closed-loop and open-loop control scenarios.
+
+These characteristics drive new systems requirements: a system for RL must support fine-grained computations (e.g., rendering actions in milliseconds when interacting with the real world, and performing vast numbers of simulations), must support heterogeneity both in time (e.g., a simulation may take milliseconds or hours) and in resource usage (e.g., GPUs for training and CPUs for simulations), and must support dynamic execution, as results of simulations or interactions with the environment can change future computations. Thus, we need a dynamic computation framework that handles millions of heterogeneous tasks per second at millisecond-level latencies.
+%%%
+
 Recently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.
-
-% TODO: REMOVE
-
-While a single GPU often provides algorithmic simplicity and speed up to a given scale of data and
-model, there exist an operating point where a distributed implementation of training algorithms for
-deep architectures becomes necessary.
-
-
-Despite all the advancements that RL has made in many fields, it still lacks the proper scalability and require tremendous amount of computing power to master one of the tasks in a single domain. 
-Recently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.Despite all the advancements that RL has made in many fields, it still lacks the proper scalability and require tremendous amount of computing power to master one of the tasks in a single domain. 
-
-
-Recently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.one of the tasks in a single domain. 
-Recently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.
-
-ecently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.one of the tasks in a single domain. 
-Recently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.
-
-\clearpage
 
 \section{Related Work}
 
@@ -142,11 +134,58 @@ This architecture achieved state of the art results~\ref{fig:apex_results} in a 
 
 Other research have attempt to scale up by using multiple GPUs and utilizing them. The simplest method is batched A2C~\parencite{clemente2017efficient} in which with every step produces a batch of actions and applies them to a batch of environments. BA3C~\parencite{babaeizadeh2016ga3c} another method which uses asynchronous data collection to effectively utilize GPUs.
 
-The state of the art method in distributed reinforcement learning is \textbf{Impala}~\parencite{espeholt2018impala}, which is able to do \textbf{30 different challenging tasks} that require various aspects of \textit{learning, memory, and navigation}. This method of learning has already been used for some amazing achievements such as endowing an AI with emotions and learning complex games like ``Go'' and ``Poker''.
+The most recent work done in the are of distributed deep reinforcement learning and multi-tasking learning which achieve the state of the art performance is \textit{Importance Weighted Actor-Learner Architectures}~\ref{fig:impala} \textbf{(IMPALA)}~\parencite{espeholt2018impala} by DeepMind. It is a scalable distributed DeepRL for their newly designed DMLab-30 environment (which is a collection of new levels designed using our open source RL environment \textit{DeepMind Lab}, These environments are provides to test systems on a large spectrum of interesting tasks either individually or in a multi-task setting).
+
+Importance Weighted Actor-Learner Architecture~\ref{fig:impala_arch} is inspired by the popular \textbf{A3C} architecture which uses multiple distributed actors to learn the agent’s parameters. The developed new distributed agent impala maximizes data throughput using an efficient distributed architecture with TensorFlow. 
+In training process for actor-critic methods, each of the actors uses a clone of the policy parameters to act in the environment. Periodically, actors pause their exploration to share the gradients they have computed with a central parameter server that applies updates. 
+
+On the other hand, impala's actors are not used to calculate gradients. Instead, they are just used to \textit{collect experience} which is passed to a \textit{\textbf{central learner}} that computes gradients, resulting in a model that has completely independent actors and learners. 
+Separating the learning and acting in this way also has the advantage of increasing the throughput of the whole system since the actors no longer need to wait for the learning step like in architectures such as batched A2C~\ref{fig:impala_vs_a2c}. This allows us to train impala architectures on interesting environments without suffering from variance in frame rendering-time or time consuming task restarts.
+
+However, decoupling the acting and learning causes the policy in the actor to lag behind the learner. In order to compensate for this difference we introduce a principled off-policy advantage actor critic formulation called V-trace which compensates for the trajectories obtained by actors being off policy.
+
+Importance Weighted Actor-Learner Architecture was 10 times more data efficient and achieved double the final score compared to distributed A3C~\ref{fig:impala_results}.  Moreover, Importance Weighted Actor-Learner Architectures showed positive transfer from training in multi-task settings compared to training in single-task setting.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/algos/impala.png}
+		\caption{The IMPALA Architecture.}
+		\label{fig:impala_arch}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/algos/impala_vs_a2c.png}
+		\caption{IMPALA vs Batched A2C Training}
+		\label{fig:impala_vs_a2c}
+    \end{subfigure}
+    \hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/algos/impala_results.png}
+        \caption{IMPALA Results}
+		\label{fig:impala_results}
+	\end{subfigure}
+	\hfill
+	   \caption{The IMPALA Architecture, Comparison \& Results}
+	   \label{fig:impala}
+\end{figure}
+
+On the practical side, there have been some frameworks developments that focuses on distributed deep reinforcement learning and applying all the techniques and algorithms to multiple environments for the sake of advancing DRL research. Dopamine~\parencite{castro2018dopamine} is a new framework for flexible and reproducible Reinforcement Learning Research by google in which they provide large-scale distributed training and enabling distributing the learning process across multiple workers, with distributional methods that allow agents to model full distributions, rather than simply their expected values, to learn a more complete picture of their world. This framework aims to provide flexibility, stability, and reproducibility for new and experienced RL researchers alike. Inspired by one of the main components in \textit{reward-motivated behaviour (dopamine)} in the brain and reflecting the strong historical connection between neuroscience and reinforcement learning research.
+
+Ray~\parencite{moritz2018ray} is another more general framework with Distributed Execution for AI Applications. Ray is a high-performance distributed execution framework targeted at large-scale machine learning and reinforcement learning applications. It achieves scalability and fault tolerance by abstracting the control state of the system in a global control store and keeping all other components stateless. It uses a shared-memory distributed object store to efficiently handle large data through shared memory, and it uses a bottom-up hierarchical scheduling architecture to achieve low-latency and high-throughput scheduling. It uses a lightweight API based on dynamic task graphs and actors to express a wide range of applications in a flexible manner.
 
 
 \section{Research Statement}
-In this project we experiment the effect of training different environment in both non-distributed and distribute training modes. We compare between the state of the art algorithms in the field and effect of distributing them and using parallel environment while training the agents.
+In this research project, our aim is to apply a set of reinforcement learning algorithms (distributed and non-distributed architectures) to multiple different existing environments and run some experiments in normal non-distributed setup and parallel and distributed setup to measure the effect of the training modes and compare the performance among these environments and see the effect of the distribution. 
+
+We will be comparing between the state of the art algorithms mentions above in the related work and we will be using Ray framework as our backend for the experiments along with some of the implemented algorithms. 
+
+We created will create abstract class to unify the different RL environments to provide clarity and simplicity to deal with the environments and to be easy to use with other existing frameworks.
+
+In our work, we will be demonstrating full benchmarking for all the experiments we have done along with comparisons between all of the environments and applied algorithms.
 
 \section{Overview and Outline}
 The work is organized as follows. In \autoref{chapter:Background and Foundations}, the theoretical background linked to reinforcement learning and the Markov decision process framework are introduced. Furthermore, we discuss the use of deep learning in RL framework and the state of the art algorithms, we also discuss the challenging problems associated with reinforcement learning.  The \autoref{chapter:Background and Foundations} presents the experiment setting used in \autoref{chapter:Background and Foundations}. The latter presents, examines and discusses the results. Finally, \autoref{chapter:Background and Foundations} discusses future work and concludes.
