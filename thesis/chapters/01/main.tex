@@ -3,27 +3,104 @@
 
 \chapter{Introduction}\label{chapter:introduction}
 
-Reinforcement learning \textbf{(RL)} is an area of machine learning inspired by behaviorist psychology, which has revolutionized our understanding of learning in the brain in the last 20 years. Unlike other machine learning approaches, that are dependent on \textit{pre-collected data}, Reinforcement Learning is a type of semi-supervised machine learning approach that which allows an agent to take actions and interact with an environment so as to maximize the total rewards.
+Reinforcement learning \textbf{(RL)}~\ref{fig:rl} is an area of machine learning~\ref{fig:rl_2} inspired by behaviorist psychology and intersect between different fields including neuroscience, psychology, mathematics and economics~\ref{fig:rl_1}. It has revolutionized our understanding of learning in the brain over the last 20 years. Unlike other machine learning approaches, that are dependent on \textit{pre-collected data}, Reinforcement Learning allows an agent to take actions in order to observe and interact with an environment to maximize total rewards towards achieving some goals.
 
-Reinforcement learning is the closest field to Artificial General Intelligence, which mimic the human’s ability to learn from its experiences. It is best applied to situations where algorithms have to take a decision according to their environment.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/rl_1.png}
+		\caption{Faces of Reinforcement Learning}
+		\label{fig:rl_1}
+    \end{subfigure}
+    \hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/rl_2.png}
+        \caption{Branches of Machine Learning}
+		\label{fig:rl_2}
+	\end{subfigure}
+	\hfill
+	   \caption{General Overview of Reinforcement Learning~\parencite{deepmind_rl}}
+	   \label{fig:rl}
+\end{figure}
 
-Artificial General Intelligence \textbf{(AGI)} is one such concept where a machine is able to successfully perform any intellectual task that a human being can. AGI has been the most sought-after goal in the entire field of computer science. Most of the current AI applications are problems specific, and they barely touch down to the hopes of AGI. But, with reinforcement learning, achieving the goal of AGI is quite a possibility.
 
-AGI is a type of \textit{\textbf{meta-learning}} which refers to the ability of a single algorithm to learn multiple tasks. It can be thought of as the job of the algorithm to \textit{learn how to learn and generalize it to acquire new skills, the way humans do.}
+Reinforcement learning combined with deep learning offer a promising path within the study of intelligent systems for achieving Artificial General Intelligence, which mimics the human's ability to learn from its own experiences. It is best applied to situations where algorithms have to decide according to their environment.
 
-Over the past few years, there have been many interesting applications and advancements in this area. Reinforcement learning approaches have achieved remarkable results in many areas. Starting from playing atari games and achieving human-level performance~\parencite{mnih2015human} to defeating champions of chess, shogi and Go with \textbf{Deepmind's AlphaZero}~\parencite{silver2017mastering}, followed by defeating the world’s top players in the game of DOTA 2 \textit{(which  have an infinite number of states and gameplay can be strategized absolutely in any ‘n’ number of ways)} with \textbf{OpenAI FIVE}~\parencite{OpenAI_dota}. Although FIVE achieved this feat under some restrictions, it remains a remarkable one. Moreover, Reinforcement learning have been used for complex tasks and sequential decision making in unknown environments which is very useful for complex applications and fields like \textit{robotics}~\parencite{kober2013reinforcement, levine2016end, 45926, singh2019end}, \textit{autonomous driving}~\parencite{sallab2017deep, xu2018zero}, \textit{web system configurations and telecommunication}~\parencite{bu2009reinforcement}, \textit{computer clusters resources management}~\parencite{mao2016resource}, \textit{traffic light control}~\parencite{arel2010reinforcement}, and \textit{chemistry}~\parencite{zhou2017optimizing}.
+Artificial General Intelligence \textbf{(AGI)} is a type of \textit{\textbf{meta-learning}} introducing one concept where a machine can successfully understand, learn and perform any intellectual task that a human being can and the ability to learn multiple tasks, allowing the machine to \textit{learn how to learn and generalize it to acquire new skills, the way humans do}. Hence, AGI focuses on the study of systems that can perform tasks successfully across different problem domains. Most of the current ``conventional'' AI systems are domain specific. General problem-solving ability is one that humans naturally exhibit along with decision making under uncertainty, which provide generalization to facilitates broad situation inference.
+Reinforcement Learning may pave the way for a breakthrough in our ability to build systems that will eventually exhibit human-level intelligence.
+
+Over the past few years, reinforcement learning approaches have many interesting applications and advancements which achieved remarkable results in many areas. Starting from playing atari games and achieving human-level performance~\parencite{mnih2015human} to defeating champions of chess, shogi and Go~\footnote{\textit{In The game of Go, The number of possible configurations of the board is more than the number of atoms in the universe}} with \textbf{Deepmind's AlphaGo Zero}~\parencite{silver2017mastering}, followed by defeating the world's top players in the game of DOTA 2~\footnote{\textit{DOTA 2: a real-time strategy game, one of the most popular and complex esports games in the world which has an infinite number of states and gameplay}} with \textbf{OpenAI FIVE}~\parencite{OpenAI_dota}. Moreover, Reinforcement learning have been used for complex tasks and sequential decision making in unknown environments which is very useful for complex applications and fields like \textit{robotics}~\parencite{kober2013reinforcement, levine2016end, 45926, singh2019end}, \textit{autonomous driving}~\parencite{sallab2017deep, xu2018zero}, \textit{web system configurations and telecommunication}~\parencite{bu2009reinforcement}, \textit{computer clusters resources management}~\parencite{mao2016resource}, \textit{traffic light control}~\parencite{arel2010reinforcement}, and \textit{chemistry}~\parencite{zhou2017optimizing}.
 
 \section{Motivation}
 
-Reinforcement learning is an incredibly general paradigm, and in principle, a robust and performant RL system should be great at everything. Merging this paradigm with the empirical power of deep learning is an obvious fit. Deep RL is one of the closest things that looks anything like AGI. 
+Reinforcement learning have achieve groundbreaking results leading the way to the best intelligent systems we could ever have.
+However, since the current techniques and algorithms deals with learning to continuously operate within an uncertain environment based on delayed and limited feedback, this requires huge amount of training data to be able to learn a policy —a mapping from the state of the environment to a choice of action— that yields effective performance over time.
 
-Despite the recent success of RL, there is still a lot of work to be done before it will become a mainstream technique. A key issue in reinforcement learning is to design algorithms that are both scalable and data efficient. It still lacks the proper scalability and require tremendous amount of computing power to master one of the tasks in a single domain. 
+Despite the training data usually get collected ``on the fly'' while training as the agent starts with no prior knowledge of the environment and then starts collecting experiences through interacting with the environment, it still takes time to collect and store data, pass it to the algorithm to get updated and enhance the performance of the agent. This leads the training process to take many hours, days or even weeks for some complex algorithms and systems. Nevertheless, it requires enormous amount of computing power to achieve the desired results. 
 
-% TODO: paraphrase
-Since RL deals with learning to operate continuously within an uncertain environment based on delayed and limited feedback, and the central goal of an RL application is to learn a policy—a mapping from the state of the environment to a choice of action—that yields effective performance over time, e.g., winning a game or piloting a drone. Finding effective policies in large-scale applications requires three main capabilities. First, RL methods often rely on simulation to evaluate policies. Simulations make it possible to explore many different choices of action sequences and to learn about the long-term consequences of those choices. Second, like their supervised learning counterparts, RL algorithms need to perform distributed training to improve the policy based on data generated through simulations or interactions with the physical environment. Third, policies are intended to provide solutions to control problems, and thus it is necessary to serve the policy in interactive closed-loop and open-loop control scenarios.
+Following two examples for two of the most successful and breakthrough advancements in Reinforcement Learning field, to demonstrate the training time and huge computation power to train such algorithms.
 
-These characteristics drive new systems requirements: a system for RL must support fine-grained computations (e.g., rendering actions in milliseconds when interacting with the real world, and performing vast numbers of simulations), must support heterogeneity both in time (e.g., a simulation may take milliseconds or hours) and in resource usage (e.g., GPUs for training and CPUs for simulations), and must support dynamic execution, as results of simulations or interactions with the environment can change future computations. Thus, we need a dynamic computation framework that handles millions of heterogeneous tasks per second at millisecond-level latencies.
-%%%
+\textbf{Deepmind's AlphaZero}~\parencite{silver2017mastering} starts learning by playing games against itself, starting from completely random play. The neural network in AlphaGo Zero is trained from games of self-play by a novel reinforcement learning algorithm along with Monte-Carlo Tree Search (MCTS)~\ref{fig:alphago_search_tree}. 
+Despite AlphaGo Zero used a single machine with \textit{4 tensor processing units (TPUs)}, in contrast with AlphaGo that was distributed over many machines and used \textit{48 TPUs}, it still took \textbf{21 days} it surpass AlphaGo Master and \textbf{40 days}~\ref{fig:alphago_train} to surpass all other versions of AlphaGo.
+
+\textbf{OpenAI FIVE}~\parencite{OpenAI_dota} plays 180 years worth of games against itself every day, learning via self-play. It trains using a scaled-up version of Proximal Policy Optimization running on \textbf{256 GPUs and 128,000 CPU cores}~\ref{fig:five_hardware}.
+
+The illustrations~\ref{fig:zero_and_five} show the amount of time along with computation and power consumptions required by the two algorithms to master the assigned tasks and get desired results.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/alphago_zero.png}
+		\caption{AlphaGo Zero Training Time}
+		\label{fig:alphago_train}
+    \end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/alphago_search_tree.png}
+        \caption{AlphaGo Search Tree}
+		\label{fig:alphago_search_tree}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/alphago_power.png}
+        \caption{AlphaGo Versions Compute Power}
+		\label{fig:alphago_power}
+	\end{subfigure}
+	\hfill
+
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/openai_five_hardware.png}
+		\caption{Hardware used for OpenAI Five}
+		\label{fig:five_hardware}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/openai_five_training.png}
+        \caption{OpenAI Training Workflow}
+		\label{fig:rl_2}
+	\end{subfigure}
+    \hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/openai_five_time.png}
+        \caption{OpenAI Training Time}
+		\label{fig:rl_2}
+	\end{subfigure}
+	\hfill
+	   \caption{AlphaGo Zero \& OpenAI Five}
+	   \label{fig:zero_and_five}
+\end{figure}
+
+This introduce a critical \textit{\textbf{(experiment turn-around time)}} bottleneck for reinforcement learning research and in practice along with key issue to design algorithms that are both scalable and data efficient. To overcome this bottleneck, reinforcement learning need to support fine-grained computations (e.g., rendering actions in milliseconds when interacting with the real world, and performing vast numbers of simulations), must support heterogeneity both in time (e.g., a simulation may take milliseconds or hours) and in resource usage (e.g., GPUs for training and CPUs for simulations), and must support dynamic execution, as results of simulations or interactions with the environment can change future computations. 
+
+Leading the way to building new frameworks and investigating how to optimize existing DRL algorithms for modern computers, to better leverage usage of multiple CPUs and GPUs and the combination between them, to provide the proper scalability and utilizing distributed training.
 
 Recently, there have been a quite interest and research on the scalability and distribution of RL algorithms and training with parallel and different environment to enhance the performance of the agents and reduce the amount of time it takes to master the learning task.
 
@@ -36,14 +113,14 @@ called \textit{Asynchronous Stochastic Gradient Descent} (Async-SGD).
 
 In practice, it means that while a worker computes gradients of the loss with respect to its parameters on a given mini-batch, other workers also interact with the parameter servers and thus potentially update its parameters, hence when a worker sends back its gradients to the parameter server, these gradients are usually computed w.r.t. the parameters of an old version of the model. When a model is trained with N workers, each update will be $N-1$ steps old on average.
 
-\begin{figure}[H]
+\begin{figure}[tph]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/algos/sgd.png}
+    \includegraphics[width=0.5\linewidth]{figures/algos/sgd.png}
     \caption{Async-SGD: Model replicas asynchronously fetch parameters w and push gradients \(\Delta w\) to the parameter server.}
     \label{fig:sgd}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 Since then a couple of different RL algorithms have proposed including:
 
@@ -179,13 +256,11 @@ Ray~\parencite{moritz2018ray} is another more general framework with Distributed
 
 
 \section{Research Statement}
-In this research project, our aim is to apply a set of reinforcement learning algorithms (distributed and non-distributed architectures) to multiple different existing environments and run some experiments in normal non-distributed setup and parallel and distributed setup to measure the effect of the training modes and compare the performance among these environments and see the effect of the distribution. 
+In this research project, our aim is to apply a set of reinforcement learning algorithms (distributed and non-distributed architectures) to multiple different existing environments and run experiments in normal non-distributed setup vs parallel and distributed setup to measure the effect of the training modes and compare the performance among these environments and see the effect of the distribution and the power of multiple CPUs and GPUs setup. 
 
-We will be comparing between the state of the art algorithms mentions above in the related work and we will be using Ray framework as our backend for the experiments along with some of the implemented algorithms. 
+We will be comparing between the state of the art algorithms mentions above in the related work along with using Ray framework as our backend for the experiments along with some of the implemented algorithms. We created our abstract class to unify the different RL environments to provide clarity and simplicity to deal with the environments and to be easy to use with other existing frameworks.
 
-We created will create abstract class to unify the different RL environments to provide clarity and simplicity to deal with the environments and to be easy to use with other existing frameworks.
-
-In our work, we will be demonstrating full benchmarking for all the experiments we have done along with comparisons between all of the environments and applied algorithms.
+Then with our dristibuted learning architecture and setup we provide evaluation for distribution and transferability of networks between different physics simulators with full benchmarking for all the experiments we have done along with comparisons between all of the environments and applied algorithms.
 
 \section{Overview and Outline}
-The work is organized as follows. In \autoref{chapter:Background and Foundations}, the theoretical background linked to reinforcement learning and the Markov decision process framework are introduced. Furthermore, we discuss the use of deep learning in RL framework and the state of the art algorithms, we also discuss the challenging problems associated with reinforcement learning.  The \autoref{chapter:Background and Foundations} presents the experiment setting used in \autoref{chapter:Background and Foundations}. The latter presents, examines and discusses the results. Finally, \autoref{chapter:Background and Foundations} discusses future work and concludes.
+The work is organized as follows. In \autoref{chapter:background_and_foundations}, the theoretical background linked to reinforcement learning and the Markov decision process framework are introduced. Furthermore, we discuss the use of deep learning in RL framework and the state of the art algorithms, we also discuss the challenging problems associated with reinforcement learning.  The \autoref{chapter:setup_and_implementation} presents the setup of our experiments with the architecture, frameworks and classes used to accomplish our research goal. \autoref{chapter:experiments} illustrate the experiments we have done along with the results and comparisons. Finally, \autoref{chapter:conclusion_and_future_work} discusses future work and concludes.

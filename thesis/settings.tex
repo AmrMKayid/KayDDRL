@@ -1,10 +1,5 @@
 \PassOptionsToPackage{table,svgnames,dvipsnames}{xcolor}
 
-% Page number up right
-% \usepackage{fancyhdr}
-% \pagestyle{fancy}
-% \fancyhf{}
-% \fancyhead[R]{\thepage}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
@@ -34,9 +29,12 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
-\usepackage{booktabs}
+\usepackage{booktabs} % for better looking table creations, but bad with vertical lines by design (package creator despises vertical lines)
 \usepackage[final]{microtype}
+
 \usepackage{caption}
+\usepackage{subcaption}
+\usepackage[font={small,it}, labelfont=bf]{caption}
 \usepackage[hidelinks]{hyperref} 
 % \usepackage{hyperref}
 \hypersetup{
@@ -46,12 +44,11 @@
     filecolor=magenta,      
     urlcolor=cyan,
 }
+
 \usepackage{pdftexcmds} 
 \usepackage{paralist} 
 % \usepackage{subfig} 
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage[font={small,it}, labelfont=bf]{caption}
+
 \usepackage{siunitx}
 \usepackage{multirow} 
 \usepackage{array} 
@@ -73,7 +70,7 @@
 \newcommand{\xmark}{\ding{55}}
 
 
-\usepackage[acronym,xindy,toc]{glossaries} 
+\usepackage[acronym,xindy,toc]{glossaries}
 \makeglossaries
 \loadglsentries{pages/glossary.tex} 
 

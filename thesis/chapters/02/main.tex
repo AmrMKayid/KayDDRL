@@ -1,7 +1,7 @@
 % !TeX root = ../../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\chapter{Background and Foundations}\label{chapter:Background and Foundations}
+\chapter{Background and Foundations}\label{chapter:background_and_foundations}
 
 This chapter represents the basic concepts used throughout our work. First, a brief introduction to the reinforcement learning field. Second, Markov Decision Processes (MDPs), the standard mathematical formalism framework for reinforcement learning will be introduced. Then, We will discuss the Value functions and Policy Gradient with the focus on Q-Learning. Next, we will discuss the methods used and differentiate between them. After that, we conclude with the use of deep learning with reinforcement learning with some of Deep Reinforcement Learning Algorithms. Finally, we discuss the challenges and limitation in Reinforcement Learning field.
 
@@ -11,17 +11,15 @@ Reinforcement Learning \textbf{RL} (\textit{The science of decision making}) is 
 The typical interaction loop between agent and environment is illustrated in Figure\ref{fig:agent_env}
 
 \begin{figure}[H]
-		\begin{center}
-				\includegraphics[width=.5\linewidth]{figures/Agent-Env.png}
-				\caption{Reinforcement Learning interaction loop. The agent takes an action at a\textsubscript{t} state s\textsubscript{t}. The environment then responds with the corresponding reward r\textsubscript{t+1} and the new state s\textsubscript{t+1}, which are fed back to the agent~\parencite{arulkumaran2017brief}}
-				% \caption{Reinforcement Learning interaction loop. [\citetitle{sutton2018reinforcement}]}
-				\label{fig:agent_env}
-		\end{center}
+	\centering
+		\includegraphics[width=.5\linewidth]{figures/Agent-Env.png}
+		\caption{Reinforcement Learning interaction loop. The agent takes an action at a\textsubscript{t} state s\textsubscript{t}. The environment then responds with the corresponding reward r\textsubscript{t+1} and the new state s\textsubscript{t+1}, which are fed back to the agent~\parencite{arulkumaran2017brief}}
+		% \caption{Reinforcement Learning interaction loop. [\citetitle{sutton2018reinforcement}]}
+		\label{fig:agent_env}
 \end{figure}
 
 \subsection{Agent}\label{Agent}
-An agent is the brain who decides to takes proper actions and it's where the learning process happen and improve over time. Examples of the agents, a drone making a delivery, a robot learning to walk or Super Mario navigating a video game. The RL algorithm is the agent, and in life, the agent is you (human being). 
-for the learning process, the agent observes the state of the world and based on that takes an action. The environment changes accordingly to the agent's actions and it might also change on its own. 
+An agent is the brain who decides to takes proper actions and it's where the learning process happen and improve over time. Examples of the agents, a drone making a delivery, a robot learning to walk or Super Mario navigating a video game. The RL algorithm is the agent. For the learning process, the agent observes the state of the world and based on that takes an action. The environment changes accordingly to the agent's actions and it might also change on its own. 
 
 
 \subsection{Environment}\label{Environment}
@@ -34,7 +32,7 @@ Some of the environments can be found in this figure~\ref{fig:envs_examples}
 
 \input{chapters/02/existing_envs.tex}
 
-\clearpage
+% \clearpage
 
 \subsection{Markov Decision Process}
 Formally, reinforcement learning can be described as a Markov decision process, An MDP is a 5-tuple, $ \left\langle S, A, \mathcal{T}, R, \gamma \right\rangle $ which consists of:
@@ -180,15 +178,14 @@ Actor-Critic method is the combination of both \textit{value functions} and an e
 These methods trade off variance reduction of policy gradients with bias introduction from value function methods.
 
 \begin{figure}[H]
-		\begin{center}
-				\includegraphics[width=.3\linewidth]{figures/actor_critic.png}
-				\caption{Actor-critic set-up. The actor (policy) receives a state from the environment and chooses an action to perform. At the same time, the critic (value function) receives the state and reward resulting from the previous interaction.~\parencite{arulkumaran2017brief}}
-				\label{fig:actor_critic}
-		\end{center}
+	\centering
+		\includegraphics[width=.3\linewidth]{figures/actor_critic.png}
+		\caption{Actor-critic set-up. The actor (policy) receives a state from the environment and chooses an action to perform. At the same time, the critic (value function) receives the state and reward resulting from the previous interaction.~\parencite{arulkumaran2017brief}}
+		\label{fig:actor_critic}
 \end{figure}
 
 
-\clearpage
+% \clearpage
 
 \section{Deep Reinforcement Learning}
 
@@ -217,63 +214,6 @@ This algorithm is similar to natural policy gradient methods and it is also cons
 Asynchronous Advanced Actor Critic~\parencite{mnih2016asynchronous} is an asynchronous method using Advanced Actor-Critic. \textit{\textbf{Asynchronous}} means Asynchronously execute multiple agents in parallel, on multiple instances of the environment and all using a replica of the NN (\textit{asynchronous data parallelism}). It often works in a multi-core CPU or GPU. The idea behind it is that there is a \textit{global network} and \textit{multiple actor-learners} which have their own set of network parameters. A thread is dedicated for each agent, and each thread interacts with its own copy of the environment.
 Giving each thread a different exploration policy also improves robustness, since the overall experience available for training becomes more diverse. Moreover, in A3C just one deep neural network is used both for estimation of policy $\pi(s)$ and value function $V_{\pi}(s)$; because we optimize both of these goals together, we learn much faster and effectively. We also don’t need to consider the data correlation and oscillations issues because different agent gets different transitions when playing in the same environments.
 
-\clearpage
+% \clearpage
+\input{chapters/02/rl_challenges.tex}
 
-\section{Challenges in Reinforcement Learning} 
-
-% TODO:
-The two main problems of RL
-The highest level description of reinforcement learning is the maximization of some notion of long term return by acting in an environment. There are two fundamental difficulties one encounters while solving RL problems: the balance of exploration vs. exploitation and long term credit assignment.
-
-
-\textbf{Exploration-vs-exploitation}
-Sample inefficiency, reproducibility, and escaping local optima
-This is the question every agent must learn to answer from a very early age, do I keep following this policy that’s giving me nice returns, or do I take some relatively sub-optimal actions now in case there’s a possibly bigger payoff later? This problem is so hard because there can be no right answer in general - there is always a trade-off.
-
-Off to a good start.
-The famous Bellman update only guarantees convergence to the optimal value function if every state is visited an infinite number of times and every action is tried an infinite number of times in it. So right off the bat, we need an infinite samples to learn, and we need them everywhere!
-
-You may say something like “Why obsess over optimality?”
-
-Fair enough. In most cases, a policy that achieves the goal, doesn’t take too long, and doesn’t mess up too many other things is fine. Sometimes in practice, we are happy to find that a good policy can be learnt in a finite number of steps (20 million is much smaller than infinity). But it is hard to define these subjective notions without attaching numbers to maximize/minimize something. It is even harder to provide any sort of guarantees on it. More on this later.
-
-Ok so let’s just say we are happy with an approximately optimal solution (whatever that means). The number of samples needed to get the same approximation increases exponentially with the state and action space.
-
-But wait, it gets worse.
-Without any assumptions, there is no better way to explore than randomly. You can add some heuristics, such as curiosity [2], and they work well in some cases, but we do not have a complete solution yet. After all, you have no reason to believe there’s a bigger or smaller payoff behind any action in a particular state unless you try it.
-
-What’s more, model-free reinforcement learning algorithms typically try to solve the most general formulation of the problem. As in, there are very few assumptions about the form of the state distribution, the transition dynamics of the environment or of optimal policies (for eg. [3])
-
-And this makes sense. Just because you see a great reward once doesn’t mean you will always get it every time you are in that state and take that action. The only sensible thing to do then is to not trust any particular reward too much and only slowly make changes to your belief of how good an action is in a state.
-
-Ok, so you are making small, conservative updates to functions that are trying to approximate expectations of arbitrarily complex probability distributions over an arbitrarily large number of states and actions.
-
-But wait. It actually gets even worse.
-Let’s talk about continuous states and actions.
-
-The world at our size seems to be mostly continuous. But that’s a problem for RL. How are you supposed to visit an infinite number of states an infinite number of times and take an infinite number of actions an infinite number of times in them? If only you could generalize some of the knowledge you have learned to unseen states and actions. Supervised learning!!
-
-Exploration in uncertain dynamics also explains why RL seems to be more sensitive to hyper-parameters and random seeds than supervised learning. There are no fixed datasets your networks are training on. The training data is directly dependent on the network output, whatever exploration mechanism you use, and environment randomness. Therefore, with the same algorithm on the same environment in different runs, you may see dramatically different training sets, leading to dramatically different performance (take a look at [4]). Again, the core problem is that of controlling exploration to see similar distributions of states, something that the most general algorithms make no assumptions over.
-
-
-\textbf{Long term credit assignment}
-Reward functions, their design, and transfer
-You know how some people will scratch lottery tickets only with a lucky coin because one time they did and they won a lot of money? RL agents are basically playing the lottery at every step and trying to figure out what they did to hit the jackpot. They are maximizing a single number which is the result of actions over multiple time steps mixed in with a good amount of environment randomness. Figuring out which series of actions are actually responsible for the high reward is the problem of credit assignment.
-
-You want rewards to be easy to specify. The promise of reinforcement learning is that you tell a robot when it has done something right and over time it learns how to do that thing reliably. You don’t have to actually know how to do the thing yourself and you don’t have to provide supervision at every step.
-
-The problem actually occurs because the scale at which we can provide rewards for meaningful tasks is much larger than the scale current day algorithms can handle. The robot is operating at a much faster time scale of what joint velocities it should set at every millisecond and the human is expecting to only reward it once it has made a good sandwich. There are many decisions that happen in between and if the gap between the crucial choices and the reward is too big, any current day algorithm will just fail.
-
-There are two solutions to this. One is to reduce the scale at which rewards are provided, i.e. provide shaping rewards more frequently. As usual, though, if you give an optimization algorithm a weakness, it will exploit it all the way to optimality. If the reward is not well designed it can lead to reward hacking.
-
-Ultimately, we fall for this because we forget that the agent is optimizing in the value landscape, not for the immediate rewards. So even if your immediate reward structure seems innocuous, the value landscape may be very non-intuitive and may have many of these exploits if one is not careful.
-
-Which begs the question, why are rewards used in the first place? Rewards are a way of specifying goals that will let us use the power of optimization to get a good policy. Shaping rewards are a way to inject more domain specific knowledge on top.
-
-Are there better ways of specifying goals? In imitation learning, you can slyly sidestep the whole RL problem by asking for labels directly from the target distribution, i.e. the optimal policy. There are other ways of learning without direct rewards [5], or providing goals to agents as images [6]. (Stay tuned for an ICML workshop on Goal Specification in RL!)
-
-Another promising way to deal with long horizons (hugely delayed rewards) is hierarchical reinforcement learning. I was surprised when this did not make it into Alex’s post because it is the most intuitively appealing solution to this problem (but I guess I’m biased!)
-
-Hierarchical RL attempts to decompose a long horizon problem into a series of goals and subgoals. By decomposing the problem, we are effectively dilating the time scale at which decisions are being made. The really exciting stuff is if the policies being learned for subgoals can also be applied to achieving other goals.
-
-The promise is great but we’re not there yet on this either. Most state of the art works only consider hierarchies a single level deep and the goal of transfer to different tasks is hard to achieve.
