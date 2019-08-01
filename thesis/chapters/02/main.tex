@@ -10,7 +10,7 @@ Reinforcement Learning \textbf{RL} (\textit{The science of decision making}) is 
 % The environment is the world where the agent lives and interacts with. for every interaction, the agent observes the state of the world and based on that takes an action. The environment changes accordingly to the agent's actions and it might also change on its own. 
 The typical interaction loop between agent and environment is illustrated in Figure\ref{fig:agent_env}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 	\centering
 		\includegraphics[width=.5\linewidth]{figures/Agent-Env.png}
 		\caption{Reinforcement Learning interaction loop. The agent takes an action at a\textsubscript{t} state s\textsubscript{t}. The environment then responds with the corresponding reward r\textsubscript{t+1} and the new state s\textsubscript{t+1}, which are fed back to the agent~\parencite{arulkumaran2017brief}}
@@ -18,11 +18,11 @@ The typical interaction loop between agent and environment is illustrated in Fig
 		\label{fig:agent_env}
 \end{figure}
 
-\subsection{Agent}\label{Agent}
+\subsubsection{Agent}\label{Agent}
 An agent is the brain who decides to takes proper actions and it's where the learning process happen and improve over time. Examples of the agents, a drone making a delivery, a robot learning to walk or Super Mario navigating a video game. The RL algorithm is the agent. For the learning process, the agent observes the state of the world and based on that takes an action. The environment changes accordingly to the agent's actions and it might also change on its own. 
 
 
-\subsection{Environment}\label{Environment}
+\subsubsection{Environment}\label{Environment}
 An Environment constitutes a world for the agent to act and learn from. 
 To illustrate and describe the environment to an agent we have a \textbf{state} \(s\) which is a complete description of the state of the world, and sometimes An \textbf{observation} \(o\) a \textit{partial} description of a state, which may omit information.
 Our Environments could be the whole surrounding 3D space or 2D images from cameras for a real-world task like a robotic arm, or it could represent an entire virtual world or games from an emulator like OpenAI Gym~\parencite{brockman2016openai}.
@@ -97,7 +97,7 @@ with two key computations that are very important for training stochastic polici
 \end{itemize}
 
 
-\subsection{Reinforcement Learning Goal}
+\subsubsection{Reinforcement Learning Goal}
 The goal of reinforcement learning is to select a policy which maximizes the \textbf{expected return} when the agent acts according to it.
 
 where the \textbf{expected return} denoted by $ J(\pi) $ is:
@@ -123,7 +123,7 @@ So the central optimization problem of RL can be described as:
 with $\pi^*$ being the optimal policy.
 
 
-\subsection{Learning optimal policies}
+\subsection{Learning Optimal Policies}
 There are two main approaches to solving RL problems: methods based on \textit{value functions} (Critic-only), and methods based on \textit{policy search} (Actor-only).
 There is also a hybrid, \textit{actor-critic approach}, which combines both value functions and policy search, where the actor and critic are both represented explicitly and learned separately.
 We will now explain these approaches and other useful concepts for solving RL problems.
@@ -177,7 +177,7 @@ Gradient ascent using the estimator, which is similar to the practice of optimiz
 Actor-Critic method is the combination of both \textit{value functions} and an explicit representation of \textit{the policy} as shown in ~\ref{fig:actor_critic}, where The \textit{actor} (policy) learns by using feedback from the \textit{critic} (value function).
 These methods trade off variance reduction of policy gradients with bias introduction from value function methods.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 	\centering
 		\includegraphics[width=.3\linewidth]{figures/actor_critic.png}
 		\caption{Actor-critic set-up. The actor (policy) receives a state from the environment and chooses an action to perform. At the same time, the critic (value function) receives the state and reward resulting from the previous interaction.~\parencite{arulkumaran2017brief}}
@@ -194,26 +194,29 @@ Recent breakthrough in deep learning fields relied on efficiently training deep 
 \subsection{Overview}
 DeepMind\footnote{\url{https://deepmind.com}\label{deepmind}} has lead the way by introduction \textit{\textbf{Deep Q-Network} (DQN)}~\parencite{mnih2015human}, in which the new deep learning model for reinforcement learning, demonstrates its ability to master difficult control policies for Atari 2600 computer games, using only raw pixels as input.
 
+\subsection{State of the Art}
+
 In the following we briefly discuss four state-of-the-art algorithms, \textit{Deep Q Network}, two deep policy search methods: \textit{Deep Deterministic Policy Gradient} and \textit{Proximal Policy Optimization}, also an asynchronous deep actor-critic method called \textit{Asynchronous Advanced Actor-Critic}.
 These methods are currently the most popular and effective algorithms, proposed by DeepMind\footref{deepmind} and OpenAI\footnote{\url{https://openai.com}}. In this work, some of these methods are used for experiments.
 
-\subsection{Deep Q Network}
+\subsubsection{Deep Q Network}
 Deep Q Network (\textbf{DQN}) was first proposed by~\parencite{mnih2013playing}, it presents the first deep learning model to successfully learn control policies directly from high-dimensional sensory input using reinforcement learning.
 
 Q-learning algorithm was used to make the decision, using stochastic gradient descent to update the weights. Since deep learning handles only with independent data samples, the \textit{experience replay} mechanism was used to break correlations along with \textit{Fixed Q-target}. DQN algorithm replaces the tabular representation for Q-value function with the deep neural network.
 
-\subsection{Deep Deterministic Policy Gradient}
+\subsubsection{Deep Deterministic Policy Gradient}
 Since the rise of deep neural network function approximations for learning value or action-value function, deep deterministic policy gradient method have been proposed by~\parencite{lillicrap2015continuous}. It used an \textit{actor-critic} approach based on the \textbf{DPG algorithm}~\parencite{silver2014deterministic}, combined with \textit{experience replay and fixed Q-target} techniques which inspired by \textbf{DQN} to use such function approximation in a stable and robust way. additionally, a robust strategy in deep learning called \textit{batch normalization}~\parencite{ioffe2015batch}is  adopted to scale the range of input vector observations in order to make the network capable of finding hyper-parameters which generalize across environments with different scales of state values.
 The problem of exploration in off-policy algorithms like DDPG can be addressed in a very easy way and independently from the learning algorithm. Exploration policy is then constructed by adding noise sampled from a noise process N to the actor policy.
 
-\subsection{Proximal Policy Optimization}
+\subsubsection{Proximal Policy Optimization}
 One of the main issue in policy gradient methods is defining the step size (\textit{learning rate $\alpha$}). Hence, the new robust policy gradient methods, which we call Proximal Policy Optimization~\parencite{schulman2017proximal, heess2017emergence} was proposed to solve this problem. It also uses some of the benefits from trust region policy optimization~\parencite{schulman2015trust}. these methods bound parameter updates to a trust region to ensure stability.
 This algorithm is similar to natural policy gradient methods and it is also considered as a variant of TRPO, it directly uses the first order optimization methods to optimize the objective.
 
-\subsection{Asynchronous Advanced Actor Critic (\textbf{A3C})}
+\subsubsection{Asynchronous Advanced Actor Critic (\textbf{A3C})}
 Asynchronous Advanced Actor Critic~\parencite{mnih2016asynchronous} is an asynchronous method using Advanced Actor-Critic. \textit{\textbf{Asynchronous}} means Asynchronously execute multiple agents in parallel, on multiple instances of the environment and all using a replica of the NN (\textit{asynchronous data parallelism}). It often works in a multi-core CPU or GPU. The idea behind it is that there is a \textit{global network} and \textit{multiple actor-learners} which have their own set of network parameters. A thread is dedicated for each agent, and each thread interacts with its own copy of the environment.
 Giving each thread a different exploration policy also improves robustness, since the overall experience available for training becomes more diverse. Moreover, in A3C just one deep neural network is used both for estimation of policy $\pi(s)$ and value function $V_{\pi}(s)$; because we optimize both of these goals together, we learn much faster and effectively. We also don’t need to consider the data correlation and oscillations issues because different agent gets different transitions when playing in the same environments.
 
 % \clearpage
-\input{chapters/02/rl_challenges.tex}
+% \input{chapters/02/rl_challenges.tex}
 
+\input{chapters/02/related_work.tex}
