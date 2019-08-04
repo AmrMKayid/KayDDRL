@@ -24,36 +24,36 @@
 
 % What’s more, model-free reinforcement learning algorithms typically try to solve the most general formulation of the problem. As in, there are very few assumptions about the form of the state distribution, the transition dynamics of the environment or of optimal policies (for eg. [3])
 
-% And this makes sense. Just because you see a great reward once doesn’t mean you will always get it every time you are in that state and take that action. The only sensible thing to do then is to not trust any particular reward too much and only slowly make changes to your belief of how good an action is in a state.
+		% And this makes sense. Just because you see a great reward once doesn’t mean you will always get it every time you are in that state and take that action. The only sensible thing to do then is to not trust any particular reward too much and only slowly make changes to your belief of how good an action is in a state.
 
-% Ok, so you are making small, conservative updates to functions that are trying to approximate expectations of arbitrarily complex probability distributions over an arbitrarily large number of states and actions.
+		% Ok, so you are making small, conservative updates to functions that are trying to approximate expectations of arbitrarily complex probability distributions over an arbitrarily large number of states and actions.
 
-% But wait. It actually gets even worse.
-% Let’s talk about continuous states and actions.
+		% But wait. It actually gets even worse.
+		% Let’s talk about continuous states and actions.
 
-% The world at our size seems to be mostly continuous. But that’s a problem for RL. How are you supposed to visit an infinite number of states an infinite number of times and take an infinite number of actions an infinite number of times in them? If only you could generalize some of the knowledge you have learned to unseen states and actions. Supervised learning!!
+		% The world at our size seems to be mostly continuous. But that’s a problem for RL. How are you supposed to visit an infinite number of states an infinite number of times and take an infinite number of actions an infinite number of times in them? If only you could generalize some of the knowledge you have learned to unseen states and actions. Supervised learning!!
 
-% Exploration in uncertain dynamics also explains why RL seems to be more sensitive to hyper-parameters and random seeds than supervised learning. There are no fixed datasets your networks are training on. The training data is directly dependent on the network output, whatever exploration mechanism you use, and environment randomness. Therefore, with the same algorithm on the same environment in different runs, you may see dramatically different training sets, leading to dramatically different performance (take a look at [4]). Again, the core problem is that of controlling exploration to see similar distributions of states, something that the most general algorithms make no assumptions over.
+		% Exploration in uncertain dynamics also explains why RL seems to be more sensitive to hyper-parameters and random seeds than supervised learning. There are no fixed datasets your networks are training on. The training data is directly dependent on the network output, whatever exploration mechanism you use, and environment randomness. Therefore, with the same algorithm on the same environment in different runs, you may see dramatically different training sets, leading to dramatically different performance (take a look at [4]). Again, the core problem is that of controlling exploration to see similar distributions of states, something that the most general algorithms make no assumptions over.
 
 
-% \textbf{Long term credit assignment}
-% Reward functions, their design, and transfer
-% You know how some people will scratch lottery tickets only with a lucky coin because one time they did and they won a lot of money? RL agents are basically playing the lottery at every step and trying to figure out what they did to hit the jackpot. They are maximizing a single number which is the result of actions over multiple time steps mixed in with a good amount of environment randomness. Figuring out which series of actions are actually responsible for the high reward is the problem of credit assignment.
+		% \textbf{Long term credit assignment}
+		% Reward functions, their design, and transfer
+		% You know how some people will scratch lottery tickets only with a lucky coin because one time they did and they won a lot of money? RL agents are basically playing the lottery at every step and trying to figure out what they did to hit the jackpot. They are maximizing a single number which is the result of actions over multiple time steps mixed in with a good amount of environment randomness. Figuring out which series of actions are actually responsible for the high reward is the problem of credit assignment.
 
-% You want rewards to be easy to specify. The promise of reinforcement learning is that you tell a robot when it has done something right and over time it learns how to do that thing reliably. You don’t have to actually know how to do the thing yourself and you don’t have to provide supervision at every step.
+		% You want rewards to be easy to specify. The promise of reinforcement learning is that you tell a robot when it has done something right and over time it learns how to do that thing reliably. You don’t have to actually know how to do the thing yourself and you don’t have to provide supervision at every step.
 
-% The problem actually occurs because the scale at which we can provide rewards for meaningful tasks is much larger than the scale current day algorithms can handle. The robot is operating at a much faster time scale of what joint velocities it should set at every millisecond and the human is expecting to only reward it once it has made a good sandwich. There are many decisions that happen in between and if the gap between the crucial choices and the reward is too big, any current day algorithm will just fail.
+		% The problem actually occurs because the scale at which we can provide rewards for meaningful tasks is much larger than the scale current day algorithms can handle. The robot is operating at a much faster time scale of what joint velocities it should set at every millisecond and the human is expecting to only reward it once it has made a good sandwich. There are many decisions that happen in between and if the gap between the crucial choices and the reward is too big, any current day algorithm will just fail.
 
-% There are two solutions to this. One is to reduce the scale at which rewards are provided, i.e. provide shaping rewards more frequently. As usual, though, if you give an optimization algorithm a weakness, it will exploit it all the way to optimality. If the reward is not well designed it can lead to reward hacking.
+		% There are two solutions to this. One is to reduce the scale at which rewards are provided, i.e. provide shaping rewards more frequently. As usual, though, if you give an optimization algorithm a weakness, it will exploit it all the way to optimality. If the reward is not well designed it can lead to reward hacking.
 
-% Ultimately, we fall for this because we forget that the agent is optimizing in the value landscape, not for the immediate rewards. So even if your immediate reward structure seems innocuous, the value landscape may be very non-intuitive and may have many of these exploits if one is not careful.
+		% Ultimately, we fall for this because we forget that the agent is optimizing in the value landscape, not for the immediate rewards. So even if your immediate reward structure seems innocuous, the value landscape may be very non-intuitive and may have many of these exploits if one is not careful.
 
-% Which begs the question, why are rewards used in the first place? Rewards are a way of specifying goals that will let us use the power of optimization to get a good policy. Shaping rewards are a way to inject more domain specific knowledge on top.
+		% Which begs the question, why are rewards used in the first place? Rewards are a way of specifying goals that will let us use the power of optimization to get a good policy. Shaping rewards are a way to inject more domain specific knowledge on top.
 
 % Are there better ways of specifying goals? In imitation learning, you can slyly sidestep the whole RL problem by asking for labels directly from the target distribution, i.e. the optimal policy. There are other ways of learning without direct rewards [5], or providing goals to agents as images [6]. (Stay tuned for an ICML workshop on Goal Specification in RL!)
 
 % Another promising way to deal with long horizons (hugely delayed rewards) is hierarchical reinforcement learning. I was surprised when this did not make it into Alex’s post because it is the most intuitively appealing solution to this problem (but I guess I’m biased!)
 
-% Hierarchical RL attempts to decompose a long horizon problem into a series of goals and subgoals. By decomposing the problem, we are effectively dilating the time scale at which decisions are being made. The really exciting stuff is if the policies being learned for subgoals can also be applied to achieving other goals.
+		% Hierarchical RL attempts to decompose a long horizon problem into a series of goals and subgoals. By decomposing the problem, we are effectively dilating the time scale at which decisions are being made. The really exciting stuff is if the policies being learned for subgoals can also be applied to achieving other goals.
 
-% The promise is great but we’re not there yet on this either. Most state of the art works only consider hierarchies a single level deep and the goal of transfer to different tasks is hard to achieve.
+		% The promise is great but we’re not there yet on this either. Most state of the art works only consider hierarchies a single level deep and the goal of transfer to different tasks is hard to achieve.

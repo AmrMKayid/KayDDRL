@@ -11,7 +11,7 @@ Reinforcement Learning \textbf{RL} (\textit{The science of decision making}) is 
 The typical interaction loop between agent and environment is illustrated in Figure\ref{fig:agent_env}
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=.5\linewidth]{figures/Agent-Env.png}
 		\caption{Reinforcement Learning interaction loop. The agent takes an action at a\textsubscript{t} state s\textsubscript{t}. The environment then responds with the corresponding reward r\textsubscript{t+1} and the new state s\textsubscript{t+1}, which are fed back to the agent~\parencite{arulkumaran2017brief}}
 		% \caption{Reinforcement Learning interaction loop. [\citetitle{sutton2018reinforcement}]}
@@ -178,7 +178,7 @@ Actor-Critic method is the combination of both \textit{value functions} and an e
 These methods trade off variance reduction of policy gradients with bias introduction from value function methods.
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=.3\linewidth]{figures/actor_critic.png}
 		\caption{Actor-critic set-up. The actor (policy) receives a state from the environment and chooses an action to perform. At the same time, the critic (value function) receives the state and reward resulting from the previous interaction.~\parencite{arulkumaran2017brief}}
 		\label{fig:actor_critic}
@@ -190,9 +190,6 @@ These methods trade off variance reduction of policy gradients with bias introdu
 \section{Deep Reinforcement Learning}
 
 Recent breakthrough in deep learning fields relied on efficiently training deep neural network on large training datasets, which improves many fields including \textit{computer vision and speech recognition}. These models are trained directly from raw inputs using stochastic gradient descent to update the networks' weights. These successes lead its way to reinforcement learning in which in connects RL algorithms with deep neural networks to operate directly on raw images and efficiently generate training data using stochastic gradient updates.
-
-\subsection{Overview}
-DeepMind\footnote{\url{https://deepmind.com}\label{deepmind}} has lead the way by introduction \textit{\textbf{Deep Q-Network} (DQN)}~\parencite{mnih2015human}, in which the new deep learning model for reinforcement learning, demonstrates its ability to master difficult control policies for Atari 2600 computer games, using only raw pixels as input.
 
 \subsection{State of the Art}
 

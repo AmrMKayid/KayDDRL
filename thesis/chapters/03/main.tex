@@ -1,7 +1,8 @@
 % !TeX root = ../../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\chapter{Setup and Implementation}\label{chapter:setup_and_implementation}
+% \chapter{Setup and Implementation}\label{chapter:setup_and_implementation}
+\chapter{Methodology}\label{chapter:setup_and_implementation}
 
 In this chapter, the full details of the setups will be introduced. First, a task description for our experiments will be explained. Second, the used software framework will be presented. Then, our environments architecture and integration with the framework will be explained. Then, a brief description for the agents and algorithms will be shown. Lastly, description for the learning process and all experiments workflow will be provided.
 
@@ -19,7 +20,7 @@ Briefly, the robotic arm specification and will be discussed. The humanoid robot
 Provided an example for similar arm used in our environments. As shown below~\ref{fig:arm}, the has three joints (the shoulder, elbow, and wrist) and two links (the (humerus aka upper arm and the forearm).
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=\linewidth]{figures/arm.png}
 		\caption{Single arm example}
 		\label{fig:arm}
@@ -31,12 +32,12 @@ In order to understand the learning process in robotics environments, \textbf{In
 
 In robotic systems, the tasks are usually defined in coordinate space, whereas the control commands are defined in actuator space. In order to perform task level robot learning, an appropriate transformation from coordinate space to actuator space is required. If the intrinsic coordinates of a manipulator are defined as a vector of joint angles \(\boldsymbol{\theta} \in \mathbf{R}^{\mathbf{n}}\), and the position and orientation vector of the end effector as a vector \(\mathbf{x} \in \mathbf{R}^{\mathrm{m}}\), then the forward kinematics function can be given by the following equation 
 \begin{equation}
-	\mathbf{x}=f(\boldsymbol{\theta})
+		\mathbf{x}=f(\boldsymbol{\theta})
 \end{equation}
 
 The inverse kinematics problem~\parencite{colome2011smooth, chua2013robust} is to find a mapping from the end-effector coordinates to actuator space which can be represented as
 \begin{equation}
-	\boldsymbol{\theta}=f^{-1}(\mathbf{x})
+		\boldsymbol{\theta}=f^{-1}(\mathbf{x})
 \end{equation}
 
 Inverse kinematics for humanoid robots are important for many applications. Unlike closed-form analytical methods, the convergence time of numerical methods may vary and the results are not repeatable. On the top of that, computing inverse kinematics under constraints of stability and self-collision avoidance cannot be done efficiently in real time.
@@ -57,32 +58,32 @@ The core gym interface~\ref{tab:gym_api} is \textbf{Env}, which is the unified e
 The following are the methods for the abstracted gym Env:
 
 \begin{table}[!htb]
-	\centering
-	\begin{tabular}{|c|l|c|l|l|}
-	\hline
-	\multicolumn{5}{|c|}{\textbf{OpenAI Gym API Interface}}                                                                                                                                                                                      \\ \hline
-	\multicolumn{2}{|c|}{\textit{\textbf{Function}}}                                  & \multicolumn{3}{c|}{\textit{\textbf{Description}}}                                                                                                       \\ \hline
-	\multicolumn{2}{|c|}{\cellcolor[HTML]{E6E6E6}\textbf{reset(self)}}                & \multicolumn{3}{c|}{\textit{\begin{tabular}[c]{@{}c@{}}Reset the environment's state. \\ Returns observation.\end{tabular}}}                             \\ \hline
-	\multicolumn{2}{|c|}{\cellcolor[HTML]{E6E6E6}\textbf{step(self, action)}}         & \multicolumn{3}{c|}{\textit{\begin{tabular}[c]{@{}c@{}}Step the environment by one time-step. \\ Returns observation, reward, done, info.\end{tabular}}} \\ \hline
-	\multicolumn{2}{|c|}{\cellcolor[HTML]{E6E6E6}\textbf{render(self, mode='human')}} & \multicolumn{3}{c|}{\textit{Render one frame of the environment.}}                                                                                       \\ \hline
-	\end{tabular}
-	\caption{OpenAI Gym API Interface}
-	\label{tab:gym_api}
+		\centering
+		\begin{tabular}{|c|l|c|l|l|}
+				\hline
+				\multicolumn{5}{|c|}{\textbf{OpenAI Gym API Interface}}                                                                                                                                                                                      \\ \hline
+				\multicolumn{2}{|c|}{\textit{\textbf{Function}}}                                  & \multicolumn{3}{c|}{\textit{\textbf{Description}}}                                                                                                       \\ \hline
+				\multicolumn{2}{|c|}{\cellcolor[HTML]{E6E6E6}\textbf{reset(self)}}                & \multicolumn{3}{c|}{\textit{\begin{tabular}[c]{@{}c@{}}Reset the environment's state. \\ Returns observation.\end{tabular}}}                             \\ \hline
+						\multicolumn{2}{|c|}{\cellcolor[HTML]{E6E6E6}\textbf{step(self, action)}}         & \multicolumn{3}{c|}{\textit{\begin{tabular}[c]{@{}c@{}}Step the environment by one time-step. \\ Returns observation, reward, done, info.\end{tabular}}} \\ \hline
+								\multicolumn{2}{|c|}{\cellcolor[HTML]{E6E6E6}\textbf{render(self, mode='human')}} & \multicolumn{3}{c|}{\textit{Render one frame of the environment.}}                                                                                       \\ \hline
+		\end{tabular}
+		\caption{OpenAI Gym API Interface}
+		\label{tab:gym_api}
 \end{table}
 
-\subsubsection{Unity MLAgents~\parencite{juliani2018unity}: } unity mlagents toolkit is an open-source Unity plugin that enables games and simulations to serve as environments for training intelligent agents. It has more realistic and complex simulation environments. It provides the ability to flexibly configure
+\subsubsection{Unity MLAgents~\parencite{juliani2018unity}: }\label{unity_mlagents} unity mlagents toolkit is an open-source Unity plugin that enables games and simulations to serve as environments for training intelligent agents. It has more realistic and complex simulation environments. It provides the ability to flexibly configure
 the simulation. By taking advantage of Unity as a simulation platform, the toolkit enables the development of learning environments which are rich in sensory and physical complexity, provide compelling cognitive challenges, and support dynamic multi-agent interaction. Agents can be trained using reinforcement learning, imitation learning, neuroevolution, or other machine learning methods through a simple-to-use Python API. They provide implementations of state-of-the-art algorithms to enable game developers and hobbyists to easily train intelligent agents for 2D, 3D and VR/AR games. We are using this to test running multiple agents in the same environment and compare the effect with one agent only. Also, to experiment the transferability between different physics simulators.
 
 The learning environment is quite different from openai gym as it consists of three main components described below:
 
 \begin{itemize}
-	\item \textbf{Agent:} Each Agent can have a unique set of states and observations, take unique actions within the environment, and receive unique rewards for events within the environment. An agent’s actions are decided by the brain it is linked to.
-	\item \textbf{Brain:} Each Brain defines a specific state and action space, and is responsible for deciding which actions each of its linked agents will take. The supported brains mode are: External, Internal, Player, Heuristic. \textit{\textbf{In our experiments, External mode is used as the action decisions are made using ML library through communication over an open socket with Python API.}}
-	\item \textbf{Academy:} The Academy object within a scene also contains as children all Brains within the environment. Each environment contains a single Academy which defines the scope of the environment, in terms of: Engine Configuration, Frameskip \& Global episode length
+		\item \textbf{Agent:} Each Agent can have a unique set of states and observations, take unique actions within the environment, and receive unique rewards for events within the environment. An agent’s actions are decided by the brain it is linked to.
+		\item \textbf{Brain:} Each Brain defines a specific state and action space, and is responsible for deciding which actions each of its linked agents will take. The supported brains mode are: External, Internal, Player, Heuristic. \textit{\textbf{In our experiments, External mode is used as the action decisions are made using ML library through communication over an open socket with Python API.}}
+		\item \textbf{Academy:} The Academy object within a scene also contains as children all Brains within the environment. Each environment contains a single Academy which defines the scope of the environment, in terms of: Engine Configuration, Frameskip \& Global episode length
 \end{itemize}
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=\linewidth]{figures/unity_api.png}
 		\caption{Unity Learning Environment Architecture}
 		\label{fig:unity_api}
@@ -99,16 +100,16 @@ Unity ML-Agents toolkit provides a variety of training scenarios are possible, d
 As a distributed computing system, Ray still follows the typical Master-Slave design~\ref{fig:ray_arch}: Master is responsible for global coordination and state maintenance, and Slave performs distributed computing tasks. However, unlike traditional distributed computing systems, Ray uses the idea of \textbf{hybrid task scheduling}. In cluster deployment mode, Ray starts the following key components:
 
 \begin{itemize}
-	\item \textbf{GlobalScheduler:} A global scheduler is started on the Master to receive the tasks submitted by the local scheduler and distribute the tasks to the appropriate local task scheduler for execution.
-	\item \textbf{RedisServer:} One or more RedisServers are started on the Master to save the state information (ControlState) of distributed tasks, including object machine mapping, task description, task debug information, and so on.
-	\item \textbf{LocalScheduler:} A local scheduler is started on each slave to submit tasks to the global scheduler and assign tasks to the current machine's Worker process.
-	\item \textbf{Worker:} Multiple worker processes can be started on each slave to perform distributed tasks, and the calculation results are stored in the ObjectStore.
-	\item \textbf{ObjectStore:} An ObjectStore storage read-only data object is started on each Slave. Workers can access these object data through shared memory, which can effectively reduce the cost of memory copy and object serialization. The underlying ObjectStore is implemented by Apache Arrow.
-	\item \textbf{Plasma:} The ObjectStore on each Slave is managed by an object manager called Plasma. It can actively pull object data from other slaves to the current machine when the worker accesses remote data objects that do not exist on the local ObjectStore.
+		\item \textbf{GlobalScheduler:} A global scheduler is started on the Master to receive the tasks submitted by the local scheduler and distribute the tasks to the appropriate local task scheduler for execution.
+		\item \textbf{RedisServer:} One or more RedisServers are started on the Master to save the state information (ControlState) of distributed tasks, including object machine mapping, task description, task debug information, and so on.
+		\item \textbf{LocalScheduler:} A local scheduler is started on each slave to submit tasks to the global scheduler and assign tasks to the current machine's Worker process.
+		\item \textbf{Worker:} Multiple worker processes can be started on each slave to perform distributed tasks, and the calculation results are stored in the ObjectStore.
+		\item \textbf{ObjectStore:} An ObjectStore storage read-only data object is started on each Slave. Workers can access these object data through shared memory, which can effectively reduce the cost of memory copy and object serialization. The underlying ObjectStore is implemented by Apache Arrow.
+		\item \textbf{Plasma:} The ObjectStore on each Slave is managed by an object manager called Plasma. It can actively pull object data from other slaves to the current machine when the worker accesses remote data objects that do not exist on the local ObjectStore.
 \end{itemize}
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=\linewidth]{figures/ray_arch.png}
 		\caption{Ray's system architecture}
 		\label{fig:ray_arch}
@@ -121,29 +122,29 @@ As a distributed computing system, Ray still follows the typical Master-Slave de
 At a high level, ray provides an \textbf{\colorbox{gray!20}{Trainer}} class which holds a policy for environment interaction. Through the trainer interface~\ref{fig:ray_trainer}, the policy can be trained, check-pointed, or an action computed. In multi-agent training, the trainer manages the querying and optimization of multiple policies at once. It provides custom resources configurations~\ref{fig:ray_config}, which can control the degree of parallelism used by setting the \colorbox{gray!20}{\texttt{num\_workers}} hyper-parameter for most algorithms. The number of GPUs the driver should use can be set via the \colorbox{gray!20}{\texttt{num\_gpus}} option. Similarly, the resource allocation to workers can be controlled via \colorbox{gray!20}{\texttt{num\_cpus\_per\_worker}}, \colorbox{gray!20}{\texttt{num\_gpus\_per\_worker}}, and \colorbox{gray!20}{\texttt{custom\_resources\_per\_worker}}. The number of GPUs can be a fractional quantity to allocate only a fraction of a GPU. For example, with DQN you can pack five trainers onto one GPU by setting \colorbox{gray!20}{\texttt{num\_gpus}: 0.2}.
 
 \begin{figure}[!htb]
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/architecture/ray_trainer.png}
-		\caption{Ray Training Process}
-		\label{fig:ray_trainer}
-    \end{subfigure}
-    \hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/architecture/ray_config.png}
-        \caption{Ray Configurable resources}
-		\label{fig:ray_config}
-	\end{subfigure}
-	\hfill
-	   \caption{General Overview of Ray framework~\parencite{moritz2018ray}}
-	   \label{fig:ray}
+		\begin{subfigure}[b]{0.4\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{figures/architecture/ray_trainer.png}
+				\caption{Ray Training Process}
+				\label{fig:ray_trainer}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.4\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{figures/architecture/ray_config.png}
+				\caption{Ray Configurable resources}
+				\label{fig:ray_config}
+		\end{subfigure}
+		\hfill
+		 \caption{General Overview of Ray framework~\parencite{moritz2018ray}}
+		 \label{fig:ray}
 \end{figure}
 
 Since ray support only OpenAI Gym environments along with their provided multi-agent and also batched environments, we had to implement our custom environment to unify between unity mlagents and openai gym environments. Also, we implemented our custom Multi-Agent environments for both used environments as shown in the following figure~\ref{fig:ray_envs}.
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=\linewidth]{figures/architecture/ray_envs.png}
 		\caption{Our Custom Environments}
 		\label{fig:ray_envs}
@@ -156,16 +157,16 @@ Custom environments implementations and methods are described below:
 \textbf{UnityRayEnv}:\\
 our base unity environment maps the observations and actions from unity mlagents toolkit to be compatible with Ray BaseEnv. Since unity mlagents deals with brains that control the agents and the environments we had to convert it to the required \colorbox{gray!20}{\texttt{observation\_space}} and \colorbox{gray!20}{\texttt{action\_space}} for ray env with the following methods:
 \begin{itemize}
-    \item \textit{\textbf{\colorbox{gray!20}{\texttt{\_\_init\_\_(self)}}}}: Create the unity environment from the unity build env, convert the observation and action spaces to be ray-compatible.
-    \item \textit{\textbf{\colorbox{gray!20}{reset(self)}}}: Reset the environment's state. Returns observation.
-    \item \textit{\textbf{\colorbox{gray!20}{step(self, action)}}}: Step the environment by one time-step. Returns observation, reward, done, info.
+		\item \textit{\textbf{\colorbox{gray!20}{\texttt{\_\_init\_\_(self)}}}}: Create the unity environment from the unity build env, convert the observation and action spaces to be ray-compatible.
+		\item \textit{\textbf{\colorbox{gray!20}{reset(self)}}}: Reset the environment's state. Returns observation.
+		\item \textit{\textbf{\colorbox{gray!20}{step(self, action)}}}: Step the environment by one time-step. Returns observation, reward, done, info.
 \end{itemize}
 
 \textbf{MultiAgentsUnityRayEnv}:\\
 this class inherit from both \colorbox{gray!20}{\textbf{UnityRayEnv}} and \colorbox{gray!20}{\textbf{MultiAgentEnv}}~\ref{fig:ray_multiagentenv}. The difference from the base environment is in both methods \textit{\textbf{\colorbox{gray!20}{reset(self)}}} and \textit{\textbf{\colorbox{gray!20}{step(self, \texttt{actions\_dict})}}}, where the reset function reset all the observations for each agent that exist in the environment and step function take a dictionary of actions corresponding for each action of a single agent. The same applies to \textbf{MultiAgentsGymRayEnv}.
 
 \begin{figure}[!htb]
-	\centering
+		\centering
 		\includegraphics[width=\linewidth]{figures/architecture/ray_multiagentenv.png}
 		\caption{Ray MultiAgentEnv}
 		\label{fig:ray_multiagentenv}
@@ -173,12 +174,31 @@ this class inherit from both \colorbox{gray!20}{\textbf{UnityRayEnv}} and \color
 
 \section{Agents and Algorithms}
 
-\begin{itemize}
-    \item \textbf{Proximal Policy Optimization (PPO)}: PPO’s clipped objective supports multiple SGD passes over the same batch of experiences. RLlib’s multi-GPU optimizer pins that data in GPU memory to avoid unnecessary transfers from host memory, substantially improving performance over a naive implementation. RLlib’s PPO scales out using multiple workers for experience collection, and also with multiple GPUs for SGD.
+$\bullet$ \textit{\textbf{Proximal Policy Optimization (PPO):}} PPO is a policy gradient method introduced by openai which provides sampling data through interaction with the environment, and optimizing a surrogate objective function using stochastic gradient ascent. Its objective function enables multiple epochs of minibatch updates. There are two primary variants of PPO: PPO-Penalty and PPO-Clip. In the conducted experiments, PPO-Clip is selected as PPO’s clipped objective supports multiple SGD passes over the same batch of experiences, enabling the use multi-GPU optimizer that pins data in GPU memory to avoid unnecessary transfers from host memory, substantially improving performance over a naive implementation. PPO scales out using multiple workers for experience collection, and also with multiple GPUs for SGD. In this way, it's possible to compare between naive implementation of PPO and the distributed version that support multi-GPU and multiple workers that can scale and improve the performace.
 
-    \item \textbf{Distributed Prioritized Experience Replay (Ape-X)}: Ape-X variations of DQN, DDPG, use a single GPU learner and many CPU workers for experience collection. Experience collection can scale to hundreds of CPU workers due to the distributed prioritization of experience prior to storage in replay buffers.
+PPO-Clip doesn’t have a KL-divergence term in the objective and doesn’t have a constraint at all. Instead relies on specialized clipping in the objective function to remove incentives for the new policy to get far from the old policy. PPO is an on-policy algorithm, which can be used for environments with either discrete or continuous action spaces. Hence, the use of PPO algorithm is suitable for our continuous space environments.
 
-    \item \textbf{Importance Weighted Actor-Learner Architecture (IMPALA)}: In IMPALA, a central learner runs SGD in a tight loop while asynchronously pulling sample batches from many actor processes. RLlib’s IMPALA implementation uses DeepMind’s reference V-trace code. Note that we do not provide a deep residual network out of the box, but one can be plugged in as a custom model. Multiple learner GPUs and experience replay are also supported.
-\end{itemize}
+In the following figure, a Pseudocode implementation for the used version of PPO.
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\linewidth]{figures/ppo.png}
+		\caption{PPO-Clip Pseudocode Implementation}
+		\label{fig:ppo_algorithm}
+\end{figure}
 
-\section{Learning Process}
+
+$\bullet$ \textit{\textbf{Distributed Prioritized Experience Replay (Ape-X):}} The idea behind Ape-X is that it decouples the learning from actor, wherey allowing a central replay used only by learner to employ prioritized experience replay. Another benefit is that it allows multiple actors collect data in parallel (which maybe used with different exploration strategies), ensuring both recency and diversity of data in the buffer. 
+
+The architecture of the algorithm is well illustrated in figure~\ref{fig:apex_arch}, where there are multiple actors, each with its own instance of the environment, generating experience, adding it to a shared experience replay memory, and compute initial priorities for the data. The (single) learner samples from this memory and updates the network and the priorities of the experience in the memory. The actors’ networks are periodically updated with the latest network parameters from the learner.
+
+The learning algorithm in general follows Q-learning style so that it can perform off-policy update. 
+The priorities are computed in each actor using local Q-values before sending data to the central replay, different from the original prioritized DQN, which initializes the priorities of new transitions to the maximum priority seen so far. This is because the original method would result in a myopic focus on the most recent data when there are a large number of actors. Local buffer also stores \(Q_{t}\) and \(Q_{t+n}\), which later will be used to compute priorities and discarded afterwards. In contrast, this is not necessary when combining Ape-X with DDPG-style algorithms (a continuous-action policy gradient system based on DDPG), since the latter ones do not need to compute Q-functions when interacting with the environment. The Ape-X DPG setup is similar to Ape-X DQN, but the actor’s policy is now represented explicitly by a separate policy network, in addition to the Q-network.
+In this way, a combination between Ape-X and DDPG is used for the experiments to support continuous spaces environments.
+
+The detailed algorithm is described as in the following figures:
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\linewidth]{figures/apex.png}
+		\caption{Ape-X Pseudocode Implementation for both Actors \& Learner}
+		\label{fig:apex_algorithm}
+\end{figure}
