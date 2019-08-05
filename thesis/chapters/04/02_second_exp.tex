@@ -2,18 +2,17 @@
 
 \subsection{2-DOF Arm Distributed Experiment}
 
-This experiment is identical to the first experiment we have conducted except that the version of PPO algorithm is now distributed among multiple workers and the experiment is using GPU power in addition to CPU. In this way, the experiment can be compared with the non-distributed version to spot the performance between them and compare the output, reward received and the total time for executing the experiments. 
+This experiment is identical to the first experiment we have conducted except that the version of the PPO algorithm is now distributed among multiple workers and the experiment is using GPU power in addition to CPU. In this way, the experiment can be compared with the non-distributed version to spot the performance between them and compare the output, reward received and the total time for executing the experiments. 
 
 \subsubsection{Aim of the experiment}
-% 1. Question behind (in the heading, why interesting, what to investigate)
 
-This experiment is designed to be performed on distributed setup using the power of GPUs and CPUs. The selected algorithm is identical with the same configuration like the previous one, the only difference is the number of workers and the usage of the GPU. In this way, the experiment can be compared with the base experiment to spot the differences between both setups and show effect on the performance for both the agent and the running time.
+This experiment is designed to be performed on distributed setup using the power of GPUs and CPUs. The selected algorithm is identical with the same configuration as the previous one, the only difference is the number of workers and the usage of the GPU. In this way, the experiment can be compared with the base experiment to spot the differences between both setups and show the effect on the performance for both the agent and the running time.
 
-The experiment is also conducted to investigate how the agent will perform in the experiment, the time taken to run the experiment, the average episode reward the agent will get and whether the agent will be able to solve the environment in a constrained stopping conditions.
+The experiment is also conducted to investigate how the agent will perform in the experiment, the time taken to run the experiment, the average episode reward the agent will get and whether the agent will be able to solve the environment in constrained stopping conditions.
 
 \subsubsection{Setup and configurations}
 
-The experiment setup and configuration are the same as the previous experiment, except we have number of workers are 11 workers and using one GPU.
+The experiment setup and configuration are the same as the previous experiment, except we have \textbf{a number of workers are 11 workers and using one GPU}.
 
 \subsubsection{Experiment Results}
 
@@ -24,13 +23,10 @@ The experiment is performed until an average reward of 21 achieved or for a maxi
 		\item The Minimum reward the agent can achieve
 		\item The Total Time Steps obtained by the agent
 		\item The Total loss for the selected algorithm
-				% \item The Policy loss of the algorithm
-				% \item The Value function loss of the algorithm
-				% \item The Environment wait time in milliseconds
 		\item The Total Time taken to perform the experiment
 \end{itemize}
 
-Starting from the maximum reward the agent has obtained, we observe that the agent could quickly learn how to reach the target sphere after only 1M time-steps, passing the non-distributed agent score. After 4M time-steps, the agent achieve the maximum reward (40) that can be obtained in the environment. In the following figure~\ref{fig:2nd_exp_max_eps_reward}, the performance of both the agent for the maximum reward in the environment is shown below:
+Starting from the maximum reward the agent has obtained, we observe that the agent could quickly learn how to reach the target sphere after only 1M time-steps, passing the non-distributed agent score. After 4M time-steps, the agent achieves the maximum reward (40) that can be obtained in the environment. In the following figure~\ref{fig:2nd_exp_max_eps_reward}, the performance of both the agent for the maximum reward in the environment is shown below:
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/2nd_exp/max_eps_reward.png}
@@ -38,7 +34,7 @@ Starting from the maximum reward the agent has obtained, we observe that the age
 		\label{fig:2nd_exp_max_eps_reward}
 \end{figure}
 
-Since the experiments are constrained under the conditions of reaching average reward of 21 or completing 10M steps, we compare the performance of both agents for the average reward. The observation are the distributed version of the agent exceed the average reward obtained by the non-distributed agent after only 500,000 time-steps. Followed by performance improvement over time-steps as the agent reach 15 reward after 2M time-steps, and reaching 20 reward after 4M time-steps, leading the agent to solve the environment and achieve the specified 21 average reward after 6M time-steps only. Hence, the agent performance is better than the previous one and could solve the environment effectively before reaching 10M time-steps. The following figure~\ref{fig:2nd_exp_avg_eps_reward}, illustrate the performance of each agent for obtaining the average rewards.
+Since the experiments are constrained under the conditions of reaching an average reward of 21 or completing 10M steps, we compare the performance of both agents for the average reward. The observation is the distributed version of the agent exceeds the average reward obtained by the non-distributed agent after only 500,000 time-steps. Followed by performance improvement over time-steps as the agent reach 15 rewards after 2M time-steps, and reaching 20 rewards after 4M time-steps, leading the agent to solve the environment and achieve the specified 21 average reward after 6M time-steps only. Hence, the agent performance is better than the previous one and could solve the environment effectively before reaching 10M time-steps. The following figure~\ref{fig:2nd_exp_avg_eps_reward}, illustrate the performance of each agent for obtaining the average rewards.
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/2nd_exp/avg_eps_reward.png}
@@ -65,4 +61,14 @@ Comparing between the experiment's total taken time is crucial as it's one of th
 
 \subsubsection{Conclusion}
 
-In this experiment, we perform a training and evaluation for the robotic arm using distributed version of ppo algorithm to train our agent. As shown in the results, we conclude that the distributed experiment is much better than the non-distributed version in the training time, the learning process for the agent and for solving the required task.
+In this experiment, we perform a training and evaluation for the robotic arm using distributed version of the PPO algorithm to train our agent. As shown in the results, we conclude that the distributed experiment is much better than the non-distributed version in the training time, the learning process for the agent and for solving the required task.
+
+Summary for the results:
+\begin{itemize}
+	\item The agent solved the required task.
+	\item The agent only required 6M time-steps to complete the task.
+	\item The average the agent gets 21.2 reward over the whole episodes (figure~\ref{fig:2nd_exp_avg_eps_reward}).
+	\item The maximum the agent could get exceed 40.5 reward over the whole episodes (figure~\ref{fig:2nd_exp_max_eps_reward}).
+	\item The performance of the agent better than the first one.
+	\item The total time elapsed did not exceed 2 hours (figure~\ref{fig:2nd_exp_total_training_time}).
+\end{itemize}

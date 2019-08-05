@@ -2,20 +2,19 @@
 
 \subsection{2-DOF Arm Multi-Agent Distributed Experiment}
 
-Since the distributed setup achieve higher performance, we will be moving to a more higher and complex distributed algorithms which provides high performance throughput and can scale to support multi-agent environments and simulate in a larger scale for achieving faster training and performance in the least amount of time providing a high performance computing power.
+Since the distributed setup achieves higher performance, we will be moving to a more higher and complex distributed algorithms which provide high-performance throughput and can scale to support multi-agent environments and simulate in a larger scale for achieving faster training and performance in the least amount of time providing high-performance computing power.
 
 \subsubsection{Aim of the experiment}
-% 1. Question behind (in the heading, why interesting, what to investigate)
 
-This experiment is designed to be performed on large multi-agents scale in distributed setup using APE-X DDPG Algorithm for continuous spaces. Using a single GPU learner and many CPU workers for experience collection. Experience collection can scale to hundreds of CPU workers due to the distributed prioritization of experience prior to storage in replay buffers.
+This experiment is designed to be performed on large multi-agents scale in a distributed setup using APE-X DDPG Algorithm for continuous spaces. Using a single GPU learner and many CPU workers for experience collection. Experience collection can scale to hundreds of CPU workers due to the distributed prioritization of experience prior to storage in replay buffers.
 
-We want to investigate how the agent will perform in the experiment, the time taken to run the experiment, the average episode reward the agent will get and whether the agent will be able to solve the environment in a constrained stopping conditions.
+We want to investigate how the agent will perform in the experiment, the time taken to run the experiment, the average episode reward the agent will get and whether the agent will be able to solve the environment in constrained stopping conditions.
 
 \subsubsection{Setup and configurations}
 
-In this experiment, Distributed Prioritized Experience Replay (Ape-X) algorithm is selected to train the agents in the experiments. Since this experiment is Scalable Multi-Agent, the experiment was performed with multiple number of agents and environment per each agent to test the Scalability and efficiency and determine the best setup for the experiment.
+In this experiment, the Distributed Prioritized Experience Replay (Ape-X) algorithm is selected to train the agents in the experiments. Since this experiment is Scalable Multi-Agent, the experiment was performed with multiple numbers of agents and environment per each agent to test the Scalability and efficiency and determine the best setup for the experiment.
 
-Below are the default configuration for Ape-X algorithm:
+Below is the default configuration for the Ape-X algorithm:
 \lstinputlisting[language=Python]{chapters/04/apex_default.py}
 
 followed by this experiment setup and configuration as listed below:
@@ -45,7 +44,7 @@ followed by this experiment setup and configuration as listed below:
 		\label{tab:gym_reacher_apex_3rd_exp}
 \end{table}
 
-As shown in the configuration table~\ref{tab:gym_reacher_apex_3rd_exp} above, we setup the number of environments to be for the first time 32 per each worker leading the experiment to have 384 parallel environment running in the experiment. The second run of the experiment have 16 environment per worker, in this way the experiment have 192 environment running in the experiment. The number of the environment can be much bigger that this in there are more powerful computing provided.
+As shown in the configuration table~\ref{tab:gym_reacher_apex_3rd_exp} above, we setup the number of environments to be for the first time \textbf{32 per each worker} leading the experiment to have \textbf{384 parallel environment} running in the experiment. The second run of the experiment have \textbf{16 environment per worker}, in this way the experiment have \textbf{192 environment} running in the experiment. The number of the environment can be much bigger that this in there are more powerful computing provided.
 
 
 \subsubsection{Experiment Results}
@@ -58,7 +57,7 @@ The experiment is performed until an average reward of 21 achieved or for a maxi
 		\item The Total Time taken to perform the experiment
 \end{itemize}
 
-Starting from the maximum reward the agent has obtained, we observe that the agent could quickly learn how to reach the target sphere after only 1M time-steps, passing the non-distributed agent score. After 4M time-steps, the agent achieve the maximum reward (40) that can be obtained in the environment. In the following figure~\ref{fig:3rd_exp_max_eps_reward}, the performance of both the agent for the maximum reward in the environment is shown below:
+Starting from the maximum reward the agent has obtained, the agent could quickly learn and surpass both distributed and non-distributed PPO algorithm after only 2M time-steps. Achieve (+40.4) the maximum reward in the environment. In the following figure~\ref{fig:3rd_exp_max_eps_reward}, the performance of all the agents for the maximum reward in the environment is shown below:
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/3rd_exp/max_eps_reward.png}
@@ -66,7 +65,7 @@ Starting from the maximum reward the agent has obtained, we observe that the age
 		\label{fig:3rd_exp_max_eps_reward}
 \end{figure}
 
-Since the experiments are constrained under the conditions of reaching average reward of 21 or completing 10M steps, we compare the performance of both agents for the average reward. The observation are the distributed version of the agent exceed the average reward obtained by the non-distributed agent after only 500,000 time-steps. Followed by performance improvement over time-steps as the agent reach 15 reward after 2M time-steps, and reaching 20 reward after 4M time-steps, leading the agent to solve the environment and achieve the specified 21 average reward after 6M time-steps only. Hence, the agent performance is better than the previous one and could solve the environment effectively before reaching 10M time-steps. The following figure~\ref{fig:3rd_exp_avg_eps_reward}, illustrate the performance of each agent for obtaining the average rewards.
+Comparing the performance of the three agents for the average reward. The observation are the distributed apex-ddpg version exceed (+10) average reward after only 100,000 time-steps. Followed by performance improvement over time-steps as the agent reach 21 reward after 2M time-steps, leading the agent to solve the environment and achieve the specified 21 average reward before completing 3M time-steps. Hence, the agent performance is better than the two previous agents and could solve the environment effectively before reaching 3M time-steps. The following figure~\ref{fig:3rd_exp_avg_eps_reward}, illustrate the performance of each agent for obtaining the average rewards.
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/3rd_exp/avg_eps_reward.png}
@@ -74,7 +73,7 @@ Since the experiments are constrained under the conditions of reaching average r
 		\label{fig:3rd_exp_avg_eps_reward}
 \end{figure}
 
-Comparing between the experiment's total taken time is crucial as it's one of the main key concept for our experiments. Running the two experiments multiple times with different seeds, we observe that the distributed experiment take half the time needed to perform the non-distributed experiment, making it much faster to train and execute reinforcement learning algorithms in distributed setup. The following figure~\ref{fig:3rd_exp_total_training_time} show the time taken for each experiment per hour.
+The experiment's total taken time is the best factor in this experiment as the algorithm with the huge number of parallel environment was able to finish the task under only (1 Hour) of training. Exceeding the time for both the experiments and utilizing the use of GPU and parallel environment to achieve the goal quickly. Hence, using powerful high-throughput algorithms leads to much faster training time. The following figure~\ref{fig:3rd_exp_total_training_time} show the time taken for each experiment per hour.
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/3rd_exp/total_training_time.png}
@@ -85,4 +84,14 @@ Comparing between the experiment's total taken time is crucial as it's one of th
 
 \subsubsection{Conclusion}
 
-In this experiment, we perform a training and evaluation for the robotic arm using distributed version of ppo algorithm to train our agent. As shown in the results, we conclude that the distributed experiment is much better than the non-distributed version in the training time, the learning process for the agent and for solving the required task.
+In this experiment, we perform a training and evaluation for the robotic arm using distributed APEX-DDPG algorithm to train our agent. As shown in the results, we conclude that using high-throughput powerful algorithm in a distributed setup leads to have the best outcome for both completing a task and reducing the total time of the experiment.
+
+Summary for the results:
+\begin{itemize}
+	\item The agent solved the required task.
+	\item The agent only required 2.2M time-steps to complete the task.
+	\item The average the agent gets 21.5 reward over the whole episodes (figure~\ref{fig:3rd_exp_avg_eps_reward}).
+	\item The maximum the agent could get exceed 40.3 reward over the whole episodes (figure~\ref{fig:3rd_exp_max_eps_reward}).
+	\item The performance of the agent better than the previous agents.
+	\item The total time elapsed did not exceed 1 hours (~47 minutes) (figure~\ref{fig:3rd_exp_total_training_time}).
+\end{itemize}
