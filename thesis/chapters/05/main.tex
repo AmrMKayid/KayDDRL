@@ -5,12 +5,21 @@
 
 In this chapter we summarize the information presented throughout this thesis and structure the conclusions with a work summary, limitations and future work of this study. With this, we provide a final closure to conducted reinforcement learning experiments, establish a relation between all the experiment results what is the benefit from executing them. Afterwards, with this conclusion, we also present the limitations we encountered during execution of our work and propose ideas to give a direction of further work that can be undertaken after this study. Finally, we end the chapter with concluding remarks for continuing further experiments.
 
-% In this chapter, we summarize the work we have conducted and all the experiments and explain the limitations and remarks observed from the experiment. Followed by future work that might extend these experiments to large scale and complex environemnt. Finally, we end the chapter with resources used for the work.
-
 \section{Work Summary}
+In this thesis, we performed multiple experiments to experience the effect of distribution for reinforcement learning and how to get the best use for the available GPUs and CPUs power by utilizing them and enable the use of high-performance algorithms and architecture to reduce the total training time. Then, we experiment the use of transfer learning from one environment to a different one and how to benefit from a pre-trained agent to make the training faster and learn a new more complex policy in less time. This is achieved by using the powerful distributed ray framework which enables making clusters, scheduling the tasks and providing powerful and reliable APIs to unify the reinforcement learning loop and training process among different environments and algorithms. 
 
-\section{Concluding Remarks}
+We have evaluated multiple environment using two different type of algorithms, which gives a reliable comparison between training on a distributed setup and non-distributed setup. 
+
+Our work was based on using two platforms for the environments, which can be extended to support more environment in the future and to have more complex environment for better comparison and evaluation.
 
 \section{Limitations}
 
+The hardware limitation was a main issue as there were only one GPU used. This consumed very long time for such simple environments.
+
+The constrained condition for the environment was suitable for the available hardware. This can be changed if provided more powerful hardware which reduce the training time and enable running more experiments than we have conducted.
+
+The use of only two engines to compare between them. This can be extended in the future to support more engines described in chapter \autoref{chapter:background_and_foundations}.
+
 \section{Future Work}
+
+To extend our approach for more complex environments, we need to use powerful hardware and cluster computers, perform hyperparameters optimization and grid searching to find the best suitable hyperparameters. Testing and evaluating transfer learning between more complex environments to ensure that the agent can actually used the learned policy and weights of the neural network to learn new one in a faster way. Finally, unifying more environments to simplify the training process as shown with unity environment example and trying more powerful architecture and algorithms such as IMAPLA~\parencite{espeholt2018impala} and SAC~\parencite{haarnoja2018soft} to find the best suitable options for large scale robotics simulations.
