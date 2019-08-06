@@ -140,7 +140,6 @@ Followed by measuring what is the minimum reward the agent is getting, shown in 
 	\caption{Minimum Reward over Episodes}
 	\label{fig:1st_exp_min_eps_reward}
 \end{figure}
-
 The experiment was constrained under the conditions of reaching average reward of 21 or completing 10M steps. Based on the following figure~\ref{fig:1st_exp_avg_eps_reward}, the agent was not able to obtain the required reward for the first stopping condition. Hence, the agent completed the 10M time-steps without achieving the goal of the environment. This indicated the bad performance for this agent (getting only +1 reward) and the training process in a non-distributed environment wasn't sufficient to complete the required task.
 \begin{figure}[H]
 	\centering
@@ -148,7 +147,6 @@ The experiment was constrained under the conditions of reaching average reward o
 	\caption{Average Reward over Episodes}
 	\label{fig:1st_exp_avg_eps_reward}
 \end{figure}
-
 The following measurement~\ref{fig:1st_exp_total_loss} describe the total loss of the algorithm which shows high variance and indicate that the algorithm needed more time to reduce the loss and reach a minimum better than this to enhance the agent performance.
 \begin{figure}[H]
 	\centering
@@ -156,7 +154,6 @@ The following measurement~\ref{fig:1st_exp_total_loss} describe the total loss o
 	\caption{Total Loss}
 	\label{fig:1st_exp_total_loss}
 \end{figure}
-
 The most important metric for the experiment, which is the aim we want to reduce as much as possible, is the \textbf{total training time} for the experiment. The following figure shows the training time for the experiment in hours. This indicated how much time needed to perform such an experiment. From the figure~\ref{fig:1st_exp_total_training_time}, the experiment time is approximately \textbf{4 Hours}, which is very huge for performing normal task in a simple robotic environment.
 \begin{figure}[H]
 	\centering

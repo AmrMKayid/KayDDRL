@@ -6,23 +6,23 @@
 Reinforcement learning \textbf{(RL)}~\ref{fig:rl} is an area of machine learning~\ref{fig:rl_2} inspired by behaviorist psychology and intersect between different fields including neuroscience, psychology, mathematics and economics~\ref{fig:rl_1}. It has revolutionized our understanding of learning in the brain over the last 20 years. Unlike other machine learning approaches, that are dependent on \textit{pre-collected data}, Reinforcement Learning allows an agent to take actions to observe and interact with an environment to maximize total rewards towards achieving specific goals.
 
 \begin{figure}[!htb]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
-		\begin{subfigure}[b]{0.4\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/rl_1.png}
-				\caption{Faces of Reinforcement Learning}
-				\label{fig:rl_1}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.4\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/rl_2.png}
-				\caption{Branches of Machine Learning}
-				\label{fig:rl_2}
-		\end{subfigure}
-		\hfill
-		 \caption{General Overview of Reinforcement Learning~\parencite{deepmind_rl}}
-		 \label{fig:rl}
+		\includegraphics[width=\textwidth]{figures/rl/rl_1.png}
+		\caption{Faces of Reinforcement Learning}
+		\label{fig:rl_1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/rl_2.png}
+		\caption{Branches of Machine Learning}
+		\label{fig:rl_2}
+	\end{subfigure}
+	\hfill
+	\caption{General Overview of Reinforcement Learning~\parencite{deepmind_rl}}
+	\label{fig:rl}
 \end{figure}
 
 
@@ -50,52 +50,52 @@ Despite AlphaGo Zero used a single machine with \textit{4 tensor processing unit
 This illustrations~\ref{fig:zero_and_five} show the amount of time along with computation and power consumptions required by the two algorithms to master the assigned tasks and get desired results. 
 
 \begin{figure}[!htb]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
 		\centering
-		\begin{subfigure}[b]{0.3\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/alphago_zero.png}
-				\caption{AlphaGo Zero Training Time}
-				\label{fig:alphago_train}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.3\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/alphago_search_tree.png}
-				\caption{AlphaGo Search Tree}
-				\label{fig:alphago_search_tree}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.3\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/alphago_power.png}
-				\caption{AlphaGo Versions Compute Power}
-				\label{fig:alphago_power}
-		\end{subfigure}
-		\hfill
-
-		\begin{subfigure}[b]{0.3\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/openai_five_hardware.png}
-				\caption{Hardware used for OpenAI Five}
-				\label{fig:five_hardware}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.3\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/openai_five_training.png}
-				\caption{OpenAI Training Workflow}
-				\label{fig:openai_five_training}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.3\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/rl/openai_five_time.png}
-				\caption{OpenAI Training Time}
-				\label{fig:openai_five_time}
-		\end{subfigure}
-		\hfill
-		 \caption{AlphaGo Zero \& OpenAI Five}
-		 \label{fig:zero_and_five}
+		\includegraphics[width=\textwidth]{figures/rl/alphago_zero.png}
+		\caption{AlphaGo Zero Training Time}
+		\label{fig:alphago_train}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/alphago_search_tree.png}
+		\caption{AlphaGo Search Tree}
+		\label{fig:alphago_search_tree}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/alphago_power.png}
+		\caption{AlphaGo Versions Compute Power}
+		\label{fig:alphago_power}
+	\end{subfigure}
+	\hfill
+	
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/openai_five_hardware.png}
+		\caption{Hardware used for OpenAI Five}
+		\label{fig:five_hardware}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/openai_five_training.png}
+		\caption{OpenAI Training Workflow}
+		\label{fig:openai_five_training}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/rl/openai_five_time.png}
+		\caption{OpenAI Training Time}
+		\label{fig:openai_five_time}
+	\end{subfigure}
+	\hfill
+	\caption{AlphaGo Zero \& OpenAI Five}
+	\label{fig:zero_and_five}
 \end{figure}
 
 This introduces a critical \textit{\textbf{(experiment turn-around time)}} bottleneck for reinforcement learning research and in practice along with key issue to design algorithms that are both scalable and data-efficient. To overcome this bottleneck, new approaches and directions are being followed towards using distributed setups toward accelerating reinforcement learning experiments, reduce the training time, and scales the algorithms effectively. Hence, reinforcement learning needs to support fine-grained computations and render actions in milliseconds when interacting with the real world or performing vast numbers of simulations. It has to support utilizing the resources usage and support heterogeneity in time for both simulation time which takes milliseconds or hours and the GPUs and CPUs wall-time for simulations. Also, supporting dynamic execution, as results of simulations or interactions with the environment can change future computations. 
