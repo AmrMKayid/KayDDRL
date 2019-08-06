@@ -119,26 +119,61 @@ As a distributed computing system, Ray still follows the typical Master-Slave de
 
 \section{Architecture}
 
-At a high level, ray provides an \textbf{\colorbox{gray!20}{Trainer}} class which holds a policy for environment interaction. Through the trainer interface~\ref{fig:ray_trainer}, the policy can be trained, check-pointed, or an action computed. In multi-agent training, the trainer manages the querying and optimization of multiple policies at once. It provides custom resources configurations~\ref{fig:ray_config}, which can control the degree of parallelism used by setting the \colorbox{gray!20}{\texttt{num\_workers}} hyper-parameter for most algorithms. The number of GPUs the driver should use can be set via the \colorbox{gray!20}{\texttt{num\_gpus}} option. Similarly, the resource allocation to workers can be controlled via \colorbox{gray!20}{\texttt{num\_cpus\_per\_worker}}, \colorbox{gray!20}{\texttt{num\_gpus\_per\_worker}}, and \colorbox{gray!20}{\texttt{custom\_resources\_per\_worker}}. The number of GPUs can be a fractional quantity to allocate only a fraction of a GPU. For example, with DQN you can pack five trainers onto one GPU by setting \colorbox{gray!20}{\texttt{num\_gpus}: 0.2}.
-
+The structure of reinforcement learning computations as shown in the figure~\ref{fig:rl_computation} below, follows a simple abstract approach where the environment send states (observations) to the agent and the agent transform the states to proper actions. The focus here in the Agent computation, how to speed up this process, from storing the trajectories (experiences) from the environment to computing the stochastic gradient descent and improving the policy till policy evaluation and converting the states to actions. Since most reinforcement learning algorithms share common components like (the Policy \(\pi_{\theta}\left(S_{t}\right)\), Preprocessing Trajectory \(\rho_{\theta}(X)\), and Loss functions \(L(\theta, X)\)), there is a need to unify these component among different algorithms to have a system that effectively meet all the varied demands of RL workloads.
 \begin{figure}[!htb]
-		\centering
-		\begin{subfigure}[b]{0.4\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/architecture/ray_trainer.png}
-				\caption{Ray Training Process}
-				\label{fig:ray_trainer}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.4\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{figures/architecture/ray_config.png}
-				\caption{Ray Configurable resources}
-				\label{fig:ray_config}
-		\end{subfigure}
-		\hfill
-		 \caption{General Overview of Ray framework~\parencite{moritz2018ray}}
-		 \label{fig:ray}
+	\centering
+	\includegraphics[width=\linewidth]{figures/architecture/rl_computation.png}
+	\caption{Structure of RL computations}
+	\label{fig:rl_computation}
+\end{figure}
+
+In order to meet the requirements and provide enhanced learning scenario, there is a needs to support stateful computations (for environment simulators, neural networks, replay buffers), support heterogeneous computing tasks, dynamically compute links, millisecond-level latency, allow easy composition of (distributed) components, and the ability to schedule millions of tasks per second. This is provided by a higher-level RL abstractions which enable hierarchical parallel task model, as shown in the figure~\ref{fig:rl_htm}, with stateful workers that is flexible enough to capture a broad range of RL workloads 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\linewidth]{figures/architecture/htm.png}
+	\caption{Hierarchical Task Model}
+	\label{fig:rl_htm}
+\end{figure}
+
+Using the \textbf{Hierarchical Parallel Task Model}, it is easy to create python class instances in the ray cluster (representing the stateful workers), enabling running multiple training steps, collecting experiences from the environment, using all-reduce for the gradient optimization and exchange weight shards through Ray object store. the following figure~\ref{fig:ray_cluster} an illustration for the ray cluster components.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\linewidth]{figures/architecture/ray_cluster.png}
+	\caption{Ray Cluster}
+	\label{fig:ray_cluster}
+\end{figure}
+
+Ray distributed execution engine~\ref{fig:ray_engine}, provides \textbf{Task parallel} and \textbf{Actor APIs} built on \textbf{dynamic task graphs}. These APIs are used to build distributed applications, libraries and systems providing faster execution than python multiprocessing on a single node and competitive performance with MPI in many workloads.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\linewidth]{figures/architecture/ray_engine.png}
+	\caption{Ray Distributed Execution Engine}
+	\label{fig:ray_engine}
+\end{figure}
+
+
+At a high level, ray provides an \textbf{\colorbox{gray!20}{Trainer}} class which holds a policy for environment interaction. Through the trainer interface~\ref{fig:ray_trainer}, the policy can be trained, check-pointed, or an action computed. In multi-agent training, the trainer manages the querying and optimization of multiple policies at once. 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{figures/architecture/ray_trainer.png}
+	\caption{Ray Training Process}
+	\label{fig:ray_trainer}
+\end{figure}
+
+It provides custom resources configurations~\ref{fig:ray_config}, which can control the degree of parallelism used by setting the \colorbox{gray!20}{\texttt{num\_workers}} hyper-parameter for most algorithms. The number of GPUs the driver should use can be set via the \colorbox{gray!20}{\texttt{num\_gpus}} option. Similarly, the resource allocation to workers can be controlled via \colorbox{gray!20}{\texttt{num\_cpus\_per\_worker}}, \colorbox{gray!20}{\texttt{num\_gpus\_per\_worker}}, and \colorbox{gray!20}{\texttt{custom\_resources\_per\_worker}}. The number of GPUs can be a fractional quantity to allocate only a fraction of a GPU. For example, with DQN you can pack five trainers onto one GPU by setting \colorbox{gray!20}{\texttt{num\_gpus}: 0.2}.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{figures/architecture/ray_config.png}
+	\caption{Ray Configurable resources}
+	\label{fig:ray_config}
+\end{figure}
+
+The following diagram provides a conceptual overview of data flow between different components. It starts with an \colorbox{gray!20}{\texttt{Environment}}, which given an action produces an observation. The observation is preprocessed by a \colorbox{gray!20}{\texttt{Preprocessor}} and \colorbox{gray!20}{\texttt{Filter}} (for running mean normalization) before being sent to a neural network \colorbox{gray!20}{\texttt{Model}}. The model output is in turn interpreted by an \colorbox{gray!20}{\texttt{ActionDistribution}} to determine the next action.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{figures/architecture/ray_loop.png}
+	\caption{Ray Conceptual Overview of Data Flow, Models, \& Preprocessors}
+	\label{fig:ray_loop}
 \end{figure}
 
 Since ray support only OpenAI Gym environments along with their provided multi-agent and also batched environments, we had to implement our custom environment to unify between unity mlagents and openai gym environments. Also, we implemented our custom Multi-Agent environments for both used environments as shown in the following figure~\ref{fig:ray_envs}.
@@ -198,7 +233,7 @@ In this way, a combination of Ape-X and DDPG is used for the experiments to supp
 The detailed algorithm is described as in the following figures~\ref{fig:apex_algorithm}:
 \begin{figure}[!htb]
 		\centering
-		\includegraphics[width=\linewidth]{figures/apex.png}
+		\includegraphics[width=0.7\linewidth]{figures/apex.png}
 		\caption{Ape-X Pseudocode Implementation for both Actors \& Learner}
 		\label{fig:apex_algorithm}
 \end{figure}
