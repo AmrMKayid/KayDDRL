@@ -3,12 +3,11 @@
 
 \chapter{Background and Foundations}\label{chapter:background_and_foundations}
 
-This chapter represents the basic concepts used throughout our work. First, a brief introduction to the reinforcement learning field. Second, Markov Decision Processes (MDPs), the standard mathematical formalism framework for reinforcement learning will be introduced. Then, We will discuss the Value functions and Policy Gradient. Next, we will discuss the methods used and differentiate between them. In addition, we conclude the use of deep learning in reinforcement learning with some of Deep Reinforcement Learning (DRL) Algorithms. Finally, we discuss related work in distributed reinforcement learning.
+This chapter represents the basic concepts used throughout our work. First, a brief introduction to the reinforcement learning field. Second, Markov Decision Processes (MDPs), the standard mathematical formalism framework for reinforcement learning will be introduced. Then, We will discuss the value functions and policy gradient methods. Next, we will discuss the methods used to achieve the RL goal and differentiate between them. In addition, we conclude the use of deep learning in reinforcement learning with some of Deep Reinforcement Learning (DRL) Algorithms. Finally, we discuss related work in distributed reinforcement learning.
 
 \section{Reinforcement Learning}
 
-% Agent & Env | mentioned before defined
-\textbf{RL} (\textit{The science of decision making}) is a machine learning approach to teach agent how to solve tasks through trial and error interaction with a dynamic, unknown environment. Where it formalizes the idea that \textit{\textbf{rewarding or punishing}} an agent for its behavior makes it more likely to repeat or forego that behavior in the future. In contrast with other machine learning methods, the agent is not told the proper actions to take. Instead, the agent interacts with its environment and, upon observing the consequences of its actions, can learn to alter its behavior in response to rewards received. The goal of the agent is to maximize the expected cumulative reward. The main characters of RL are the \textbf{Agent} and the \textbf{Environment}. The typical interaction loop between agent and environment is illustrated in Figure~\ref{fig:agent_env} below.
+\textbf{RL} (\textit{The science of decision making}) is a machine learning approach to teach agent how to solve tasks through trial and error interaction with a dynamic, unknown environment. It formalizes the idea of \textit{\textbf{rewarding or punishing}} an agent for its behavior. This makes the agent more likely to repeat or forego that behavior in the future. In contrast with other machine learning methods, the agent is not told the proper actions to take. Instead, the agent interacts with its environment, and upon observing the consequences of its actions, it can learn to alter its behavior in response to rewards received. The goal of the agent is to maximize the expected cumulative reward. The main components of RL are the \textbf{Agent} and the \textbf{Environment}. The typical interaction loop between agent and environment is illustrated in Figure~\ref{fig:agent_env} below.
 
 \begin{figure}[!htb]
 	\centering
@@ -19,12 +18,12 @@ This chapter represents the basic concepts used throughout our work. First, a br
 
 \subsubsection{Agent}\label{Agent}
 
-An agent is considered the brain which decides to takes proper actions and it is where the learning process happen and improve over time. Examples of the agents, a drone making a delivery, a robot learning to walk or Super Mario navigating a video game. The reinforcement learning algorithm is the agent. For the learning process, the agent observes the state of the world and based on that takes an action. The environment changes according to the agent's actions and it might also change on its own. 
+An agent is considered the brain (e.g. for a robot, the agent is typically not the whole robot, but the specific program running on the robot's CPU that makes the decision on the action). The agent decides to takes proper actions and it is where the learning process happen and improve over time. For the learning process, the agent observes the state of the world and based on that takes an action. The environment changes according to the agent's actions and it might also change on its own. Examples of the agents are a drone making a delivery, or a robot learning to walk.
+%or super mario navigating a video game. 
 
 \subsubsection{Environment}\label{Environment}
 
-An Environment constitutes a world for the agent to act and learn from. 
-To illustrate and describe the environment to an agent we have a \textbf{state} \(s\) which is a complete description of the state of the world, and sometimes an \textbf{observation} \(o\) a \textit{partial} description of a state, which may omit information. Environments could be the whole surrounding 3D space or 2D images from cameras for a real-world task like a robotic arm, or it could represent an entire virtual world or games from an emulator like OpenAI Gym~\parencite{brockman2016openai}. When the agent can observe the complete state of the environment, we say that the environment is \textbf{fully observed} (e.g. Atari games). When the agent can only see a partial observation, we say that the environment is \textbf{partially observed} (e.g. robotic camera in a navigation task).
+An Environment constitutes a world for the agent to act and learn from. To describe the environment to an agent we have a \textbf{state} \(s\) which is a complete description of the state of the world. Sometimes an \textbf{observation} \(o\) is a \textit{partial} description of a state, which may omit information. Environments could be the whole surrounding 3D space or 2D images from cameras for a real-world task like a robotic arm, or it could represent an entire virtual world or games from an emulator like OpenAI Gym~\parencite{brockman2016openai}. When the agent can observe the complete state of the environment, we say that the environment is \textbf{fully observed} (e.g. Atari games). When the agent can only see a partial observation, we say that the environment is \textbf{partially observed} (e.g. robotic camera in a navigation task).
 Some of the environments can be found in this figure~\ref{fig:envs_examples}
 
 \input{chapters/02/existing_envs.tex}
@@ -51,7 +50,7 @@ Markov Decision Process refers to the fact that the system obeys the \textbf{Mar
 
 \subsection{Rewards and Return}
 
-The reward function \(R\) is critically important in reinforcement learning. It depends on the current state of the world, the action just taken, and the next state of the world:
+The reward function (\(R\)) is critically important in RL. It depends on the current state of the world, the action just taken, and the next state of the world:
 
 \begin{center}
 	\begin{equation}
@@ -59,9 +58,7 @@ The reward function \(R\) is critically important in reinforcement learning. It 
 	\end{equation}
 \end{center}
 
-The goal of the agent is to maximize some notion of cumulative reward over a trajectory.
-
-There are two kinds of return, \textbf{the finite-horizon undiscounted return}, which is just the sum of rewards obtained in a fixed window of steps:
+The goal of the agent is to maximize some notion of cumulative reward over a trajectory. There are two kinds of return, \textbf{the finite-horizon undiscounted return}, which is just the sum of rewards obtained in a fixed window of steps:
 
 \begin{center}
 	\begin{equation} \label{eq:1}
@@ -81,10 +78,9 @@ The use of a discount factor is crucial as \textbf{mathematically} an infinite-h
 
 \subsection{Policies}
 
-A policy ($\pi$) is a rule used by an agent to decide what actions to take, it's considered as the strategy that the agent employs to determine the next action based on the current state. It maps states to actions $ \pi : \mathcal{S} \rightarrow p(\mathcal{A}=\mathbf{a} | \mathcal{S}) $, the actions that promise the highest reward.
+A policy ($\pi$) is a rule used by an agent to decide what actions to take. It's considered as the strategy that the agent employs to determine the next action based on the current state. It maps states to actions $ \pi : \mathcal{S} \rightarrow p(\mathcal{A}=\mathbf{a} | \mathcal{S}) $, the actions that promise the highest reward.
 
-The policy can be deterministic where it is usually denoted by $ \mu: a_{t}=\mu\left(s_{t}\right) $
-or stochastic denoted by $ \pi:  a_{t} \sim \pi\left(\cdot | s_{t}\right) $
+The policy can be deterministic where it is usually denoted by $ \mu: a_{t}=\mu\left(s_{t}\right) $ or stochastic denoted by $ \pi:  a_{t} \sim \pi\left(\cdot | s_{t}\right) $
 with the two most common kinds of stochastic policies categorical policies (discrete action spaces) and diagonal Gaussian policies (continuous action spaces).
 
 A very important two key computations for training stochastic policies are:
@@ -96,14 +92,14 @@ A very important two key computations for training stochastic policies are:
 
 \subsubsection{Reinforcement Learning Goal}
 
-The goal of reinforcement learning is to select a policy which maximizes the \textbf{expected return} ($ J(\pi) $) when the agent acts according to it, where:
+The goal of RL is to select a policy which maximizes the \textbf{expected return} ($ J(\pi) $) when the agent acts according to it, where:
 \begin{center}
 	\begin{equation} \label{eq:expected_return}
 		J(\pi)=\int_{\tau} P(\tau | \pi) R(\tau)=\underset{\tau \sim \pi}{\mathrm{E}}[R(\tau)],
 	\end{equation}
 \end{center}
 
-with $ P(\tau | \pi) $ as the probability distributions over T-step trajectories.
+with $ P(\tau | \pi) $ as the probability distributions over \textit{T-step} trajectories.
 \begin{center}
 	\begin{equation}
 		P(\tau | \pi)=\rho_{0}\left(s_{0}\right) \prod_{t=0}^{T-1} P\left(s_{t+1} | s_{t}, a_{t}\right) \pi\left(a_{t} | s_{t}\right).
@@ -180,8 +176,7 @@ Actor-Critic method is the combination of both \textit{value functions} and an e
 
 A recent breakthrough in deep learning fields relied on efficiently training a deep neural network on large training datasets, which improves many fields including \textit{computer vision and speech recognition}. These models are trained directly from raw inputs using stochastic gradient descent to update the networks' weights. These successes lead its way to reinforcement learning in which it connects RL algorithms with deep neural networks to operate directly on raw images and efficiently generate training data using stochastic gradient updates.
 
-\subsection{State of the Art}
-
+% \subsection{State of the Art}
 In the following, we briefly discuss four state-of-the-art algorithms, \textit{Deep Q Network}, two deep policy search methods: \textit{Deep Deterministic Policy Gradient} and \textit{Proximal Policy Optimization}, also an asynchronous deep actor-critic method called \textit{Asynchronous Advanced Actor-Critic}.
 These methods are currently the most popular and effective algorithms, proposed by DeepMind\footnote{\url{https://deepmind.com}} and OpenAI\footnote{\url{https://openai.com}}. In this work, some of these methods are used for experiments.
 
