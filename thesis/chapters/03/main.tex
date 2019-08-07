@@ -4,7 +4,7 @@
 % \chapter{Setup and Implementation}\label{chapter:setup_and_implementation}
 \chapter{Methodology}\label{chapter:methodology}
 
-In this chapter, the full details of the setups will be introduced. First, a task description of our experiments will be explained. Second, the used software framework will be presented. Then, our environments architecture and integration with the framework will be explained. Lastly, a description of the training algorithms will be provided.
+In this chapter, the full details of the setups will be introduced. First, a task description of our experiments will be explained. Second, the used software framework will be presented. Then, our environments architecture and integration with the framework will be discussed. Finally, a description of the training algorithms will be provided.
 
 \section{Overview}
 
@@ -14,10 +14,11 @@ Our approach is to set up a distributed learning architecture to run multiple ex
 
 The selected task for our experiment is \textit{controlling robotic arm} in different environments. Starting from a simple 2D environment to explain and show the motion of the simulated robotic arm in simple basic robotics environment and using deep reinforcement learning to achieve their goals, then moving to a 3D environment with a more advanced and complex physics engine. This can be generalized to more complex and large 3D robots, humanoid robots, and physical robots that can move around in the real world.
 
-The primary advantage of selecting this task to apply deep reinforcement learning algorithms is that the algorithms will be used to control the robotic arm has \textit{no domain knowledge of robotics} or how to use robotics differential equations to move the arm, instead it is provided with few observations which enable the agent to control the arm effectively. 
+% Modify 
+The primary advantage of selecting this task to apply DRL algorithms is that the algorithm will be used to control the robotic arm has \textit{no domain knowledge of robotics} or how to use robotics differential equations to move the arm, instead it is provided with few observations which enable the agent to control the arm effectively. 
 
-Briefly, the robotic arm specification and will be discussed. The humanoid robot is composed of a bunch of links \textit{(e.g. forearms and thighs)} and joints \textit{ (e.g. elbows and knees)}. A joint is connected to one or two links, and a force applied on your joints will bend the links correspondingly. In the experiment's environment, instead of using a full humanoid robot, the restriction will be on only using a single-arm, since the dexterity they require makes them interesting to study. 
-Provided an example for similar arm used in our environments. As shown below~\ref{fig:arm}, the has three joints (the shoulder, elbow, and wrist) and two links (the (humerus aka upper arm and the forearm).
+% Modify 
+Briefly, we will discuss the robotic arm specification. The humanoid robot is composed of a bunch of links \textit{(e.g. forearms and thighs)} and joints \textit{ (e.g. elbows and knees)}. A joint is connected to one or two links, and a force applied on your joints will bend the links correspondingly. In the experiment's environment, instead of using a full humanoid robot, the restriction will be on only using a single-arm, since the dexterity they require makes them interesting to study. Provided an example for similar arm used in our environments. As shown in Figure~\ref{fig:arm} below, the arm has three joints (the shoulder, elbow, and wrist) and two links the (humerus aka upper arm and the forearm).
 
 \begin{figure}[!htb]
 	\centering
@@ -28,21 +29,21 @@ Provided an example for similar arm used in our environments. As shown below~\re
 
 Since robotics environments tend to be very complex especially in the real world and using actual hardware components, simulated engines had been selected to be programmed and simulate a robotic environment. This can then be transferred into real-world implementation with actual robotic arms and trained reinforcement learning agents. 
 
-To understand the learning process in robotics environments, \textbf{Inverse Kinematics} need to be explained. The typical approach to learning to solve goals in robotics environments is using Inverse Kinematics which is defined as given a desired end-effector pose (position + orientation), find the values of the joint variables that will realize it. Meaning that given an end position for an effector, find the forces needed to be applied on joints to make the end effector reach it.
+To understand the learning process in robotics environments, Inverse Kinematics (IK) need to be explained. The typical approach to learning to solve goals in robotics environments is using Inverse Kinematics which is defined as given a desired end-effector pose (position + orientation), find the values of the joint variables that will realize it. Meaning that given an end position for an effector, find the forces needed to be applied on joints to make the end effector reach it.
 
 In robotic systems, the tasks are usually defined in coordinate space, whereas the control commands are defined in actuator space. In order to perform task-level robot learning, an appropriate transformation from coordinate space to actuator space is required. If the intrinsic coordinates of a manipulator are defined as a vector of joint angles \(\boldsymbol{\theta} \in \mathbf{R}^{\mathbf{n}}\), and the position and orientation vector of the end effector as a vector \(\mathbf{x} \in \mathbf{R}^{\mathrm{m}}\), then the forward kinematics function can be given by the following equation 
 \begin{equation}
-	        \mathbf{x}=f(\boldsymbol{\theta})
+	        \mathbf{x}=f(\boldsymbol{\theta}).
 \end{equation}
 
 The inverse kinematics problem~\parencite{colome2011smooth, chua2013robust} is to find a mapping from the end-effector coordinates to actuator space which can be represented as
 \begin{equation}
-	        \boldsymbol{\theta}=f^{-1}(\mathbf{x})
+	        \boldsymbol{\theta}=f^{-1}(\mathbf{x}).
 \end{equation}
 
 Inverse kinematics for humanoid robots are important for many applications. Unlike closed-form analytical methods, the convergence time of numerical methods may vary and the results are not repeatable. On top of that, computing inverse kinematics under constraints of stability and self-collision avoidance cannot be done efficiently in real-time.
 
-Using reinforcement learning provide us many frameworks for not only learning the complex problem of IK but also to optimize the required criteria. Reinforcement Learning works on the experienced data and thus would avoid problems due to matrix inversions which may occur while solving general inverse kinematics. Therefore, learning would never demand impossible postures which occurs due to ill-conditioned matrix inversions. A general method to solve goal-oriented problems in robotics in a fairly general fashion. The desired goal \textit{(reward function)} for the robot need to be defined to solve the required task. In our environments, two reward functions are defined. One is used to make the finger of the robotic arm reach a certain sphere goal which is the target of the environment. The other one is modified in a way that keeps the target sphere move in the environment and the goal is to keep the arm following it as much as possible. 
+Using RL provide us many frameworks for not only learning the complex problem of IK but also to optimize the required criteria. Reinforcement Learning works on the experienced data and thus would avoid problems due to matrix inversions which may occur while solving general inverse kinematics. Therefore, learning would never demand impossible postures which occurs due to ill-conditioned matrix inversions. A general method to solve goal-oriented problems in robotics in a fairly general fashion. The desired goal \textit{(reward function)} for the robot need to be defined to solve the required task. In our environments, two reward functions are defined. One is used to make the finger of the robotic arm reach a certain sphere goal which is the target of the environment. The other one is modified in a way that keeps the target sphere move in the environment and the goal is to keep the arm following it as much as possible. 
 
 
 \section{Software}
@@ -71,8 +72,8 @@ The following are the methods for the abstracted gym Env:
 	\label{tab:gym_api}
 \end{table}
 
-\subsubsection{Unity MLAgents~\parencite{juliani2018unity}: }\label{unity_mlagents} unity mlagents toolkit is an open-source Unity plugin that enables games and simulations to serve as environments for training intelligent agents. It has a more realistic and complex simulation environment. It provides the ability to flexibly configure
-the simulation. By taking advantage of Unity as a simulation platform, the toolkit enables the development of learning environments which are rich in sensory and physical complexity, provide compelling cognitive challenges, and support dynamic multi-agent interaction. Agents can be trained using reinforcement learning, imitation learning, neuroevolution, or other machine learning methods through a simple-to-use Python API. They provide implementations of state-of-the-art algorithms to enable game developers and hobbyists to easily train intelligent agents for 2D, 3D, and VR/AR games. We are using this to test running multiple agents in the same environment and compare the effect with one agent only. Also, to experiment with the transferability between different physics simulators.
+\subsubsection{Unity MLAgents~\parencite{juliani2018unity}: }\label{unity_mlagents} Unity mlagents toolkit is an open-source Unity plugin that enables games and simulations to serve as environments for training intelligent agents. It has a more realistic and complex simulation environment. It provides the ability to flexibly configure
+the simulation. By taking advantage of Unity as a simulation platform, the toolkit enables the development of learning environments which are rich in sensory and physical complexity, provide compelling cognitive challenges, and support dynamic multi-agent interaction. Agents can be trained using reinforcement learning, imitation learning, neuroevolution, or other machine learning methods through a simple to use Python API. They provide implementations of state-of-the-art algorithms to enable game developers and hobbyists to easily train intelligent agents for 2D, 3D, and VR/AR games. We are using this to test running multiple agents in the same environment and compare the effect with one agent only. Also, to experiment with the transferability between different physics simulators.
 
 The learning environment is quite different from openai gym as it consists of three main components described below:
 
@@ -97,15 +98,15 @@ Unity ML-Agents toolkit provides a variety of training scenarios are possible, d
 
 \textbf{Ray~\parencite{moritz2018ray}} is a fast and simple framework for building and running distributed applications. The same code can be run on a single machine to achieve efficient multiprocessing, and it can be used on a cluster for large computations. Ray provide high scalability and a unified API for a variety of applications which is very useful for our experiments. Ray executes tasks asynchronously to achieve parallelism enabling us to run multiple environments in the same experiment to benefit from collection more experiences and trajectories for the agent.
 
-As a distributed computing system, Ray still follows the typical Master-Slave design~\ref{fig:ray_arch}: Master is responsible for global coordination and state maintenance, and Slave performs distributed computing tasks. However, unlike traditional distributed computing systems, Ray uses the idea of \textbf{hybrid task scheduling}. In cluster deployment mode, Ray starts the following key components:
+As a distributed computing system, Ray still follows the typical Master-Slave design appeared in Figure~\ref{fig:ray_arch} below: Master is responsible for global coordination and state maintenance, and Slave performs distributed computing tasks. However, unlike traditional distributed computing systems, Ray uses the idea of \textbf{hybrid task scheduling}. In cluster deployment mode, Ray starts the following key components:
 
 \begin{itemize}
-	\item \textbf{GlobalScheduler:} A global scheduler is started on the Master to receive the tasks submitted by the local scheduler and distribute the tasks to the appropriate local task scheduler for execution.
-	\item \textbf{RedisServer:} One or more RedisServers are started on the Master to save the state information (ControlState) of distributed tasks, including object machine mapping, task description, task debug information, and so on.
-	\item \textbf{LocalScheduler:} A local scheduler is started on each slave to submit tasks to the global scheduler and assign tasks to the current machine's Worker process.
+	\item \textbf{Global Scheduler:} A global scheduler is started on the Master to receive the tasks submitted by the local scheduler and distribute the tasks to the appropriate local task scheduler for execution.
+	\item \textbf{Redis Server:} One or more redis servers are started on the Master to save the state information (ControlState) of distributed tasks, including object machine mapping, task description, task debug information, and so on.
+	\item \textbf{Local Scheduler:} A local scheduler is started on each slave to submit tasks to the global scheduler and assign tasks to the current machine's Worker process.
 	\item \textbf{Worker:} Multiple worker processes can be started on each slave to perform distributed tasks, and the calculation results are stored in the ObjectStore.
-	\item \textbf{ObjectStore:} An ObjectStore storage read-only data object is started on each Slave. Workers can access these object data through shared memory, which can effectively reduce the cost of memory copy and object serialization. The underlying ObjectStore is implemented by Apache Arrow.
-	\item \textbf{Plasma:} The ObjectStore on each Slave is managed by an object manager called Plasma. It can actively pull object data from other slaves to the current machine when the worker accesses remote data objects that do not exist on the local ObjectStore.
+	\item \textbf{Object Store:} An object store storage read-only data object is started on each Slave. Workers can access these object data through shared memory, which can effectively reduce the cost of memory copy and object serialization. The underlying ObjectStore is implemented by Apache Arrow.
+	\item \textbf{Plasma:} The object store on each slave is managed by an object manager called Plasma. It can actively pull object data from other slaves to the current machine when the worker accesses remote data objects that do not exist on the local ObjectStore.
 \end{itemize}
 
 \begin{figure}[!htb]
@@ -135,7 +136,7 @@ In order to meet the requirements and provide enhanced learning scenario, there 
 	\label{fig:rl_htm}
 \end{figure}
 
-Using the \textbf{Hierarchical Parallel Task Model}, it is easy to create python class instances in the ray cluster (representing the stateful workers), enabling running multiple training steps, collecting experiences from the environment, using all-reduce for the gradient optimization and exchange weight shards through Ray object store. the following figure~\ref{fig:ray_cluster} an illustration for the ray cluster components.
+Using the \textbf{Hierarchical Parallel Task Model}, it is easy to create python class instances in the ray cluster (representing the stateful workers), enabling running multiple training steps, collecting experiences from the environment, using all-reduce for the gradient optimization and exchange weight shards through Ray object store. The following Figure~\ref{fig:ray_cluster} an illustration for the ray cluster components.
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\linewidth]{figures/architecture/ray_cluster.png}
@@ -143,7 +144,7 @@ Using the \textbf{Hierarchical Parallel Task Model}, it is easy to create python
 	\label{fig:ray_cluster}
 \end{figure}
 
-Ray distributed execution engine~\ref{fig:ray_engine}, provides \textbf{Task parallel} and \textbf{Actor APIs} built on \textbf{dynamic task graphs}. These APIs are used to build distributed applications, libraries and systems providing faster execution than python multiprocessing on a single node and competitive performance with MPI in many workloads.
+Ray distributed execution engine shown in Figure~\ref{fig:ray_engine}, provides \textbf{Task parallel} and \textbf{Actor APIs} built on \textbf{dynamic task graphs}. These APIs are used to build distributed applications, libraries and systems providing faster execution than python multiprocessing on a single node and competitive performance with MPI in many workloads.
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\linewidth]{figures/architecture/ray_engine.png}
@@ -152,7 +153,7 @@ Ray distributed execution engine~\ref{fig:ray_engine}, provides \textbf{Task par
 \end{figure}
 
 
-At a high level, ray provides an \textbf{\colorbox{gray!20}{Trainer}} class which holds a policy for environment interaction. Through the trainer interface~\ref{fig:ray_trainer}, the policy can be trained, check-pointed, or an action computed. In multi-agent training, the trainer manages the querying and optimization of multiple policies at once. 
+At a high level, ray provides an \textbf{\colorbox{gray!20}{Trainer}} class which holds a policy for environment interaction. Through the trainer interface shown in Figure~\ref{fig:ray_trainer}, the policy can be trained, check-pointed, or an action computed. In multi-agent training, the trainer manages the querying and optimization of multiple policies at once. 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\textwidth]{figures/architecture/ray_trainer.png}

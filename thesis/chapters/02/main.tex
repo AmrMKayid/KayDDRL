@@ -3,11 +3,12 @@
 
 \chapter{Background and Foundations}\label{chapter:background_and_foundations}
 
-This chapter represents the basic concepts used throughout our work. First, a brief introduction to the reinforcement learning field. Second, Markov Decision Processes (MDPs), the standard mathematical formalism framework for reinforcement learning will be introduced. Then, We will discuss the Value functions and Policy Gradient with the focus on Q-Learning. Next, we will discuss the methods used and differentiate between them. After that, we conclude with the use of deep learning with reinforcement learning with some of Deep Reinforcement Learning Algorithms. Finally, we discuss related work in distributed reinforcement learning.
+This chapter represents the basic concepts used throughout our work. First, a brief introduction to the reinforcement learning field. Second, Markov Decision Processes (MDPs), the standard mathematical formalism framework for reinforcement learning will be introduced. Then, We will discuss the Value functions and Policy Gradient. Next, we will discuss the methods used and differentiate between them. In addition, we conclude the use of deep learning in reinforcement learning with some of Deep Reinforcement Learning (DRL) Algorithms. Finally, we discuss related work in distributed reinforcement learning.
 
 \section{Reinforcement Learning}
 
-Reinforcement Learning \textbf{RL} (\textit{The science of decision making}) is a machine learning approach to teach agent how to solve tasks through trial and error interaction with a dynamic, unknown environment. Where it formalizes the idea that \textit{\textbf{rewarding or punishing}} an agent for its behavior makes it more likely to repeat or forego that behavior in the future. In contrast with other machine learning methods, the agent is not told the proper actions to take. Instead, the agent interacts with its environment and, upon observing the consequences of its actions, can learn to alter its behavior in response to rewards received. The goal of the agent is to maximize the expected cumulative reward. The main characters of RL are the \textbf{Agent}and the \textbf{Environment}. The typical interaction loop between agent and environment is illustrated in figure~\ref{fig:agent_env} below.
+% Agent & Env | mentioned before defined
+\textbf{RL} (\textit{The science of decision making}) is a machine learning approach to teach agent how to solve tasks through trial and error interaction with a dynamic, unknown environment. Where it formalizes the idea that \textit{\textbf{rewarding or punishing}} an agent for its behavior makes it more likely to repeat or forego that behavior in the future. In contrast with other machine learning methods, the agent is not told the proper actions to take. Instead, the agent interacts with its environment and, upon observing the consequences of its actions, can learn to alter its behavior in response to rewards received. The goal of the agent is to maximize the expected cumulative reward. The main characters of RL are the \textbf{Agent} and the \textbf{Environment}. The typical interaction loop between agent and environment is illustrated in Figure~\ref{fig:agent_env} below.
 
 \begin{figure}[!htb]
 	\centering
@@ -54,7 +55,7 @@ The reward function \(R\) is critically important in reinforcement learning. It 
 
 \begin{center}
 	\begin{equation}
-		r_{t}=R\left(s_{t}, a_{t}, s_{t+1}\right)
+		r_{t}=R\left(s_{t}, a_{t}, s_{t+1}\right).
 	\end{equation}
 \end{center}
 
@@ -64,7 +65,7 @@ There are two kinds of return, \textbf{the finite-horizon undiscounted return}, 
 
 \begin{center}
 	\begin{equation} \label{eq:1}
-		R(\tau)=\sum_{t=0}^{T} r_{t}
+		R(\tau)=\sum_{t=0}^{T} r_{t}.
 	\end{equation}
 \end{center}
 
@@ -72,7 +73,7 @@ Another kind of return is \textbf{the infinite-horizon discounted return}, which
 
 \begin{center}
 	\begin{equation} \label{eq:2}
-		R(\tau)=\sum_{t=0}^{\infty} \gamma^{t} r_{t}
+		R(\tau)=\sum_{t=0}^{\infty} \gamma^{t} r_{t}.
 	\end{equation}
 \end{center}
 
@@ -86,35 +87,33 @@ The policy can be deterministic where it is usually denoted by $ \mu: a_{t}=\mu\
 or stochastic denoted by $ \pi:  a_{t} \sim \pi\left(\cdot | s_{t}\right) $
 with the two most common kinds of stochastic policies categorical policies (discrete action spaces) and diagonal Gaussian policies (continuous action spaces).
 
-with two key computations that are very important for training stochastic policies:
+A very important two key computations for training stochastic policies are:
 \begin{itemize}
-	\item sampling actions from the policy,
-	\item computing log likelihoods of particular actions, $ \log \pi_{\theta}(a|s) $
+	\item Sampling actions from the policy, and
+	\item Computing log likelihoods of particular actions, $ \log \pi_{\theta}(a|s) $.
 \end{itemize}
 
 
 \subsubsection{Reinforcement Learning Goal}
 
-The goal of reinforcement learning is to select a policy which maximizes the \textbf{expected return} when the agent acts according to it.
-
-where the \textbf{expected return} denoted by $ J(\pi) $ is:
+The goal of reinforcement learning is to select a policy which maximizes the \textbf{expected return} ($ J(\pi) $) when the agent acts according to it, where:
 \begin{center}
 	\begin{equation} \label{eq:expected_return}
-		J(\pi)=\int_{\tau} P(\tau | \pi) R(\tau)=\underset{\tau \sim \pi}{\mathrm{E}}[R(\tau)]
+		J(\pi)=\int_{\tau} P(\tau | \pi) R(\tau)=\underset{\tau \sim \pi}{\mathrm{E}}[R(\tau)],
 	\end{equation}
 \end{center}
 
 with $ P(\tau | \pi) $ as the probability distributions over T-step trajectories.
 \begin{center}
 	\begin{equation}
-		P(\tau | \pi)=\rho_{0}\left(s_{0}\right) \prod_{t=0}^{T-1} P\left(s_{t+1} | s_{t}, a_{t}\right) \pi\left(a_{t} | s_{t}\right)
+		P(\tau | \pi)=\rho_{0}\left(s_{0}\right) \prod_{t=0}^{T-1} P\left(s_{t+1} | s_{t}, a_{t}\right) \pi\left(a_{t} | s_{t}\right).
 	\end{equation}
 \end{center}
 
 So the central optimization problem of reinforcement learning can be described as:
 \begin{center}
 	\begin{equation}
-		\pi^{*}=\arg \max _{\pi} J(\pi)
+		\pi^{*}=\arg \max _{\pi} J(\pi),
 	\end{equation}
 \end{center}
 with $\pi^*$ being the optimal policy.
@@ -125,17 +124,17 @@ with $\pi^*$ being the optimal policy.
 There are two main approaches to solve reinforcement learning problems: methods based on \textit{value functions} (Critic-only), and methods based on \textit{policy search} (Actor-only). There is also a hybrid, \textit{actor-critic approach}, which combines both value functions and policy search, where the actor and critic are both represented explicitly and learned separately. We will now explain these approaches and other useful concepts for solving RL problems.
 
 \subsubsection{Critic-only: Learning based on value functions}
-Critic only methods are based on the idea to first find the optimal value function and then to derive an optimal policy from this value function.  Value function methods are based on estimating the value (expected return) of being in a given state. The state-value function $V^{\pi}(\mathbf{s})$ is the expected return when starting in state $\mathbf{s}$ and following $\pi$ henceforth:
+Critic only methods are based on the idea to first find the optimal value function and then to derive an optimal policy from this value function.  Value function methods are based on estimating the value (expected return) of being in a given state. The state-value function $V^{\pi}(\mathbf{s})$ is the expected return when starting in state $\mathbf{s}$ and following $\pi$ is defined as:
 \begin{center}
 	        \begin{equation}
-	                V^{\pi}(\mathbf{s})=\mathbb{E}[R | \mathbf{s}, \pi]
+	                V^{\pi}(\mathbf{s})=\mathbb{E}[R | \mathbf{s}, \pi],
 	        \end{equation}
 \end{center}
 
-and the optimal state-value function can be defined as
+and the optimal state-value function defined as:
 \begin{center}
 	        \begin{equation}
-	                V^{*}(\mathbf{s})=\max _{\pi} V^{\pi}(\mathbf{s}) \quad \forall \mathbf{s} \in \mathcal{S}
+	                V^{*}(\mathbf{s})=\max _{\pi} V^{\pi}(\mathbf{s}) \quad \forall \mathbf{s} \in \mathcal{S}.
 	        \end{equation}
 \end{center}
 
@@ -146,12 +145,11 @@ Hence, construct another function, the \textit{state-action value or quality fun
 It is similar to $V^{\pi}$, except that the initial action $\mathbf{a}$ is provided, and $\pi$ is only followed from the succeeding state onwards:
 \begin{center}
 	        \begin{equation}
-	                Q^{\pi}(\mathbf{s}, \mathbf{a})=\mathbb{E}[R | \mathbf{s}, \mathbf{a}, \pi]
+	                Q^{\pi}(\mathbf{s}, \mathbf{a})=\mathbb{E}[R | \mathbf{s}, \mathbf{a}, \pi].
 	        \end{equation}
 \end{center}
 
-A Selection of these approaches \textit{Dynamic programming, Temporal difference learning, 
-Eligibility trace} is used in order to learn these functions.
+A selection of these approaches \textit{dynamic programming, temporal difference learning, eligibility trace} is used in order to learn these functions.
 
 \subsubsection{Actor-only: Policy search}
 Policy search methods do not need to maintain a value function model but directly search for an optimal policy $\pi^{*}$. This is only possible if the search space is restricted. Typically, a class of policies is parametrized by a real-valued parameters vector $\theta$, these parameters are updated to maximize the expected return $\mathbb{E}[R | \theta]$ using either gradient-based or gradient-free optimization~\parencite{deisenroth2013survey}.
@@ -166,8 +164,7 @@ Hence we use an estimator of the gradient, known in RL as the \textbf{REINFORCE 
 Gradient ascent using the estimator, which is similar to the practice of optimizing the log-likelihood in supervised learning, increases the log probability of the sampled action, weighted by the return.
 
 \subsubsection{Actor-Critic Method:}
-Actor-Critic method is the combination of both \textit{value functions} and an explicit representation of \textit{the policy} as shown in figure ~\ref{fig:actor_critic}, where The \textit{actor} (policy) learns by using feedback from the \textit{critic} (value function).
-These methods trade-off variance reduction of policy gradients with bias introduction from value function methods.
+Actor-Critic method is the combination of both \textit{value functions} and an explicit representation of \textit{the policy} as shown in Figure ~\ref{fig:actor_critic}, where the \textit{actor} (policy) learns by using feedback from the \textit{critic} (value function). These methods trade-off variance reduction of policy gradients with bias introduction from value function methods.
 
 \begin{figure}[!htb]
 	        \centering
@@ -194,15 +191,15 @@ Deep Q Network (\textbf{DQN}) was first proposed by~\parencite{mnih2013playing},
 Q-learning algorithm was used to make the decision, using stochastic gradient descent to update the weights. Since deep learning handles only with independent data samples, the \textit{experience replay} mechanism was used to break correlations along with \textit{Fixed Q-target}. DQN algorithm replaces the tabular representation for Q-value function with the deep neural network.
 
 \subsubsection{Deep Deterministic Policy Gradient}
-Since the rise of deep neural network function approximations for learning value or action-value function, deep deterministic policy gradient method have been proposed by~\parencite{lillicrap2015continuous}. It used an \textit{actor-critic} approach based on the \textbf{DPG algorithm}~\parencite{silver2014deterministic}, combined with \textit{experience replay and fixed Q-target} techniques which inspired by \textbf{DQN} to use such function approximation in a stable and robust way. additionally, a robust strategy in deep learning called \textit{batch normalization}~\parencite{ioffe2015batch}is adopted to scale the range of input vector observations in order to make the network capable of finding hyper-parameters which generalize across environments with different scales of state values.
-The problem of exploration in off-policy algorithms like DDPG can be addressed in a very easy way and independently from the learning algorithm. Exploration policy is then constructed by adding noise sampled from a noise process N to the actor policy.
+Since the rise of deep neural network function approximations for learning value or action-value function, deep deterministic policy gradient method have been proposed by~\parencite{lillicrap2015continuous}. It used an \textit{actor-critic} approach based on the \textbf{Deterministic Policy Gradient (DPG) algorithm}~\parencite{silver2014deterministic}, combined with \textit{experience replay and fixed Q-target} techniques which inspired by \textbf{DQN} to use such function approximation in a stable and robust way. In addition, a robust strategy in deep learning called \textit{batch normalization}~\parencite{ioffe2015batch} is adopted to scale the range of input vector observations in order to make the network capable of finding hyper-parameters which generalize across environments with different scales of state values.
+The problem of exploration in off-policy algorithms like Deep Deterministic Policy Gradient (DDPG) can be addressed in a very easy way and independently from the learning algorithm. Exploration policy is then constructed by adding noise sampled from a noise process \textit{N} to the actor policy.
 
 \subsubsection{Proximal Policy Optimization}
-One of the main issues in policy gradient methods is defining the step size (\textit{learning rate $\alpha$}). Hence, the new robust policy gradient methods, which we call Proximal Policy Optimization~\parencite{schulman2017proximal, heess2017emergence} was proposed to solve this problem. It also uses some of the benefits from trust region policy optimization~\parencite{schulman2015trust}. these methods bound parameter updates to a trust region to ensure stability.
-This algorithm is similar to natural policy gradient methods and it is also considered as a variant of TRPO, it directly uses the first-order optimization methods to optimize the objective.
+One of the main issues in policy gradient methods is defining the step size (\textit{learning rate $\alpha$}). Hence, the new robust policy gradient methods, which we call Proximal Policy Optimization (PPO)~\parencite{schulman2017proximal, heess2017emergence} was proposed to solve this problem. It also uses some of the benefits from trust region policy optimization~\parencite{schulman2015trust}. these methods bound parameter updates to a trust region to ensure stability.
+This algorithm is similar to natural policy gradient methods and it is also considered as a variant of Trust Region Policy Optimization (TRPO), it directly uses the first-order optimization methods to optimize the objective.
 
-\subsubsection{Asynchronous Advanced Actor-Critic (\textbf{A3C})}
-Asynchronous Advanced Actor Critic~\parencite{mnih2016asynchronous} is an asynchronous method using Advanced Actor-Critic. \textit{\textbf{Asynchronous}} means Asynchronously execute multiple agents in parallel, on multiple instances of the environment and all using a replica of the NN (\textit{asynchronous data parallelism}). It often works in a multi-core CPU or GPU. The idea behind it is that there is a \textit{global network} and \textit{multiple actor-learners} which have their own set of network parameters. A thread is dedicated for each agent, and each thread interacts with its own copy of the environment.
+\subsubsection{Asynchronous Advanced Actor-Critic}
+Asynchronous Advanced Actor Critic (A3C)~\parencite{mnih2016asynchronous} is an asynchronous method using Advanced Actor-Critic (A2C). \textit{\textbf{Asynchronous}} means asynchronously execute multiple agents in parallel, on multiple instances of the environment and all using a replica of the neural network (NN) (\textit{asynchronous data parallelism}). It often works in a multi-core CPU or GPU. The idea behind it is that there is a \textit{global network} and \textit{multiple actor-learners} which have their own set of network parameters. A thread is dedicated for each agent, and each thread interacts with its own copy of the environment.
 Giving each thread a different exploration policy also improves robustness, since the overall experience available for training becomes more diverse. Moreover, in A3C just one deep neural network is used both for estimation of policy $\pi(s)$ and value function $V_{\pi}(s)$; because we optimize both of these goals together, we learn much faster and effectively. We also don’t need to consider the data correlation and oscillations issues because different agent gets different transitions when playing in the same environments.
 
 \input{chapters/02/related_work.tex}
