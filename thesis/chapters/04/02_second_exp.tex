@@ -27,34 +27,34 @@ The experiment is performed until an average reward of 21 achieved or for a maxi
 \end{itemize}
 
 Starting from the maximum reward the agent has obtained, we observe that the agent could quickly learn how to reach the target sphere after only 1M time-steps, passing the non-distributed agent score. After 4M time-steps, the agent achieves the maximum reward (40) that can be obtained in the environment. In the following figure~\ref{fig:2nd_exp_max_eps_reward}, the performance of both the agent for the maximum reward in the environment is shown below:
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 		\centering
-		\includegraphics[width=\linewidth]{figures/exps/2nd_exp/max_eps_reward.png}
-		\caption{Maximum Reward over Episodes}
+		\includegraphics[width=1.2\linewidth]{figures/exps/2nd_exp/max_eps_reward.png}
+		\caption{Maximum Reward over Episodes for the 2nd distributed PPO experiment on 2-DOF robotic arm. The maximum reward achieved is +40 reward.}
 		\label{fig:2nd_exp_max_eps_reward}
 \end{figure}
 
 Since the experiments are constrained under the conditions of reaching an average reward of 21 or completing 10M steps, we compare the performance of both agents for the average reward. The observation is the distributed version of the agent exceeds the average reward obtained by the non-distributed agent after only 500,000 time-steps. Followed by performance improvement over time-steps as the agent reach 15 rewards after 2M time-steps, and reaching 20 rewards after 4M time-steps, leading the agent to solve the environment and achieve the specified 21 average reward after 6M time-steps only. Hence, the agent performance is better than the previous one and could solve the environment effectively before reaching 10M time-steps. The following figure~\ref{fig:2nd_exp_avg_eps_reward}, illustrate the performance of each agent for obtaining the average rewards.
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 		\centering
-		\includegraphics[width=\linewidth]{figures/exps/2nd_exp/avg_eps_reward.png}
-		\caption{Maximum Reward over Episodes}
+		\includegraphics[width=1.2\linewidth]{figures/exps/2nd_exp/avg_eps_reward.png}
+		\caption{Average Reward over Episodes for the 2nd distributed PPO experiment on 2-DOF robotic arm. The agent solved the task and get reward of +21.}
 		\label{fig:2nd_exp_avg_eps_reward}
 \end{figure}
 
 Comparing the losses of both experiments, we observe the huge decrease and stability of the Distributed PPO total loss after 500,000 time-steps and reaching approximately 0 after 2M time-steps. In contrast with the non-distributed PPO, which shows a high variance in the total loss between 7 and 3 values and never reaching zero as shown in the following figure~\ref{fig:2nd_exp_total_loss}
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 		\centering
-		\includegraphics[width=\linewidth]{figures/exps/2nd_exp/total_loss.png}
-		\caption{Total Loss}
+		\includegraphics[width=1.2\linewidth]{figures/exps/2nd_exp/total_loss.png}
+		\caption{Total Loss for the 2nd distributed PPO experiment on 2-DOF robotic arm.}
 		\label{fig:2nd_exp_total_loss}
 \end{figure}
 
 Comparing between the experiment's total taken time is crucial as it's one of the main key concept for our experiments. Running the two experiments multiple times with different seeds, we observe that the distributed experiment take half the time needed to perform the non-distributed experiment, making it much faster to train and execute reinforcement learning algorithms in distributed setup. The following figure~\ref{fig:2nd_exp_total_training_time} show the time taken for each experiment per hour.
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 		\centering
-		\includegraphics[width=\linewidth]{figures/exps/2nd_exp/total_training_time.png}
-		\caption{Total Training Time}
+		\includegraphics[width=1.2\linewidth]{figures/exps/2nd_exp/total_training_time.png}
+		\caption{Total Training Time for the 2nd distributed PPO experiment on 2-DOF robotic arm. Compared with the 1st experiment, this only take half the time needed (\~approximately 2 Hours).}
 		\label{fig:2nd_exp_total_training_time}
 \end{figure}
 

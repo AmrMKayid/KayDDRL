@@ -27,3 +27,19 @@ This section shows an experimental approach on how to transfer pre-trained agent
 
 \input{chapters/04/05_fifth_exp}
 \clearpage 
+
+\section{Benchmarking and Conclusion}
+
+To conclude, we have performed multiple experiment to train, evaluate and test the effect of distribution and the possibility of using transfer learning to discover new environments. These experiments were performed on multiple environment and using state of the art algorithms. The most important metric which was the focus of the experiments is the total time to train the agent of the experiment to master the task and achieve the goal. The experiments were performed multiple times with different seeds to ensure we have the correct results and to evaluate the agents properly.
+
+The following figure~\ref{fig:exps_time} shows the total training time that each algorithm have taken to perform the experiment.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{figures/exps/time.png}
+    \caption{Total Training Time for all the conducted experiments.}
+    \label{fig:exps_time}
+\end{figure}
+
+\subsubsection{Materials and Experiments Code.}
+All the experiments setup, configuration, results and trained saved agents along with videos for the running environments and the trained agent can be found here\footnote{https://github.com/AmrMKayid/KayDDRL/}.

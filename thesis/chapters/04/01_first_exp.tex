@@ -80,10 +80,9 @@ The reward function\footnote{\url{https://github.com/openai/roboschool/blob/mast
 
 In this experiment, \textbf{Proximal Policy Optimization (PPO)} algorithm is selected to be the base algorithm for our initial experiment. 
 
-Below are the default configuration for PPO algorithm:
-\lstinputlisting[language=Python]{chapters/04/ppo_default.py}
+The default configuration for PPO algorithm can be found in the appendix Section~\ref{ppo_default}
 
-followed by this experiment setup and configuration as listed below:
+In the table below~\ref{tab:gym_reacher_ppo_1st_exp}, the setup and configuration used for the experiment are listed:
 \begin{table}[!htb]
 		\centering
 		\begin{tabular}{|c|l|l|c|l|l|}
@@ -113,7 +112,7 @@ followed by this experiment setup and configuration as listed below:
 \subsubsection{Neural Network Architecture}
 In this simple environment, the observation space is not a visual (pixel raw images) observation, which means it won't require a convolutional neural network to process it, Hence, the algorithm will be using fully connected neural network consist of input layer of 9 variables for the observation, two hidden layers with 256 neuron for each layer, and the output layer of 2 neurons corresponding to the actions send to the environment as shown below~\ref{fig:ppo_nn}:
 
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/1st_exp/ppo_nn}
 		\caption{PPO Neural Network Architecture}
@@ -126,39 +125,39 @@ In this simple environment, the observation space is not a visual (pixel raw ima
 After performing the experiment with a stopping conditions either \textit{\textbf{reaching an average reward of 21 or total time steps of the agent is 10M steps}} as indicated in ~\ref{tab:gym_reacher_ppo_1st_exp}. We measure the environment and training process to evaluate the experiment and be able to compare with others.
 
 We start by measuring the maximum reward~\ref{fig:1st_exp_max_eps_reward} the agent could get from the environment, as shown in the figure below, the maximum the agent could obtain is 30 reward over all the training time-steps it has performed.
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/1st_exp/max_eps_reward}
-	\caption{Maximum Reward over Episodes}
+	\includegraphics[width=1.2\linewidth]{figures/exps/1st_exp/max_eps_reward}
+	\caption{Maximum Reward over Time-steps for the 1st experiment non-distributed PPO algorithm on 2-DOF robotic arm. The maximum the agent could obtain is 30 reward}
 	\label{fig:1st_exp_max_eps_reward}
 \end{figure}
 
 Followed by measuring what is the minimum reward the agent is getting, shown in the figure~\ref{fig:1st_exp_min_eps_reward}, and the observation shows that the agent is stuck under -30 reward and it's performance has high variance before completing 2M time-steps.
-\begin{figure}[H]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/1st_exp/min_eps_reward}
-	\caption{Minimum Reward over Episodes}
+	\includegraphics[width=1.2\linewidth]{figures/exps/1st_exp/min_eps_reward}
+	\caption{Minimum Reward over Time-steps for the 1st experiment non-distributed PPO algorithm on 2-DOF robotic arm. The agent is stuck under -30 reward}
 	\label{fig:1st_exp_min_eps_reward}
 \end{figure}
 The experiment was constrained under the conditions of reaching average reward of 21 or completing 10M steps. Based on the following figure~\ref{fig:1st_exp_avg_eps_reward}, the agent was not able to obtain the required reward for the first stopping condition. Hence, the agent completed the 10M time-steps without achieving the goal of the environment. This indicated the bad performance for this agent (getting only +1 reward) and the training process in a non-distributed environment wasn't sufficient to complete the required task.
-\begin{figure}[H]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/1st_exp/avg_eps_reward}
-	\caption{Average Reward over Episodes}
+	\includegraphics[width=1.2\linewidth]{figures/exps/1st_exp/avg_eps_reward}
+	\caption{Average Reward over Time-steps for the 1st experiment non-distributed PPO algorithm on 2-DOF robotic arm. The avg. reward is +1}
 	\label{fig:1st_exp_avg_eps_reward}
 \end{figure}
 The following measurement~\ref{fig:1st_exp_total_loss} describe the total loss of the algorithm which shows high variance and indicate that the algorithm needed more time to reduce the loss and reach a minimum better than this to enhance the agent performance.
-\begin{figure}[H]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/1st_exp/total_loss}
-	\caption{Total Loss}
+	\includegraphics[width=1.2\linewidth]{figures/exps/1st_exp/total_loss}
+	\caption{Total Loss for the 1st experiment non-distributed PPO algorithm on 2-DOF robotic arm.}
 	\label{fig:1st_exp_total_loss}
 \end{figure}
 The most important metric for the experiment, which is the aim we want to reduce as much as possible, is the \textbf{total training time} for the experiment. The following figure shows the training time for the experiment in hours. This indicated how much time needed to perform such an experiment. From the figure~\ref{fig:1st_exp_total_training_time}, the experiment time is approximately \textbf{4 Hours}, which is very huge for performing normal task in a simple robotic environment.
-\begin{figure}[H]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/1st_exp/total_time}
-	\caption{Total Training Time}
+	\includegraphics[width=1.2\linewidth]{figures/exps/1st_exp/total_time}
+	\caption{Total Training Time for the 1st experiment non-distributed PPO algorithm on 2-DOF robotic arm. The approx. time taken for the experiment is 4 Hours.}
 	\label{fig:1st_exp_total_training_time}
 \end{figure}
 

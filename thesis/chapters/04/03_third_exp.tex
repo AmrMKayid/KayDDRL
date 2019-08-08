@@ -14,10 +14,9 @@ We want to investigate how the agent will perform in the experiment, the time ta
 
 In this experiment, the Distributed Prioritized Experience Replay (Ape-X) algorithm is selected to train the agents in the experiments. Since this experiment is Scalable Multi-Agent, the experiment was performed with multiple numbers of agents and environment per each agent to test the Scalability and efficiency and determine the best setup for the experiment.
 
-Below is the default configuration for the Ape-X algorithm:
-\lstinputlisting[language=Python]{chapters/04/apex_default.py}
+The default configuration for  Ape-X  algorithm can be found in the appendix Section~\ref{apex_default}.
 
-followed by this experiment setup and configuration as listed below:
+In the table below~\ref{tab:gym_reacher_apex_3rd_exp}, the setup and configuration used for the experiment are listed:
 \begin{table}[!htb]
 	\centering
 	\begin{tabular}{|c|l|l|c|l|l|}
@@ -58,26 +57,26 @@ The experiment is performed until an average reward of 21 achieved or for a maxi
 \end{itemize}
 
 Starting from the maximum reward the agent has obtained, the agent could quickly learn and surpass both distributed and non-distributed PPO algorithm after only 2M time-steps. Achieve (+40.4) the maximum reward in the environment. In the following figure~\ref{fig:3rd_exp_max_eps_reward}, the performance of all the agents for the maximum reward in the environment is shown below:
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/3rd_exp/max_eps_reward.png}
-	\caption{Maximum Reward over Episodes}
+	\includegraphics[width=1.2\linewidth]{figures/exps/3rd_exp/max_eps_reward.png}
+	\caption{Maximum Reward over Episodes for the 3rd distributed Ape-X DDPG experiment on 2-DOF robotic arm. The maximum reward achieved is +40.4 reward.}
 	\label{fig:3rd_exp_max_eps_reward}
 \end{figure}
 
 Comparing the performance of the three agents for the average reward. The observation are the distributed apex-ddpg version exceed (+10) average reward after only 100,000 time-steps. Followed by performance improvement over time-steps as the agent reach 21 reward after 2M time-steps, leading the agent to solve the environment and achieve the specified 21 average reward before completing 3M time-steps. Hence, the agent performance is better than the two previous agents and could solve the environment effectively before reaching 3M time-steps. The following figure~\ref{fig:3rd_exp_avg_eps_reward}, illustrate the performance of each agent for obtaining the average rewards.
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/3rd_exp/avg_eps_reward.png}
-	\caption{Maximum Reward over Episodes}
+	\includegraphics[width=1.2\linewidth]{figures/exps/3rd_exp/avg_eps_reward.png}
+	\caption{Average Reward over Episodes for the 3rd distributed Ape-X DDPG experiment on 2-DOF robotic arm. The agent solved the task and get +21.3 reward.}
 	\label{fig:3rd_exp_avg_eps_reward}
 \end{figure}
 
 The experiment's total taken time is the best factor in this experiment as the algorithm with the huge number of parallel environment was able to finish the task under only (1 Hour) of training. Exceeding the time for both the experiments and utilizing the use of GPU and parallel environment to achieve the goal quickly. Hence, using powerful high-throughput algorithms leads to much faster training time. The following figure~\ref{fig:3rd_exp_total_training_time} show the time taken for each experiment per hour.
-\begin{figure}[!htb]
+\begin{figure}[H] %[!htb]
 	\centering
-	\includegraphics[width=\linewidth]{figures/exps/3rd_exp/total_training_time.png}
-	\caption{Total Training Time}
+	\includegraphics[width=1.2\linewidth]{figures/exps/3rd_exp/total_training_time.png}
+	\caption{Total Training Time for the 3rd distributed Ape-X DDPG experiment on 2-DOF robotic arm. Compared with the previous experiments, this agent solved the task faster(\~approximately less than 1 Hours).}
 	\label{fig:3rd_exp_total_training_time}
 \end{figure}
 

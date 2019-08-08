@@ -53,7 +53,7 @@ The observation space of the environment consists of 26 variables corresponding 
 				\multicolumn{3}{|c|}{\textit{\textbf{Local Position of the arm hand}}}      & \textit{X-Axis, Y-Axis, Z-Axis}                                                                          \\ \hline
 				\multicolumn{3}{|c|}{\textit{\textbf{The Goal Speed}}}                         & \textit{The speed of the target sphere}                                                                  \\ \hline
 		\end{tabular}
-		\caption{Unity Observation Space}
+		\caption{Unity 3-DOF Arm Observation Space}
 		\label{tab:unity_obs_space}
 \end{table}
 
@@ -101,7 +101,7 @@ The maximum reward obtained in the environment is (750) reward for all the 20 ag
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/4th_exp/max_eps_reward.png}
-		\caption{Maximum Reward over Episodes}
+		\caption[Maximum Reward over Episodes for the 5th distributed Ape-X DDPG experiment on Unity 3-DOF robotic arm]{Maximum Reward over Episodes for the 5th distributed Ape-X DDPG experiment on Unity 3-DOF robotic arm\footnotemark}
 		\label{fig:4th_exp_max_eps_reward}
 \end{figure}
 
@@ -109,7 +109,7 @@ For the average reward, the agents was able to obtain (700) reward in the enviro
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/4th_exp/avg_eps_reward.png}
-		\caption{Maximum Reward over Episodes}
+		\caption[Average Reward over Episodes for the 5th distributed Ape-X DDPG experiment on Unity 3-DOF robotic arm]{Average Reward over Episodes for the 5th distributed Ape-X DDPG experiment on Unity 3-DOF robotic arm\footnotemark}
 		\label{fig:4th_exp_avg_eps_reward}
 \end{figure}
 
@@ -117,9 +117,11 @@ Comparing between the experiment's total taken time, we found that the experimen
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/4th_exp/total_training_time.png}
-		\caption{Total Training Time}
+		\caption[Total Training Time for the 5th distributed Ape-X DDPG experiment on Unity 3-DOF robotic arm]{Total Training Time for the 5th distributed Ape-X DDPG experiment on Unity 3-DOF robotic arm\footnotemark}
 		\label{fig:4th_exp_total_training_time}
 \end{figure}
+
+\footnotetext{The blue line is identical to the red line indicating the reward obtained by single agent inside the environment.}
 
 $\bullet$ \textit{\textbf{Second Trail: Transfer learning from gym trained agent}} in this experiment, the agent was trained on the previous environment with a modification for the neural network used to train the agent to share the same number of observation and action spaces. After training the agent, it was evaluated on the unity environment to observe how the agent will behave.
 
@@ -127,7 +129,7 @@ Based on the evaluation, shown in the figure~\ref{fig:4th_exp_1st_transfer_learn
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/4th_exp/1st_transfer_learning.png}
-		\caption{First Transfer Learning Attempt | Average Reward}
+		\caption{Average Reward of the first attempt of using Transfer Learning in the new unity environment.}
 		\label{fig:4th_exp_1st_transfer_learning}
 \end{figure}
 
@@ -135,7 +137,7 @@ In order to benefit from the trained agent, the experiment continue training the
 \begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{figures/exps/4th_exp/2nd_transfer_learning.png}
-		\caption{Transfer Learning | Continue Training}
+		\caption{Using Transfer Learning to continue training the pre-trained agent in the new 3D environment.}
 		\label{fig:4th_exp_2nd_transfer_learning}
 \end{figure}
 
