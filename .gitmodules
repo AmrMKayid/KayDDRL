@@ -1,3 +1,6 @@
 [submodule "papers/2013 | Playing Atari with Deep Reinforcement Learning/deep-q-learning"]
 	path = papers/2013 | Playing Atari with Deep Reinforcement Learning/deep-q-learning
 	url = https://github.com/AmrMKayid/deep-q-learning
+[submodule "kayray"]
+	path = kayray
+	url = https://github.com/AmrMKayid/kayray.git
